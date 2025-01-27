@@ -38,7 +38,7 @@ points = PackedVector3Array(-4.5, 0.5, -0.5, -4.5, 0, -0.5, -3.5, 0, -0.5, -3.5,
 points = PackedVector3Array(-8, 9.5, -8, -8, 9, -8, -5, 9, -8, -5, 9.5, -8, -8, 9.5, -5.5, -8, 9, -5.5, -5, 9, -5.5, -5, 9.5, -5.5)
 
 [node name="World" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, -0.151656, -0.0624683)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
 
 [node name="FuncGodotMap" type="Node3D" parent="."]
 script = ExtResource("1_7e8ck")
