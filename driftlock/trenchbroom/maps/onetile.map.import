@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://baw8rsj5bpv3l"
+path="res://.godot/imported/onetile.map-31fec02467d07327e9a601e439111a55.tres"
+
+[deps]
+
+source_file="res://trenchbroom/maps/onetile.map"
+dest_files=["res://.godot/imported/onetile.map-31fec02467d07327e9a601e439111a55.tres"]
+
+[params]
+

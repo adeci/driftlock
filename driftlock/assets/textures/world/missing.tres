@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dbw7d3ffcjeky"]
+
+[ext_resource type="Texture2D" uid="uid://5qt3xirc8ae3" path="res://assets/textures/world/missing.png" id="1_o8kto"]
+
+[resource]
+albedo_texture = ExtResource("1_o8kto")
+metallic_specular = 0.0
+texture_filter = 2
