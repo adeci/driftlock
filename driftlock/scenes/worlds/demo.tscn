@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://c3arvlrph21we"]
+[gd_scene load_steps=18 format=4 uid="uid://c3arvlrph21we"]
 
+[ext_resource type="Script" path="res://scenes/worlds/demo.gd" id="1_pmfsu"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_vvugg"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_w05id"]
 [ext_resource type="Texture2D" uid="uid://bhukqkpvprnwt" path="res://assets/textures/world/nb_flats/NFRRK14C.png" id="3_mff5q"]
@@ -84,6 +85,7 @@ points = PackedVector3Array(-21, 6.5, -6, -21, 5.5, -6, 1, 5.5, -6, 1, 6.5, -6, 
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
+script = ExtResource("1_pmfsu")
 
 [node name="FuncGodotMap" type="Node3D" parent="."]
 script = ExtResource("1_vvugg")
@@ -116,3 +118,17 @@ shape = SubResource("ConvexPolygonShape3D_d5wdo")
 
 [node name="entity_0_brush_5_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_wvnba")
+
+[node name="Network" type="Tree" parent="."]
+offset_right = 16.0
+offset_bottom = 17.0
+
+[node name="NetworkDisplay" type="Label" parent="Network"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="UniquePeerID" type="Label" parent="Network"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
