@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1ja5kntkujl5"
-path.s3tc="res://.godot/imported/test2.png-b96baedaa05e8f8547f3d6f3cc072925.s3tc.ctex"
+uid="uid://chnhdph20pkf0"
+path.s3tc="res://.godot/imported/fox_JASKLF.png-2012677cbebb4ee75591cc35d58bbd31.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "bbbe80322f919a0460fdc9f572b31a8c"
+}
 
 [deps]
 
-source_file="res://assets/textures/world/test2.png"
-dest_files=["res://.godot/imported/test2.png-b96baedaa05e8f8547f3d6f3cc072925.s3tc.ctex"]
+source_file="res://assets/objects/fox_JASKLF.png"
+dest_files=["res://.godot/imported/fox_JASKLF.png-2012677cbebb4ee75591cc35d58bbd31.s3tc.ctex"]
 
 [params]
 
