@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://pkj3i1m7mokg"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_xekv3"]
+[ext_resource type="Script" path="res://entities/scripts/torch_light.gd" id="2_plk2c"]
+
+[resource]
+script = ExtResource("1_xekv3")
+script_class = ExtResource("2_plk2c")
+apply_rotation_on_map_build = true
+classname = "torch_light"
+description = "A simple torch to light up any room."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"intensity": 5.0,
+"light_color": Color(0.749903, 0.396117, 0.184461, 1),
+"range": 10.0
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "OmniLight3D"
+name_property = ""

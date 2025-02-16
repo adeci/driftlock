@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=22 format=3 uid="uid://bvtc30terxlda"]
+
+[ext_resource type="Resource" uid="uid://nayxb8n7see2" path="res://addons/func_godot/fgd/phong_base.tres" id="1_bnexv"]
+[ext_resource type="Resource" uid="uid://da7k67tthqksi" path="res://entities/worldspawn.tres" id="2_goi1k"]
+[ext_resource type="Resource" uid="uid://pkj3i1m7mokg" path="res://entities/torch_light.tres" id="3_idc05"]
+[ext_resource type="Resource" uid="uid://b70vf4t5dc70t" path="res://addons/func_godot/fgd/func_geo.tres" id="3_mcwle"]
+[ext_resource type="Resource" uid="uid://cxy7jnh6d7msn" path="res://addons/func_godot/fgd/func_detail.tres" id="4_3mv22"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="4_h6ivm"]
+[ext_resource type="Resource" uid="uid://ch3e0dix85uhb" path="res://addons/func_godot/fgd/func_detail_illusionary.tres" id="5_byygd"]
+[ext_resource type="Resource" uid="uid://dg5x44cc7flew" path="res://addons/func_godot/fgd/func_illusionary.tres" id="6_bg42p"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_adj.tres" id="7_8gafc"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_amb.tres" id="8_4jd7h"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_bg.tres" id="9_no3iw"]
+[ext_resource type="Resource" uid="uid://b0hlkdohj75yk" path="res://entities/resources/worldspawn/worldspawn_fog.tres" id="10_hyk80"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_glow.tres" id="11_x4xmt"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_ref_lit.tres" id="12_hhqwa"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_sdfgi.tres" id="13_fn242"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_sky.tres" id="14_ifqtq"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_ssao.tres" id="15_ghvr8"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_ssil.tres" id="16_e0w64"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_ssr.tres" id="17_esq0s"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_tone.tres" id="18_d065k"]
+[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_vfog.tres" id="19_04qyh"]
+
+[resource]
+script = ExtResource("4_h6ivm")
+export_file = false
+target_map_editor = 1
+fgd_name = "driftlock"
+base_fgd_files = Array[Resource]([])
+entity_definitions = Array[Resource]([ExtResource("1_bnexv"), ExtResource("2_goi1k"), ExtResource("3_mcwle"), ExtResource("4_3mv22"), ExtResource("5_byygd"), ExtResource("6_bg42p"), ExtResource("7_8gafc"), ExtResource("8_4jd7h"), ExtResource("9_no3iw"), ExtResource("10_hyk80"), ExtResource("11_x4xmt"), ExtResource("12_hhqwa"), ExtResource("13_fn242"), ExtResource("14_ifqtq"), ExtResource("15_ghvr8"), ExtResource("16_e0w64"), ExtResource("17_esq0s"), ExtResource("18_d065k"), ExtResource("19_04qyh"), ExtResource("3_idc05")])

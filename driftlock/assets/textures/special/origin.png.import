@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwav371ta17pt"
-path="res://.godot/imported/skip.png-f72443bba6be90bcfdcb6f2321669c22.ctex"
+uid="uid://bhwhpr6y3u60w"
+path="res://.godot/imported/origin.png-32da12e59d554caf3d073a05fb33f699.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/special/skip.png"
-dest_files=["res://.godot/imported/skip.png-f72443bba6be90bcfdcb6f2321669c22.ctex"]
+source_file="res://assets/textures/special/origin.png"
+dest_files=["res://.godot/imported/origin.png-32da12e59d554caf3d073a05fb33f699.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

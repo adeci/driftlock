@@ -13,11 +13,23 @@ config_version=5
 config/name="driftlock"
 run/main_scene="res://scenes/worlds/demo.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon.svg"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "orange",
+"res://assets/": "green",
+"res://definitions/": "yellow",
+"res://entities/": "red",
+"res://scenes/": "purple",
+"res://scripts/": "blue",
+"res://trenchbroom/": "gray"
+}
 
 [input]
 
