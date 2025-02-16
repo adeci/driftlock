@@ -7,12 +7,12 @@
 [ext_resource type="Material" uid="uid://bsly7mk58bs45" path="res://assets/textures/world/nb_flats/NFRRK14C.tres" id="4_ephvo"]
 [ext_resource type="Material" uid="uid://bdkg3uocbrr6c" path="res://assets/textures/world/nb_flats/NFSTGY12.tres" id="5_cyroh"]
 [ext_resource type="Material" uid="uid://d3co8u4dhvonw" path="res://assets/textures/world/nb_flats/NFBRWN01.tres" id="6_aq2mg"]
-[ext_resource type="Material" uid="uid://c2bcl3qh2sw8w" path="res://assets/textures/world/nb_flats/NFSTEP03.tres" id="7_sa660"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFSTEP03.tres" id="7_sa660"]
 [ext_resource type="PackedScene" uid="uid://dhj86e0jwoilf" path="res://scenes/game_object/fox/fox.tscn" id="7_w5udo"]
 [ext_resource type="Script" path="res://scenes/game_object/fox/fox.gd" id="8_10ar3"]
 [ext_resource type="Material" uid="uid://blu8u1x2ugn8w" path="res://assets/textures/world/test.tres" id="8_stmju"]
 [ext_resource type="PackedScene" uid="uid://cbpberbyx3cqi" path="res://assets/objects/fox.glb" id="9_1073e"]
-[ext_resource type="Material" uid="uid://cj8xobiuss472" path="res://assets/textures/world/test2.tres" id="9_akth8"]
+[ext_resource type="Material" path="res://assets/textures/world/test2.tres" id="9_akth8"]
 [ext_resource type="Script" path="res://entities/scripts/torch_light.gd" id="10_f8u2u"]
 
 [sub_resource type="Environment" id="Environment_yho5p"]
@@ -155,9 +155,12 @@ occluder = SubResource("ArrayOccluder3D_6up8k")
 [node name="entity_4_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_4_func_geo"]
 shape = SubResource("ConcavePolygonShape3D_aamyc")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.651996, 0.0543211, -0.756274, 0.00192836, 0.997308, 0.0732964, 0.75822, -0.0492473, 0.650136, -17.0626, 4.63125, 15.0288)
+
 [node name="Network" type="Tree" parent="."]
-offset_right = 16.0
-offset_bottom = 17.0
+offset_right = 134.0
+offset_bottom = 70.0
 
 [node name="NetworkDisplay" type="Label" parent="Network"]
 layout_mode = 0
@@ -166,8 +169,32 @@ offset_bottom = 23.0
 
 [node name="UniquePeerID" type="Label" parent="Network"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 1.0
+offset_top = 36.0
+offset_right = 41.0
+offset_bottom = 59.0
+
+[node name="NetworkMenu" type="TabBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -15.5
+offset_right = 53.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+clip_tabs = false
+scrolling_enabled = false
+scroll_to_selected = false
+deselect_enabled = true
+tab_count = 2
+tab_0/title = "Host"
+tab_1/title = "Join"
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("7_w5udo")]
 script = ExtResource("8_10ar3")
@@ -179,5 +206,4 @@ shape = SubResource("CylinderShape3D_ujja1")
 [node name="fox" parent="CharacterBody3D" instance=ExtResource("9_1073e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879807, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.651996, 0.0543211, -0.756274, 0.00192836, 0.997308, 0.0732964, 0.75822, -0.0492473, 0.650136, -17.0626, 4.63125, 15.0288)
+[connection signal="tab_clicked" from="NetworkMenu" to="." method="_on_NetworkMenu_clicked"]

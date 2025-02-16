@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgy88mnjx7apj"]
+
+[ext_resource type="PackedScene" uid="uid://dhj86e0jwoilf" path="res://scenes/game_object/fox/fox.tscn" id="12_esdej"]
+[ext_resource type="Script" path="res://scenes/game_object/fox/fox.gd" id="13_n8day"]
+[ext_resource type="PackedScene" uid="uid://cbpberbyx3cqi" path="res://assets/objects/fox.glb" id="14_fr8l8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ujja1"]
+height = 1.44524
+radius = 0.236662
+
+[node name="player_character" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("12_esdej")]
+script = ExtResource("13_n8day")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54363, 0)
+shape = SubResource("CylinderShape3D_ujja1")
+
+[node name="fox" parent="CharacterBody3D" instance=ExtResource("14_fr8l8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879807, 0)

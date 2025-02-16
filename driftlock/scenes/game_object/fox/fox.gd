@@ -9,31 +9,38 @@ var target_velocity = Vector3.ZERO
 
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("WAVE"):
-		$fox/AnimationPlayer.play("wave")
-	
-	var direction = Vector3.ZERO
+	if is_multiplayer_authority():
+		if Input.is_action_just_pressed("WAVE"):
+			$fox/AnimationPlayer.play("wave")
+		
+		var direction = Vector3.ZERO
 
-	if Input.is_action_pressed("RIGHT"):
-		direction.x += 1
-	if Input.is_action_pressed("LEFT"):
-		direction.x -= 1
-	if Input.is_action_pressed("DOWN"):
-		direction.z += 1
-	if Input.is_action_pressed("UP"):
-		direction.z -= 1
+		if Input.is_action_pressed("RIGHT"):
+			direction.x += 1
+		if Input.is_action_pressed("LEFT"):
+			direction.x -= 1
+		if Input.is_action_pressed("DOWN"):
+			direction.z += 1
+		if Input.is_action_pressed("UP"):
+			direction.z -= 1
 
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
+		if direction != Vector3.ZERO:
+			direction = direction.normalized()
 
-	# Ground Velocity
-	target_velocity.x = direction.x * speed
-	target_velocity.z = direction.z * speed
+		# Ground Velocity
+		target_velocity.x = direction.x * speed
+		target_velocity.z = direction.z * speed
 
-	# Vertical Velocity
-	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
-		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
+		# Vertical Velocity
+		if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
+			target_velocity.y = target_velocity.y - (fall_acceleration * delta)
 
-	# Moving the Character
-	velocity = target_velocity
-	move_and_slide()
+		# Moving the Character
+		velocity = target_velocity
+		move_and_slide()
+		
+		rpc("set_remote_position", global_position)
+		
+@rpc("unreliable")
+func set_remote_position(position):
+	global_position = position
