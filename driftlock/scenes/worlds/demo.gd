@@ -19,17 +19,18 @@ func _process(delta: float) -> void:
 	pass
 
 func host() -> void:
-	print("pressed")
 	$Network/NetworkDisplay.text = "Server"
 	$NetworkMenu.visible = false
 	multiplayer_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	$Network/UniquePeerID.text = str(multiplayer.get_unique_id())
 	
+	add_player_character(1)
+	
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
-			rpc("add_connected_player", new_peer_id)
 			rpc_id(new_peer_id, "add_prev_connected_player", peer_ids)
+			rpc("add_connected_player", new_peer_id)
 			
 			add_player_character(new_peer_id)
 	)

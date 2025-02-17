@@ -1,22 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgy88mnjx7apj"]
+[gd_scene load_steps=6 format=3 uid="uid://cgy88mnjx7apj"]
 
-[ext_resource type="PackedScene" uid="uid://dhj86e0jwoilf" path="res://scenes/game_object/fox/fox.tscn" id="12_esdej"]
-[ext_resource type="Script" path="res://scenes/game_object/fox/fox.gd" id="13_n8day"]
-[ext_resource type="PackedScene" uid="uid://cbpberbyx3cqi" path="res://assets/objects/fox.glb" id="14_fr8l8"]
+[ext_resource type="PackedScene" uid="uid://dhj86e0jwoilf" path="res://scenes/game_object/fox/fox.tscn" id="7_w5udo"]
+[ext_resource type="Script" path="res://scenes/game_object/fox/fox.gd" id="8_10ar3"]
+[ext_resource type="PackedScene" uid="uid://cbpberbyx3cqi" path="res://assets/objects/fox.glb" id="9_1073e"]
+[ext_resource type="Script" path="res://scenes/game_object/camera/camera_follow.gd" id="14_vnr4i"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ujja1"]
-height = 1.44524
-radius = 0.236662
+height = 1.5
+radius = 0.25
 
 [node name="player_character" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("12_esdej")]
-script = ExtResource("13_n8day")
+[node name="Fox" parent="." instance=ExtResource("7_w5udo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("8_10ar3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54363, 0)
+[node name="Camera3D" type="Camera3D" parent="Fox" node_paths=PackedStringArray("follow_target", "look_target")]
+transform = Transform3D(0.651996, 0.0543211, -0.756274, 0.00192836, 0.997308, 0.0732964, 0.75822, -0.0492473, 0.650136, -16.7754, 5.47959, 15.9663)
+top_level = true
+script = ExtResource("14_vnr4i")
+follow_target = NodePath("..")
+look_target = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.0798856)
 shape = SubResource("CylinderShape3D_ujja1")
 
-[node name="fox" parent="CharacterBody3D" instance=ExtResource("14_fr8l8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879807, 0)
+[node name="fox" parent="Fox" instance=ExtResource("9_1073e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.08)
+
+[node name="Name" type="Label3D" parent="Fox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45795, 0)
+double_sided = false
