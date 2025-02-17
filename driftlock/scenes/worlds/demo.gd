@@ -30,9 +30,16 @@ func host() -> void:
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
 			rpc_id(new_peer_id, "add_prev_connected_player", peer_ids)
-			rpc("add_connected_player", new_peer_id)
+			rpc("add_player_character", new_peer_id)
 			
 			add_player_character(new_peer_id)
+	)
+	
+	multiplayer_peer.peer_disconnected.connect(
+		func(old_peer_id):
+			rpc("remove_player_character", old_peer_id)
+			
+			remove_player_character(old_peer_id)
 	)
 
 func join() -> void:
@@ -48,16 +55,18 @@ func _on_NetworkMenu_clicked(tab: int) -> void:
 	else:
 		host()
 
+@rpc
 func add_player_character(peer_id) -> void:
 	peer_ids.append(peer_id)
 	var player_character = preload("res://scenes/game_object/player_character.tscn").instantiate()
 	player_character.set_multiplayer_authority(peer_id)
+	player_character.name = str(peer_id)
 	add_child(player_character)
 
-@rpc
-func add_connected_player(new_peer_id) -> void:
-	add_player_character(new_peer_id)
-	
+@rpc("reliable")
+func remove_player_character(peer_id) -> void:
+	remove_child(get_node(str(peer_id)))
+
 @rpc
 func add_prev_connected_player(peer_ids):
 	for peer_id in peer_ids:
