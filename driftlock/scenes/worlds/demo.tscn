@@ -160,9 +160,15 @@ offset_bottom = 23.0
 [node name="UniquePeerID" type="Label" parent="Network"]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 36.0
-offset_right = 41.0
-offset_bottom = 59.0
+offset_top = 19.0
+offset_right = 59.0
+offset_bottom = 42.0
+
+[node name="ExternalIP" type="Label" parent="Network"]
+layout_mode = 0
+offset_top = 43.0
+offset_right = 67.0
+offset_bottom = 66.0
 
 [node name="NetworkMenu" type="TabBar" parent="."]
 anchors_preset = 8
@@ -185,5 +191,20 @@ deselect_enabled = true
 tab_count = 2
 tab_0/title = "Host"
 tab_1/title = "Join"
+
+[node name="IPAddress" type="LineEdit" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -15.5
+offset_right = 62.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "localhost"
 
 [connection signal="tab_clicked" from="NetworkMenu" to="." method="_on_NetworkMenu_clicked"]

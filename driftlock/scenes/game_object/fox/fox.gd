@@ -13,6 +13,7 @@ extends CharacterBody3D
 
 var target_velocity = Vector3.ZERO
 var prev_velocity = Vector3.ZERO
+var rpc_position = Vector3.ZERO
 
 func _ready() -> void:
 	camera.current = is_multiplayer_authority()
@@ -50,10 +51,12 @@ func _physics_process(delta):
 		move_and_slide()
 		
 		rpc("set_remote_position", global_position, global_rotation.y)
-		
+	else:
+		global_position = global_position.lerp(rpc_position, 0.1)
+
 @rpc("unreliable")
 func set_remote_position(position, rotation):
-	global_position = position
+	rpc_position = position
 	global_rotation.y = rotation
 	
 
