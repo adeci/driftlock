@@ -21,6 +21,7 @@ func _physics_process(delta):
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("WAVE"):
 			$fox/AnimationPlayer.play("wave")
+			rpc("remote_emote")
 		
 		target_velocity = Vector3.ZERO
 	#
@@ -48,8 +49,14 @@ func _physics_process(delta):
 		prev_velocity = velocity
 		move_and_slide()
 		
-		rpc("set_remote_position", global_position)
+		rpc("set_remote_position", global_position, global_rotation.y)
 		
 @rpc("unreliable")
-func set_remote_position(position):
+func set_remote_position(position, rotation):
 	global_position = position
+	global_rotation.y = rotation
+	
+
+@rpc("reliable")
+func remote_emote():
+	$fox/AnimationPlayer.play("wave")
