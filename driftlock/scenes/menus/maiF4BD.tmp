@@ -1,0 +1,95 @@
+[gd_scene load_steps=5 format=3 uid="uid://brpili3h0hmmc"]
+
+[ext_resource type="Script" path="res://scenes/menus/main_menu.gd" id="1_tk0ar"]
+[ext_resource type="Script" path="res://scenes/menus/levels.gd" id="2_yw0hl"]
+[ext_resource type="Script" path="res://scenes/menus/multiplayer.gd" id="3_sfgjg"]
+[ext_resource type="Script" path="res://scenes/menus/option_button.gd" id="4_741j4"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tk0ar")
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -50.5
+offset_right = 93.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelSelect" type="MenuButton" parent="Main"]
+layout_mode = 2
+text = "Level Select"
+alignment = 0
+script = ExtResource("2_yw0hl")
+
+[node name="Multiplayer" type="MenuButton" parent="Main"]
+layout_mode = 2
+text = "Multiplayer"
+alignment = 0
+item_count = 2
+popup/item_0/text = "Host"
+popup/item_1/text = "Join"
+popup/item_1/id = 1
+script = ExtResource("3_sfgjg")
+
+[node name="Host" type="Tree" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -212.0
+offset_top = -66.5
+offset_right = 212.0
+offset_bottom = 66.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelSelect" type="OptionButton" parent="Host"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 19.5
+offset_right = 210.0
+offset_bottom = 40.5
+script = ExtResource("4_741j4")
+
+[node name="PlayerCount" type="Label" parent="Host"]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 12.5
+offset_right = 409.0
+offset_bottom = 35.5
+
+[node name="ServerInformation" type="Label" parent="Host"]
+offset_left = 37.0
+offset_top = 76.0
+offset_right = 216.0
+offset_bottom = 99.0
+
+[node name="Host" type="Button" parent="Host"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 97.5
+offset_right = 414.0
+offset_bottom = 128.5
+text = "Host"
+
+[node name="Back" type="Button" parent="Host"]
+offset_left = 8.0
+offset_top = 97.5
+offset_right = 105.0
+offset_bottom = 128.5
+text = "Back"
