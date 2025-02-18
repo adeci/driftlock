@@ -93,7 +93,7 @@ func join() -> void:
 	)
 
 func single() -> void:
-	$World.add_player_character(2)
+	$World.add_player_character(1)
 
 @rpc
 func add_player_character(peer_id):
