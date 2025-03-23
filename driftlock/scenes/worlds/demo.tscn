@@ -7,9 +7,9 @@
 [ext_resource type="Material" uid="uid://bsly7mk58bs45" path="res://assets/textures/world/nb_flats/NFRRK14C.tres" id="4_ephvo"]
 [ext_resource type="Material" uid="uid://bdkg3uocbrr6c" path="res://assets/textures/world/nb_flats/NFSTGY12.tres" id="5_cyroh"]
 [ext_resource type="Material" uid="uid://d3co8u4dhvonw" path="res://assets/textures/world/nb_flats/NFBRWN01.tres" id="6_aq2mg"]
-[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFSTEP03.tres" id="7_sa660"]
+[ext_resource type="Material" uid="uid://c2bcl3qh2sw8w" path="res://assets/textures/world/nb_flats/NFSTEP03.tres" id="7_sa660"]
 [ext_resource type="Material" uid="uid://blu8u1x2ugn8w" path="res://assets/textures/world/test.tres" id="8_stmju"]
-[ext_resource type="Material" path="res://assets/textures/world/test2.tres" id="9_akth8"]
+[ext_resource type="Material" uid="uid://cj8xobiuss472" path="res://assets/textures/world/test2.tres" id="9_akth8"]
 [ext_resource type="Script" path="res://entities/scripts/torch_light.gd" id="10_f8u2u"]
 
 [sub_resource type="Environment" id="Environment_akoj4"]
