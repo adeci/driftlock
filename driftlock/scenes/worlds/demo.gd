@@ -23,13 +23,13 @@ func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 	var player_character = preload("res://scenes/game_object/player_character.tscn").instantiate()
 	player_character.set_multiplayer_authority(peer_id)
 	player_character.name = str(peer_id)
-	player_character.get_child(0).get_child(3).text = user_name
+	player_character.get_node("./Fox/Name").text = user_name
 	add_child(player_character)
 
 @rpc("reliable")
 func remove_player_character(peer_id) -> void:
 	var player_character = get_node(str(peer_id))
-	names.erase(str(player_character.get_child(0).get_child(3).text))
+	names.erase(str(player_character.get_node("./Fox/Name").text))
 	peer_ids.erase(peer_id)
 	remove_child(player_character)
 
