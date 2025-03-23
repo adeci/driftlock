@@ -232,7 +232,7 @@ func _on_lobby_chat_update(this_lobby_id: int, change_id: int, making_change_id:
 @rpc
 func add_player_character(peer_id):
 	var player_character = $World.get_node(str(peer_id))
-	player_character.get_child(0).get_child(3).text = $MainMenu/Join/Name.text
+	player_character.get_node("/Fox/Name").text = $MainMenu/Join/Name.text
 	rpc("set_user_name", peer_id, $MainMenu/Join/Name.text)
 
 @rpc("reliable")
