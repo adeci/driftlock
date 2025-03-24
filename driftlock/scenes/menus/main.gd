@@ -69,7 +69,7 @@ func host() -> void:
 		
 		$GUI/Network/UniquePeerID.text = str(multiplayer.get_unique_id())
 			
-		$World.add_player_character(1, $MainMenu/Host/Name.text)
+		$World.add_player_character(1, Steam.getPersonaName())
 			
 		steam_peer.peer_connected.connect(
 			func(new_peer_id):
@@ -232,8 +232,13 @@ func _on_lobby_chat_update(this_lobby_id: int, change_id: int, making_change_id:
 @rpc
 func add_player_character(peer_id):
 	var player_character = $World.get_node(str(peer_id))
-	player_character.get_node("./Fox/Name").text = $MainMenu/Join/Name.text
-	rpc("set_user_name", peer_id, $MainMenu/Join/Name.text)
+	if steam_status:
+		var steam_user_name: String = Steam.getFriendPersonaName(steam_peer.get_steam64_from_peer_id(peer_id))
+		player_character.get_node("./Fox/Name").text = steam_user_name
+		rpc("set_user_name", peer_id, steam_user_name)
+	else:
+		player_character.get_node("./Fox/Name").text = $MainMenu/Join/Name.text
+		rpc("set_user_name", peer_id, $MainMenu/Join/Name.text)
 
 @rpc("reliable")
 func load_level(level_path):
