@@ -95,7 +95,7 @@ func create_client(id: int = 0) -> void:
 	else:
 		peer.create_client(address, PORT)
 		multiplayer.multiplayer_peer = peer
-	lobby_members[multiplayer.get_unique_id()] = player_info
+		lobby_members[multiplayer.get_unique_id()] = player_info
 
 
 # Multiplayer Signals
@@ -151,6 +151,7 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		owner_steam_id = Steam.getLobbyOwner(lobby_id)
 		peer.create_client(owner_steam_id, 0)
 		multiplayer.multiplayer_peer = peer
+		lobby_members[multiplayer.get_unique_id()] = player_info
 
 
 func _on_lobby_chat_update(this_lobby_id: int, change_id: int, making_change_id: int, chat_state: int) -> void:
