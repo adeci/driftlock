@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 Steamworks="*res://scenes/menus/steamworks.gd"
+NetworkManager="*res://scripts/NetworkManager.gd"
 
 [editor]
 
