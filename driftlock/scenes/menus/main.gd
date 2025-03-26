@@ -24,6 +24,7 @@ func host() -> void:
 	multiplayer.peer_connected.connect(send_level)
 
 
+
 func join() -> void:
 	if Steamworks.steam_status:
 		Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_CLOSE)
@@ -77,6 +78,7 @@ func _on_server_disconnect() -> void:
 
 func send_level(peer_id: int):
 	load_level.rpc_id(peer_id, $World.scene_file_path)
+
 
 @rpc("reliable")
 func load_level(level_path):
