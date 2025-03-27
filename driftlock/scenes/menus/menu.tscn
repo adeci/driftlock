@@ -1,0 +1,218 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0whbg0xxknvj"]
+
+[ext_resource type="Script" path="res://scenes/menus/menu_layers.gd" id="1_8oymd"]
+[ext_resource type="ButtonGroup" uid="uid://bgbsanaoi6b8l" path="res://scenes/menus/layer1buttons.tres" id="2_yjwvk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrh0t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upoxm"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61aun"]
+
+[node name="Viewport" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="MenuLayers" type="HBoxContainer" parent="MainMenu" node_paths=PackedStringArray("layer_1", "layer_2", "level_select", "multiplayer_buttons", "options_buttons")]
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_8oymd")
+layer_1 = NodePath("Layer1")
+layer_2 = NodePath("Layer2")
+level_select = NodePath("Layer2/LevelSelectButtons")
+multiplayer_buttons = NodePath("Layer2/MultiplayerButtons")
+options_buttons = NodePath("Layer2/OptionsButtons")
+
+[node name="Layer1" type="MarginContainer" parent="MainMenu/MenuLayers"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer1"]
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer1"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LevelSelect" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+button_group = ExtResource("2_yjwvk")
+text = "Level Select"
+
+[node name="Multiplayer" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+button_group = ExtResource("2_yjwvk")
+text = "Multiplayer"
+
+[node name="Options" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+button_group = ExtResource("2_yjwvk")
+text = "Options"
+
+[node name="Seperator" type="MarginContainer" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Exit" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons/Seperator"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Exit"
+
+[node name="Layer2" type="MarginContainer" parent="MainMenu/MenuLayers"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="LevelSelectButtons" type="MarginContainer" parent="MainMenu/MenuLayers/Layer2"]
+visible = false
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer2/LevelSelectButtons"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer2/LevelSelectButtons"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MultiplayerButtons" type="MarginContainer" parent="MainMenu/MenuLayers/Layer2"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 28
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Host" type="Button" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+text = "Level Select"
+
+[node name="Join" type="Button" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+text = "Multiplayer"
+
+[node name="Exit" type="Button" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+text = "Exit"
+
+[node name="OptionsButtons" type="MarginContainer" parent="MainMenu/MenuLayers/Layer2"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 56
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer2/OptionsButtons"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer2/OptionsButtons"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Exit" type="Button" parent="MainMenu/MenuLayers/Layer2/OptionsButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+toggle_mode = true
+text = "Exit"
+
+[node name="SampleUIElements" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Exit" type="Button" parent="SampleUIElements"]
+layout_mode = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Exit"
+
+[connection signal="toggled" from="MainMenu/MenuLayers/Layer1/Buttons/LevelSelect" to="MainMenu/MenuLayers" method="toggle_layer" binds= ["level_select"]]
+[connection signal="toggled" from="MainMenu/MenuLayers/Layer1/Buttons/Multiplayer" to="MainMenu/MenuLayers" method="toggle_layer" binds= ["multiplayer_buttons"]]
+[connection signal="toggled" from="MainMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
+[connection signal="pressed" from="MainMenu/MenuLayers/Layer1/Buttons/Seperator/Exit" to="MainMenu/MenuLayers" method="_on_exit_pressed"]
