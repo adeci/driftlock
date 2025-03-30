@@ -2,6 +2,7 @@ extends Node
 
 # Network Signals
 signal player_connected(peer_id: int, player_info: String)
+signal load_level(id: int)
 signal player_disconnected(peer_id: int)
 signal server_disconnected
 
@@ -15,6 +16,7 @@ var address := "localhost"
 var upnp = UPNP.new()
 var lobby_id: int = 0
 var owner_steam_id: int 
+var current_level: int = -1
 
 # Multiplayer Globals
 var lobby_members: Dictionary = {}
@@ -107,11 +109,14 @@ func close_server() -> void:
 	lobby_members.clear()
 	lobby_id = 0
 	owner_steam_id = 0
+	current_level = -1
 
 
 # Multiplayer Signals
 func _on_player_connect(peer_id: int) -> void:
 	_populate_lobby_members.rpc_id(peer_id, player_info)
+	if multiplayer.is_server() and current_level > -1:
+		_sync_level.rpc_id(peer_id, current_level)
 
 
 @rpc("reliable", "any_peer")
@@ -119,6 +124,11 @@ func _populate_lobby_members(name: String) -> void:
 	var peer_id = multiplayer.get_remote_sender_id()
 	lobby_members[peer_id] = name
 	player_connected.emit(peer_id, name)
+
+@rpc("reliable")
+func _sync_level(id: int) -> void:
+	current_level = id
+	load_level.emit(id)
 
 
 func _on_player_disconnected(peer_id: int) -> void:

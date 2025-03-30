@@ -28,6 +28,7 @@ func _ready() -> void:
 	# Multiplayer Signals
 	NetworkManager.player_connected.connect(_on_player_joined)
 	NetworkManager.player_disconnected.connect(_on_player_disconnected)
+	NetworkManager.server_disconnected.connect(_on_exit_pressed)
 	
 	# Steam Signals
 	Steam.avatar_loaded.connect(_on_loaded_avatar)

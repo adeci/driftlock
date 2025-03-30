@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0whbg0xxknvj"]
+[gd_scene load_steps=17 format=3 uid="uid://c0whbg0xxknvj"]
 
 [ext_resource type="Script" path="res://scenes/menus/menu_layers.gd" id="1_8oymd"]
 [ext_resource type="Script" path="res://scenes/menus/menu.gd" id="1_bjhb1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scenes/menus/lobby_members.gd" id="3_ge34k"]
 [ext_resource type="Script" path="res://scenes/menus/host_lobby_creation.gd" id="4_8744j"]
 [ext_resource type="Script" path="res://scenes/menus/lobbies.gd" id="5_i7wf5"]
+[ext_resource type="Script" path="res://scenes/menus/lobby_setting_buttons.gd" id="6_6anir"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrh0t"]
 
@@ -19,6 +20,8 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4n3d3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_70mon"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_30ux2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1oecj"]
 
@@ -221,6 +224,7 @@ theme_override_font_sizes/font_size = 100
 text = "Driftlock"
 
 [node name="HostPopup" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -308,6 +312,7 @@ text = "Create
 Lobby"
 
 [node name="LobbyList" type="MarginContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -388,7 +393,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
 text = "Play"
 
 [node name="LobbyMenu" type="MarginContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -405,6 +409,27 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
+
+[node name="LobbySettingButtons" type="MarginContainer" parent="LobbyMenu/ElementSeperator/SettingsMenu" node_paths=PackedStringArray("level_options", "play_button")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+script = ExtResource("6_6anir")
+level_options = NodePath("HButtonContainer/LevelSelect")
+play_button = NodePath("../../LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Play")
+
+[node name="HButtonContainer" type="HBoxContainer" parent="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="LevelSelectLabel" type="Label" parent="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons/HButtonContainer"]
+layout_mode = 2
+text = "Level: "
+
+[node name="LevelSelect" type="OptionButton" parent="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons/HButtonContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_30ux2")
 
 [node name="LobbyMenu" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
 layout_mode = 2
@@ -505,6 +530,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
 text = "Exit"
 
 [node name="PlayerRow1" type="HBoxContainer" parent="SampleUIElements"]
+layout_mode = 0
 size_flags_horizontal = 4
 
 [node name="SampleLobbyButton" type="Button" parent="SampleUIElements"]
@@ -519,6 +545,7 @@ alignment = 0
 
 [node name="Player1" type="MarginContainer" parent="SampleUIElements"]
 custom_minimum_size = Vector2(250, 75)
+layout_mode = 0
 
 [node name="PlayerBackground" type="ColorRect" parent="SampleUIElements/Player1"]
 layout_mode = 2
@@ -560,11 +587,12 @@ text = "Sample"
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_layer_exit_pressed"]
 [connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Exit" to="." method="_on_host_exit_pressed"]
 [connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="." method="_on_create_lobby_pressed"]
-[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
 [connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="HostPopup/HostButtonsContainer" method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_list_exit_pressed"]
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Refresh" to="LobbyList/ElementSeperator/Lobbies" method="_on_join_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_exit_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_exit_pressed"]
+[connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Play" to="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons" method="_on_play_pressed"]
 [connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="." method="_on_lobby_button_pressed"]
 [connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
