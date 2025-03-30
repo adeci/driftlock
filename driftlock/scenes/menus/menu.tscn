@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0whbg0xxknvj"]
+[gd_scene load_steps=15 format=3 uid="uid://c0whbg0xxknvj"]
 
 [ext_resource type="Script" path="res://scenes/menus/menu_layers.gd" id="1_8oymd"]
+[ext_resource type="Script" path="res://scenes/menus/menu.gd" id="1_bjhb1"]
 [ext_resource type="ButtonGroup" uid="uid://bgbsanaoi6b8l" path="res://scenes/menus/layer1buttons.tres" id="2_yjwvk"]
+[ext_resource type="Script" path="res://scenes/menus/lobby_members.gd" id="3_ge34k"]
+[ext_resource type="Script" path="res://scenes/menus/host_lobby_creation.gd" id="4_8744j"]
+[ext_resource type="Script" path="res://scenes/menus/lobbies.gd" id="5_i7wf5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrh0t"]
 
@@ -10,43 +14,57 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61aun"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ytmv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4n3d3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_70mon"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1oecj"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2ptt5"]
+
 [node name="Viewport" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bjhb1")
 
 [node name="MainMenu" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="MenuLayers" type="HBoxContainer" parent="MainMenu" node_paths=PackedStringArray("layer_1", "layer_2", "level_select", "multiplayer_buttons", "options_buttons")]
+[node name="ButtonsMenu" type="MarginContainer" parent="MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="MenuLayers" type="HBoxContainer" parent="MainMenu/ButtonsMenu" node_paths=PackedStringArray("level_select", "multiplayer_buttons", "options_buttons")]
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("1_8oymd")
-layer_1 = NodePath("Layer1")
-layer_2 = NodePath("Layer2")
+layer_1 = ExtResource("2_yjwvk")
 level_select = NodePath("Layer2/LevelSelectButtons")
 multiplayer_buttons = NodePath("Layer2/MultiplayerButtons")
 options_buttons = NodePath("Layer2/OptionsButtons")
 
-[node name="Layer1" type="MarginContainer" parent="MainMenu/MenuLayers"]
+[node name="Layer1" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer1"]
+[node name="ColorRect" type="ColorRect" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1"]
 custom_minimum_size = Vector2(250, 300)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer1"]
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="LevelSelect" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+[node name="LevelSelect" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -57,9 +75,9 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
 toggle_mode = true
 button_group = ExtResource("2_yjwvk")
-text = "Level Select"
+text = "Singleplayer"
 
-[node name="Multiplayer" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+[node name="Multiplayer" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -72,7 +90,7 @@ toggle_mode = true
 button_group = ExtResource("2_yjwvk")
 text = "Multiplayer"
 
-[node name="Options" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+[node name="Options" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -85,12 +103,12 @@ toggle_mode = true
 button_group = ExtResource("2_yjwvk")
 text = "Options"
 
-[node name="Seperator" type="MarginContainer" parent="MainMenu/MenuLayers/Layer1/Buttons"]
+[node name="Seperator" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Exit" type="Button" parent="MainMenu/MenuLayers/Layer1/Buttons/Seperator"]
+[node name="Exit" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -102,38 +120,38 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
 text = "Exit"
 
-[node name="Layer2" type="MarginContainer" parent="MainMenu/MenuLayers"]
+[node name="Layer2" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="LevelSelectButtons" type="MarginContainer" parent="MainMenu/MenuLayers/Layer2"]
+[node name="LevelSelectButtons" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2"]
 visible = false
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer2/LevelSelectButtons"]
+[node name="ColorRect" type="ColorRect" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer2/LevelSelectButtons"]
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="MultiplayerButtons" type="MarginContainer" parent="MainMenu/MenuLayers/Layer2"]
+[node name="MultiplayerButtons" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 28
 
-[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons"]
+[node name="ColorRect" type="ColorRect" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons"]
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Host" type="Button" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
+[node name="Host" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -142,10 +160,9 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
-toggle_mode = true
-text = "Level Select"
+text = "Host Server"
 
-[node name="Join" type="Button" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
+[node name="Join" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -154,10 +171,9 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
-toggle_mode = true
-text = "Multiplayer"
+text = "Join Server"
 
-[node name="Exit" type="Button" parent="MainMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
+[node name="Exit" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -166,24 +182,23 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
-toggle_mode = true
 text = "Exit"
 
-[node name="OptionsButtons" type="MarginContainer" parent="MainMenu/MenuLayers/Layer2"]
+[node name="OptionsButtons" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 56
 
-[node name="ColorRect" type="ColorRect" parent="MainMenu/MenuLayers/Layer2/OptionsButtons"]
+[node name="ColorRect" type="ColorRect" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Buttons" type="VBoxContainer" parent="MainMenu/MenuLayers/Layer2/OptionsButtons"]
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Exit" type="Button" parent="MainMenu/MenuLayers/Layer2/OptionsButtons/Buttons"]
+[node name="Exit" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -192,8 +207,285 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
-toggle_mode = true
 text = "Exit"
+
+[node name="TitleContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_top = 100
+
+[node name="Title" type="Label" parent="MainMenu/TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Driftlock"
+
+[node name="HostPopup" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PopupBackground" type="ColorRect" parent="HostPopup"]
+custom_minimum_size = Vector2(700, 120)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HostButtonsContainer" type="MarginContainer" parent="HostPopup" node_paths=PackedStringArray("lobby_name_input", "lobby_mode_input", "lobby_type_id")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+script = ExtResource("4_8744j")
+lobby_name_input = NodePath("VBoxContainer/HInputsContainer/LobbyName")
+lobby_mode_input = NodePath("VBoxContainer/HInputsContainer/LobbyMode")
+lobby_type_id = NodePath("VBoxContainer/HInputsContainer/OptionButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HostPopup/HostButtonsContainer"]
+layout_mode = 2
+
+[node name="HInputsContainer" type="HBoxContainer" parent="HostPopup/HostButtonsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="LobbyName" type="TextEdit" parent="HostPopup/HostButtonsContainer/VBoxContainer/HInputsContainer"]
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1ytmv")
+placeholder_text = "Lobby Name"
+
+[node name="LobbyMode" type="TextEdit" parent="HostPopup/HostButtonsContainer/VBoxContainer/HInputsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4n3d3")
+placeholder_text = "Lobby Mode"
+
+[node name="OptionButton" type="OptionButton" parent="HostPopup/HostButtonsContainer/VBoxContainer/HInputsContainer"]
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_70mon")
+selected = 0
+fit_to_longest_item = false
+item_count = 3
+popup/item_0/text = "Public"
+popup/item_1/text = "Private"
+popup/item_1/id = 1
+popup/item_2/text = "Friends Only"
+popup/item_2/id = 2
+
+[node name="HButtonsContainer" type="HBoxContainer" parent="HostPopup/HostButtonsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Exit" type="Button" parent="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Exit
+"
+
+[node name="Seperator" type="MarginContainer" parent="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Create Lobby" type="Button" parent="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Create
+Lobby"
+
+[node name="LobbyList" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ElementSeperator" type="VBoxContainer" parent="LobbyList"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Lobbies" type="MarginContainer" parent="LobbyList/ElementSeperator" node_paths=PackedStringArray("sample_lobby_button", "lobby_list")]
+layout_mode = 2
+script = ExtResource("5_i7wf5")
+sample_lobby_button = NodePath("../../../SampleUIElements/SampleLobbyButton")
+lobby_list = NodePath("Scroll/LobbyList")
+
+[node name="LobbiesBackground" type="ColorRect" parent="LobbyList/ElementSeperator/Lobbies"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+color = Color(0.247059, 0.247059, 0.247059, 1)
+
+[node name="Scroll" type="ScrollContainer" parent="LobbyList/ElementSeperator/Lobbies"]
+layout_mode = 2
+
+[node name="LobbyList" type="VBoxContainer" parent="LobbyList/ElementSeperator/Lobbies/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LobbyButtons" type="MarginContainer" parent="LobbyList/ElementSeperator"]
+layout_mode = 2
+
+[node name="ButtonsBackground" type="ColorRect" parent="LobbyList/ElementSeperator/LobbyButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LobbyButtonsContainer" type="HBoxContainer" parent="LobbyList/ElementSeperator/LobbyButtons"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Exit"
+
+[node name="PlayButtonContainer" type="HBoxContainer" parent="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Refresh" type="Button" parent="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Refresh"
+
+[node name="Play" type="Button" parent="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Play"
+
+[node name="LobbyMenu" type="MarginContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ElementSeperator" type="VBoxContainer" parent="LobbyMenu"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SettingsMenu" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="LobbyMenu/ElementSeperator/SettingsMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LobbyMenu" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="LobbyMenu/ElementSeperator/LobbyMenu"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+color = Color(0.2484, 0.2484, 0.2484, 1)
+
+[node name="LobbyMembers" type="MarginContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu" node_paths=PackedStringArray("player_container", "player_col_1", "player_col_2")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("3_ge34k")
+player_container = NodePath("../../../../SampleUIElements/Player1")
+player_col_1 = NodePath("HorizontalPlayerContainer/VerticalPlayerContainer1")
+player_col_2 = NodePath("HorizontalPlayerContainer/VerticalPlayerContainer2")
+
+[node name="HorizontalPlayerContainer" type="HBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VerticalPlayerContainer1" type="VBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/HorizontalPlayerContainer"]
+layout_mode = 2
+
+[node name="VerticalPlayerContainer2" type="VBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/HorizontalPlayerContainer"]
+layout_mode = 2
+
+[node name="LobbyButtons" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="LobbyMenu/ElementSeperator/LobbyButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LobbyButtonsContainer" type="HBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyButtons"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Exit"
+
+[node name="PlayButtonContainer" type="HBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Invite" type="Button" parent="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Invite"
+
+[node name="Play" type="Button" parent="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Play"
 
 [node name="SampleUIElements" type="Control" parent="."]
 unique_name_in_owner = true
@@ -212,7 +504,67 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
 text = "Exit"
 
-[connection signal="toggled" from="MainMenu/MenuLayers/Layer1/Buttons/LevelSelect" to="MainMenu/MenuLayers" method="toggle_layer" binds= ["level_select"]]
-[connection signal="toggled" from="MainMenu/MenuLayers/Layer1/Buttons/Multiplayer" to="MainMenu/MenuLayers" method="toggle_layer" binds= ["multiplayer_buttons"]]
-[connection signal="toggled" from="MainMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
-[connection signal="pressed" from="MainMenu/MenuLayers/Layer1/Buttons/Seperator/Exit" to="MainMenu/MenuLayers" method="_on_exit_pressed"]
+[node name="PlayerRow1" type="HBoxContainer" parent="SampleUIElements"]
+size_flags_horizontal = 4
+
+[node name="SampleLobbyButton" type="Button" parent="SampleUIElements"]
+layout_mode = 2
+offset_left = -926.0
+offset_top = 99.0
+offset_right = -226.0
+offset_bottom = 130.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1oecj")
+text = "Sample"
+alignment = 0
+
+[node name="Player1" type="MarginContainer" parent="SampleUIElements"]
+custom_minimum_size = Vector2(250, 75)
+
+[node name="PlayerBackground" type="ColorRect" parent="SampleUIElements/Player1"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PlayerInformation" type="HBoxContainer" parent="SampleUIElements/Player1"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PlayerIcon" type="MarginContainer" parent="SampleUIElements/Player1/PlayerInformation"]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+
+[node name="ProfileImage" type="TextureRect" parent="SampleUIElements/Player1/PlayerInformation/PlayerIcon"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_2ptt5")
+
+[node name="PlayerTextContainer" type="MarginContainer" parent="SampleUIElements/Player1/PlayerInformation"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+
+[node name="PlayerName" type="Label" parent="SampleUIElements/Player1/PlayerInformation/PlayerTextContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Sample"
+
+[connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/LevelSelect" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["level_select"]]
+[connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Multiplayer" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["multiplayer_buttons"]]
+[connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_exit_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Join" to="LobbyList/ElementSeperator/Lobbies" method="_on_join_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_layer_exit_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_layer_exit_pressed"]
+[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Exit" to="." method="_on_host_exit_pressed"]
+[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="." method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
+[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="HostPopup/HostButtonsContainer" method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_list_exit_pressed"]
+[connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Refresh" to="LobbyList/ElementSeperator/Lobbies" method="_on_join_pressed"]
+[connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_exit_pressed"]
+[connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_exit_pressed"]
+[connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="." method="_on_lobby_button_pressed"]
+[connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]

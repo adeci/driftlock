@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=6 format=3 uid="uid://da7k67tthqksi"]
 
-[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_bg.tres" id="1_xlj3f"]
-[ext_resource type="Resource" path="res://entities/resources/worldspawn/worldspawn_amb.tres" id="2_oqxgm"]
+[ext_resource type="Resource" uid="uid://c53s30pt2h3rj" path="res://entities/resources/worldspawn/worldspawn_bg.tres" id="1_xlj3f"]
+[ext_resource type="Resource" uid="uid://cxckph0lt4js5" path="res://entities/resources/worldspawn/worldspawn_amb.tres" id="2_oqxgm"]
 [ext_resource type="Resource" uid="uid://b0hlkdohj75yk" path="res://entities/resources/worldspawn/worldspawn_fog.tres" id="3_nge7p"]
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="4_xsk1w"]
 [ext_resource type="Script" path="res://entities/scripts/worldspawn.gd" id="5_n1rov"]

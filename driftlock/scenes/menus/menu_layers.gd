@@ -1,9 +1,8 @@
 extends HBoxContainer
 
-# Layer Nodes
-@export var layer_1: MarginContainer
-@export var layer_2: MarginContainer
-@export var layer_3: MarginContainer
+
+# Layer Radio ButtonsNodes
+@export var layer_1: ButtonGroup
 
 # Button Menus
 @export var level_select: MarginContainer 
@@ -39,12 +38,18 @@ func _ready() -> void:
 		var level_button = exit.duplicate()
 		level_button.text = level
 		$Layer2/LevelSelectButtons/Buttons.add_child(level_button)
+	exit.pressed.connect(_on_layer_exit_pressed)
 	$Layer2/LevelSelectButtons/Buttons.add_child(exit)
 
 
 func toggle_layer(toggled_on:bool, layer_name: String):
 	var layer_container = menus[layer_name]
 	layer_container.visible = not layer_container.visible
+
+
+func _on_layer_exit_pressed() -> void:
+	var pressed_button := layer_1.get_pressed_button()
+	pressed_button.button_pressed = false
 
 
 func _on_exit_pressed() -> void:

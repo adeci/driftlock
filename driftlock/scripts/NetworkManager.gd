@@ -21,6 +21,8 @@ var lobby_members: Dictionary = {}
 var player_info := "Name"
 var player_limit: int = 10
 var lobby_type := Steam.LOBBY_TYPE_PUBLIC
+var lobby_name := "Driftlock"
+var lobby_mode := "Arcade"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,7 +49,7 @@ func _ready() -> void:
 
 # Called when node receives a notification
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST and multiplayer.is_server():
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and multiplayer.is_server() and not steam_status:
 		delete_ports()
 
 
@@ -98,6 +100,15 @@ func create_client(id: int = 0) -> void:
 		lobby_members[multiplayer.get_unique_id()] = player_info
 
 
+# Close Server
+func close_server() -> void:
+	peer.close()
+	Steam.leaveLobby(lobby_id)
+	lobby_members.clear()
+	lobby_id = 0
+	owner_steam_id = 0
+
+
 # Multiplayer Signals
 func _on_player_connect(peer_id: int) -> void:
 	_populate_lobby_members.rpc_id(peer_id, player_info)
@@ -124,6 +135,7 @@ func _on_connected_failed() -> void:
 
 
 func _on_server_disconnect() -> void:
+	Steam.leaveLobby(lobby_id)
 	lobby_members.clear()
 	lobby_id = 0
 	owner_steam_id = 0
@@ -141,17 +153,18 @@ func _on_lobby_created(connect: int, this_lobby_id: int) -> void:
 		Steam.setLobbyJoinable(lobby_id, true)
 		
 		# Set some lobby data
-		Steam.setLobbyData(lobby_id, "name", "Driftlock lobby")
-		Steam.setLobbyData(lobby_id, "mode", "GodotSteam test")
+		Steam.setLobbyData(lobby_id, "name", lobby_name)
+		Steam.setLobbyData(lobby_id, "mode", lobby_mode)
 
 
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		lobby_id = this_lobby_id
 		owner_steam_id = Steam.getLobbyOwner(lobby_id)
-		peer.create_client(owner_steam_id, 0)
-		multiplayer.multiplayer_peer = peer
-		lobby_members[multiplayer.get_unique_id()] = player_info
+		if owner_steam_id != Steam.getSteamID():
+			peer.create_client(owner_steam_id, 0)
+			multiplayer.multiplayer_peer = peer
+			lobby_members[multiplayer.get_unique_id()] = player_info
 
 
 func _on_lobby_chat_update(this_lobby_id: int, change_id: int, making_change_id: int, chat_state: int) -> void:
