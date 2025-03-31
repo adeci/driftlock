@@ -48,4 +48,5 @@ func _on_play_pressed() -> void:
 
 @rpc("reliable")
 func remote_play(id: int) -> void:
+	NetworkManager.current_level = id
 	play_level.emit(worlds+levels[id])

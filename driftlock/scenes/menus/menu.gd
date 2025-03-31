@@ -31,9 +31,9 @@ func _on_create_lobby_pressed() -> void:
 
 
 func _on_lobby_exit_pressed() -> void:
-	NetworkManager.close_server()
 	if NetworkManager.current_level > -1:
 		self.remove_child(level)
+	NetworkManager.close_server()
 	$LobbyMenu.visible = false
 	$MainMenu.visible = true
 
