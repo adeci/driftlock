@@ -102,9 +102,17 @@ func create_client(id: int = 0) -> void:
 		lobby_members[multiplayer.get_unique_id()] = player_info
 
 
+func create_local(id: int) -> void:
+	var local_peer = ENetMultiplayerPeer.new()
+	local_peer.create_server(PORT)
+	multiplayer.multiplayer_peer = local_peer
+	lobby_members[multiplayer.get_unique_id()] = player_info
+	_sync_level(id)
+
+
 # Close Server
 func close_server() -> void:
-	peer.close()
+	multiplayer.multiplayer_peer.close()
 	Steam.leaveLobby(lobby_id)
 	lobby_members.clear()
 	lobby_id = 0

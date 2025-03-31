@@ -6,12 +6,6 @@ func _ready() -> void:
 	add_prev_connected_player(NetworkManager.lobby_members)
 	NetworkManager.player_connected.connect(add_player_character)
 	NetworkManager.player_disconnected.connect(remove_player_character)
-	if NetworkManager.steam_status:
-		if not NetworkManager.lobby_id:
-			add_player_character(1, "Player")
-	elif not NetworkManager.peer.ConnectionStatus:
-		add_player_character(1, "Player")
-		
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

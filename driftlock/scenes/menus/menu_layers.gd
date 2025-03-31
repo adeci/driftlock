@@ -34,10 +34,12 @@ func _ready() -> void:
 	
 	# Add Level Select Buttons
 	var exit = $%SampleUIElements/Exit.duplicate()
+	var count: int = 0
 	for level in levels:
 		var level_button = exit.duplicate()
 		level_button.text = level
-		level_button.pressed.connect($/root/Viewport._on_start_level.bind(worlds+level))
+		level_button.pressed.connect(NetworkManager.create_local.bind(count))
+		count += 1
 		$Layer2/LevelSelectButtons/Buttons.add_child(level_button)
 	exit.pressed.connect(_on_layer_exit_pressed)
 	$Layer2/LevelSelectButtons/Buttons.add_child(exit)
