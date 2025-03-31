@@ -392,7 +392,24 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
 text = "Play"
 
+[node name="LobbyLoading" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LoadingBackground" type="ColorRect" parent="LobbyLoading"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LoadingText" type="Label" parent="LobbyLoading"]
+layout_mode = 2
+text = "Loading..."
+horizontal_alignment = 1
+
 [node name="LobbyMenu" type="MarginContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -447,17 +464,21 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("3_ge34k")
 player_container = NodePath("../../../../SampleUIElements/Player1")
-player_col_1 = NodePath("HorizontalPlayerContainer/VerticalPlayerContainer1")
-player_col_2 = NodePath("HorizontalPlayerContainer/VerticalPlayerContainer2")
+player_col_1 = NodePath("Scroll/HorizontalPlayerContainer/VerticalPlayerContainer1")
+player_col_2 = NodePath("Scroll/HorizontalPlayerContainer/VerticalPlayerContainer2")
 
-[node name="HorizontalPlayerContainer" type="HBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="VerticalPlayerContainer1" type="VBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/HorizontalPlayerContainer"]
+[node name="Scroll" type="ScrollContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers"]
 layout_mode = 2
 
-[node name="VerticalPlayerContainer2" type="VBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/HorizontalPlayerContainer"]
+[node name="HorizontalPlayerContainer" type="HBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+
+[node name="VerticalPlayerContainer1" type="VBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/Scroll/HorizontalPlayerContainer"]
+layout_mode = 2
+
+[node name="VerticalPlayerContainer2" type="VBoxContainer" parent="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers/Scroll/HorizontalPlayerContainer"]
 layout_mode = 2
 
 [node name="LobbyButtons" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
@@ -588,11 +609,10 @@ text = "Sample"
 [connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Exit" to="." method="_on_host_exit_pressed"]
 [connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="." method="_on_create_lobby_pressed"]
 [connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="HostPopup/HostButtonsContainer" method="_on_create_lobby_pressed"]
-[connection signal="pressed" from="HostPopup/HostButtonsContainer/VBoxContainer/HButtonsContainer/Seperator/Create Lobby" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_list_exit_pressed"]
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Refresh" to="LobbyList/ElementSeperator/Lobbies" method="_on_join_pressed"]
+[connection signal="draw" from="LobbyMenu" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_exit_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_exit_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Play" to="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons" method="_on_play_pressed"]
 [connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="." method="_on_lobby_button_pressed"]
-[connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]

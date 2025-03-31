@@ -10,6 +10,7 @@ func _ready() -> void:
 	$MainMenu.visible = true
 	$HostPopup.visible = false
 	$LobbyMenu.visible = false
+	$LobbyLoading.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
 
@@ -31,7 +32,8 @@ func _on_create_lobby_pressed() -> void:
 
 func _on_lobby_exit_pressed() -> void:
 	NetworkManager.close_server()
-	self.remove_child(level)
+	if NetworkManager.current_level > -1:
+		self.remove_child(level)
 	$LobbyMenu.visible = false
 	$MainMenu.visible = true
 
@@ -48,6 +50,9 @@ func _on_join_pressed() -> void:
 
 func _on_lobby_button_pressed() -> void:
 	$LobbyList.visible = false
+	$LobbyLoading.visible = true
+	await NetworkManager.player_connected
+	$LobbyLoading.visible = false
 	$LobbyMenu.visible = true
 
 

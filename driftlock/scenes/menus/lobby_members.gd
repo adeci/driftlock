@@ -8,9 +8,9 @@ signal avatar_loaded
 @export var player_col_2: VBoxContainer
 
 var peer_id: int
-var player_banners: Dictionary
+var player_information: Dictionary
 var cached_avatar_texture: ImageTexture
-var col := true:
+var col := false:
 	get:
 		col = not col
 		return col
@@ -20,6 +20,7 @@ var current_col: VBoxContainer:
 			return player_col_1
 		else:
 			return player_col_2
+var player_banners: Array
 
 @onready var row_count: int = 0
 
@@ -32,43 +33,46 @@ func _ready() -> void:
 	
 	# Steam Signals
 	Steam.avatar_loaded.connect(_on_loaded_avatar)
+	
+	# Player Banners
+	for i in range(NetworkManager.player_limit):
+		var player = player_container.duplicate()
+		player.visible = false
+		player_banners.append(player)
+		current_col.add_child(player)
 
 
 func _on_visibility() -> void:
-	var player = player_container.duplicate()
-	player.get_node("./PlayerInformation/PlayerTextContainer/PlayerName").text = NetworkManager.player_info
-	if NetworkManager.steam_status:
-		var player_icon := player.get_node("./PlayerInformation/PlayerIcon/ProfileImage")
-		Steam.getPlayerAvatar()
-		await avatar_loaded
-		player_icon.set_texture(cached_avatar_texture)
-	await Steam.lobby_joined
-	peer_id = multiplayer.get_unique_id()
-	player.name = str(peer_id)
-	player_banners[peer_id] = player
-	player_col_1.add_child(player)
+	Steam.getPlayerAvatar()
+	await avatar_loaded
+	redraw_lobby()
+
+
+func redraw_lobby() -> void:
+	for player_banner in player_banners:
+		player_banner.visible = false
+	var index: int = 0
+	for key in player_information.keys():
+		var player_name = NetworkManager.lobby_members[key]
+		var player_icon = player_information[key]
+		var player_banner = player_banners[index]
+		player_banner.get_node("./PlayerInformation/PlayerTextContainer/PlayerName").text = player_name
+		player_banner.get_node("./PlayerInformation/PlayerIcon/ProfileImage").set_texture(player_icon)
+		player_banner.name = str(key)
+		player_banner.visible = true
+		index += 1
 
 
 # Multiplayer Signal Functions
 func _on_player_joined(peer_id: int, player_name: String) -> void:
-	var new_player_container = player_container.duplicate()
-	new_player_container.name = str(peer_id)
-	new_player_container.get_node("./PlayerInformation/PlayerTextContainer/PlayerName").text = player_name
-	var player_icon := new_player_container.get_node("./PlayerInformation/PlayerIcon/ProfileImage")
 	Steam.getPlayerAvatar(2, NetworkManager.peer.get_steam64_from_peer_id(peer_id))
 	await avatar_loaded
-	player_icon.set_texture(cached_avatar_texture)
-	current_col.add_child(new_player_container)
-	player_banners[peer_id] = new_player_container
+	redraw_lobby()
 
 
 func _on_player_disconnected(peer_id: int) -> void:
-	player_banners[peer_id].queue_free()
-	player_banners.erase(peer_id)
-	if player_banners.size() % 2:
-		col = true
-	else:
-		col = false
+	player_information.erase(peer_id)
+	redraw_lobby()
 
 
 # Steam Signal Functions
@@ -81,12 +85,11 @@ func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByte
 		avatar_image.resize(64, 64, Image.INTERPOLATE_LANCZOS)
 	
 	# Create texture
-	cached_avatar_texture = ImageTexture.create_from_image(avatar_image)
+	var peer_id: int = NetworkManager.peer.get_peer_id_from_steam64(user_id)
+	player_information[peer_id] = ImageTexture.create_from_image(avatar_image)
 	avatar_loaded.emit()
 
 
 func _on_exit_pressed() -> void:
-	col = true
-	for id in player_banners.keys():
-		player_banners[id].queue_free()
-		player_banners.erase(id)
+	player_information.clear()
+	redraw_lobby()
