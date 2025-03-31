@@ -1,26 +1,33 @@
 extends Node3D
 
 
+var player_character: PackedScene
+
+
+func _init() -> void:
+	player_character = preload("res://scenes/game_object/player_character.tscn")
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_prev_connected_player(NetworkManager.lobby_members)
+	add_prev_connected_player()
 	NetworkManager.player_connected.connect(add_player_character)
 	NetworkManager.player_disconnected.connect(remove_player_character)
 
 
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
-	var player_character = preload("res://scenes/game_object/player_character.tscn").instantiate()
-	player_character.set_multiplayer_authority(peer_id)
-	player_character.name = str(peer_id)
-	player_character.get_node("./Fox/Name").text = user_name
-	add_child(player_character)
+	var player = player_character.instantiate()
+	player.set_multiplayer_authority(peer_id)
+	player.name = str(peer_id)
+	player.get_node("./Fox/Name").text = user_name
+	add_child(player)
 
 
 func remove_player_character(peer_id) -> void:
-	var player_character = get_node(str(peer_id))
-	remove_child(player_character)
+	var player = get_node(str(peer_id))
+	remove_child(player)
 
 
-func add_prev_connected_player(players: Dictionary):
-	for peer_id in players:
-		add_player_character(peer_id, players[peer_id])
+func add_prev_connected_player():
+	for peer_id in NetworkManager.lobby_members:
+		add_player_character(peer_id, NetworkManager.lobby_members[peer_id])
