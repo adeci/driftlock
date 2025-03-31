@@ -45,7 +45,7 @@ func _ready() -> void:
 	$Layer2/LevelSelectButtons/Buttons.add_child(exit)
 
 
-func toggle_layer(toggled_on:bool, layer_name: String):
+func toggle_layer(_toggled_on:bool, layer_name: String):
 	var layer_container = menus[layer_name]
 	layer_container.visible = not layer_container.visible
 

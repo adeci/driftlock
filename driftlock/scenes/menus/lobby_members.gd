@@ -64,14 +64,14 @@ func redraw_lobby() -> void:
 
 
 # Multiplayer Signal Functions
-func _on_player_joined(peer_id: int, player_name: String) -> void:
-	Steam.getPlayerAvatar(2, NetworkManager.peer.get_steam64_from_peer_id(peer_id))
+func _on_player_joined(new_peer_id: int, _player_name: String) -> void:
+	Steam.getPlayerAvatar(2, NetworkManager.peer.get_steam64_from_peer_id(new_peer_id))
 	await avatar_loaded
 	redraw_lobby()
 
 
-func _on_player_disconnected(peer_id: int) -> void:
-	player_information.erase(peer_id)
+func _on_player_disconnected(old_peer_id: int) -> void:
+	player_information.erase(old_peer_id)
 	redraw_lobby()
 
 
@@ -85,8 +85,8 @@ func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByte
 		avatar_image.resize(64, 64, Image.INTERPOLATE_LANCZOS)
 	
 	# Create texture
-	var peer_id: int = NetworkManager.peer.get_peer_id_from_steam64(user_id)
-	player_information[peer_id] = ImageTexture.create_from_image(avatar_image)
+	var new_peer_id: int = NetworkManager.peer.get_peer_id_from_steam64(user_id)
+	player_information[new_peer_id] = ImageTexture.create_from_image(avatar_image)
 	avatar_loaded.emit()
 
 

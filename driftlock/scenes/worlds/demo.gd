@@ -8,11 +8,6 @@ func _ready() -> void:
 	NetworkManager.player_disconnected.connect(remove_player_character)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 	var player_character = preload("res://scenes/game_object/player_character.tscn").instantiate()
 	player_character.set_multiplayer_authority(peer_id)

@@ -128,10 +128,10 @@ func _on_player_connect(peer_id: int) -> void:
 
 
 @rpc("reliable", "any_peer")
-func _populate_lobby_members(name: String) -> void:
+func _populate_lobby_members(player_name: String) -> void:
 	var peer_id = multiplayer.get_remote_sender_id()
-	lobby_members[peer_id] = name
-	player_connected.emit(peer_id, name)
+	lobby_members[peer_id] = player_name
+	player_connected.emit(peer_id, player_name)
 
 @rpc("reliable")
 func _sync_level(id: int) -> void:
@@ -161,8 +161,8 @@ func _on_server_disconnect() -> void:
 
 
 # Steam Signals
-func _on_lobby_created(connect: int, this_lobby_id: int) -> void:
-	if connect == 1:
+func _on_lobby_created(connect_status: int, this_lobby_id: int) -> void:
+	if connect_status == 1:
 		# Set the lobby ID
 		lobby_id = this_lobby_id
 		print("Created a lobby: %s" % lobby_id)
@@ -185,7 +185,7 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 			lobby_members[multiplayer.get_unique_id()] = player_info
 
 
-func _on_lobby_chat_update(this_lobby_id: int, change_id: int, making_change_id: int, chat_state: int) -> void:
+func _on_lobby_chat_update(_this_lobby_id: int, change_id: int, _making_change_id: int, chat_state: int) -> void:
 	# Get the user who has made the lobby change
 	var changer_name: String = Steam.getFriendPersonaName(change_id)
 	
