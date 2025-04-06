@@ -91,9 +91,9 @@ func drift_right():
 	drifting = DriftMode.RIGHT
 
 @rpc("unreliable")
-func set_remote_position(position, rotation):
-	rpc_position = position
-	global_rotation.y = rotation
+func set_remote_position(new_position, new_rotation):
+	rpc_position = new_position
+	global_rotation.y = new_rotation
 	
 
 @rpc("reliable")

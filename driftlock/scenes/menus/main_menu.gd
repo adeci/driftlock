@@ -8,6 +8,7 @@ func _ready() -> void:
 	$Main.visible = true
 	$Host.visible = false
 	$Join.visible = false
+	$Lobbies.visible = false
 	
 	var dir = DirAccess.open(worlds)
 	if dir:
@@ -62,9 +63,11 @@ func _on_host_pressed() -> void:
 	self.get_parent().host()
 
 func _on_join_pressed() -> void:
-	self.visible = false
+	$Main.visible = false
+	$Join.visible = false
 	if not $Join/ServerIP.text == "":
 		self.get_parent().ADDRESS = $Join/ServerIP.text
+	$Lobbies.visible = true
 	self.get_parent().join()
 
 

@@ -20,6 +20,7 @@ offset_bottom = 40.0
 script = ExtResource("1_tk0ar")
 
 [node name="Main" type="VBoxContainer" parent="MainMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -48,6 +49,7 @@ popup/item_1/text = "Join"
 popup/item_1/id = 1
 
 [node name="Host" type="Tree" parent="MainMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -76,6 +78,7 @@ offset_right = 409.0
 offset_bottom = 35.5
 
 [node name="ServerInformation" type="Label" parent="MainMenu/Host"]
+layout_mode = 0
 offset_left = 37.0
 offset_top = 76.0
 offset_right = 216.0
@@ -90,6 +93,7 @@ offset_bottom = 128.5
 text = "Host"
 
 [node name="Back" type="Button" parent="MainMenu/Host"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 97.5
 offset_right = 105.0
@@ -135,6 +139,7 @@ offset_right = 409.0
 offset_bottom = 35.5
 
 [node name="ServerInformation" type="Label" parent="MainMenu/Join"]
+layout_mode = 0
 offset_left = 37.0
 offset_top = 76.0
 offset_right = 216.0
@@ -149,6 +154,7 @@ offset_bottom = 128.5
 text = "Join"
 
 [node name="Back" type="Button" parent="MainMenu/Join"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 97.5
 offset_right = 105.0
@@ -156,11 +162,22 @@ offset_bottom = 128.5
 text = "Back"
 
 [node name="Name" type="LineEdit" parent="MainMenu/Join"]
+layout_mode = 0
 offset_left = 258.0
 offset_top = 16.0
 offset_right = 403.0
 offset_bottom = 47.0
 placeholder_text = "Name"
+
+[node name="Lobbies" type="ScrollContainer" parent="MainMenu"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 172.0
+offset_right = 877.0
+offset_bottom = 464.0
+
+[node name="List" type="VBoxContainer" parent="MainMenu/Lobbies"]
+layout_mode = 2
 
 [node name="GUI" type="Control" parent="."]
 anchors_preset = 0
@@ -169,6 +186,7 @@ offset_bottom = 40.0
 script = ExtResource("3_lbomv")
 
 [node name="Network" type="Tree" parent="GUI"]
+layout_mode = 0
 offset_right = 134.0
 offset_bottom = 70.0
 
