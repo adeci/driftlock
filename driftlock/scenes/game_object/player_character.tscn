@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgy88mnjx7apj"]
+[gd_scene load_steps=24 format=3 uid="uid://cgy88mnjx7apj"]
 
 [ext_resource type="PackedScene" uid="uid://dhj86e0jwoilf" path="res://scenes/game_object/fox/fox.tscn" id="7_w5udo"]
 [ext_resource type="Script" path="res://scenes/game_object/fox/fox.gd" id="8_10ar3"]
@@ -8,6 +8,108 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ujja1"]
 height = 1.5
 radius = 0.25
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_0hfd0"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cjohj"]
+animation = &"Tail"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6i07y"]
+animation = &"Tail"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_kk66m"]
+filter_enabled = true
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_5rrve"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jsu8t"]
+animation = &"drift_left"
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_6ixqn"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_20anj"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_intjq"]
+animation = &"drift_right"
+use_custom_timeline = true
+timeline_length = 0.5
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 0
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_3xm1o"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_2vew3"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wyjco"]
+animation = &"Idle"
+use_custom_timeline = true
+timeline_length = 2.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v3uwe"]
+animation = &"Run_clippy"
+use_custom_timeline = true
+timeline_length = 0.5
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_iyh3g"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7rony"]
+animation = &"Tail"
+use_custom_timeline = true
+timeline_length = 2.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tg4ya"]
+animation = &"wave"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_cfo8q"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_y6io0"]
+graph_offset = Vector2(-906.019, 269.264)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_0hfd0")
+nodes/Add2/position = Vector2(420, 200)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_6i07y")
+nodes/Animation/position = Vector2(-760, 340)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_cjohj")
+"nodes/Animation 3/position" = Vector2(-760, 480)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_kk66m")
+nodes/Blend2/position = Vector2(-520, 320)
+nodes/drift_blend/node = SubResource("AnimationNodeBlend2_5rrve")
+nodes/drift_blend/position = Vector2(240, 160)
+nodes/drift_left/node = SubResource("AnimationNodeAnimation_jsu8t")
+nodes/drift_left/position = Vector2(-480, 680)
+nodes/drift_left_add/node = SubResource("AnimationNodeAdd2_6ixqn")
+nodes/drift_left_add/position = Vector2(80, 460)
+nodes/drift_left_seek/node = SubResource("AnimationNodeTimeSeek_20anj")
+nodes/drift_left_seek/position = Vector2(-320, 680)
+nodes/drift_right/node = SubResource("AnimationNodeAnimation_intjq")
+nodes/drift_right/position = Vector2(-480, 520)
+nodes/drift_right_add/node = SubResource("AnimationNodeAdd2_3xm1o")
+nodes/drift_right_add/position = Vector2(-80, 360)
+nodes/drift_right_seek/node = SubResource("AnimationNodeTimeSeek_2vew3")
+nodes/drift_right_seek/position = Vector2(-320, 500)
+nodes/idle/node = SubResource("AnimationNodeAnimation_wyjco")
+nodes/idle/position = Vector2(-480, 0)
+nodes/output/position = Vector2(600, 200)
+nodes/run/node = SubResource("AnimationNodeAnimation_v3uwe")
+nodes/run/position = Vector2(-480, 160)
+nodes/run_amount/node = SubResource("AnimationNodeBlend2_iyh3g")
+nodes/run_amount/position = Vector2(-280, -20)
+nodes/tail/node = SubResource("AnimationNodeAnimation_7rony")
+nodes/tail/position = Vector2(240, 460)
+nodes/wave/node = SubResource("AnimationNodeAnimation_tg4ya")
+nodes/wave/position = Vector2(-280, 240)
+nodes/wave_shot/node = SubResource("AnimationNodeOneShot_cfo8q")
+nodes/wave_shot/position = Vector2(-60, 80)
+node_connections = [&"Add2", 0, &"drift_blend", &"Add2", 1, &"tail", &"Blend2", 0, &"Animation", &"Blend2", 1, &"Animation 3", &"drift_blend", 0, &"wave_shot", &"drift_blend", 1, &"drift_left_add", &"drift_left_add", 0, &"drift_right_add", &"drift_left_add", 1, &"drift_left_seek", &"drift_left_seek", 0, &"drift_left", &"drift_right_add", 0, &"Blend2", &"drift_right_add", 1, &"drift_right_seek", &"drift_right_seek", 0, &"drift_right", &"output", 0, &"Add2", &"run_amount", 0, &"idle", &"run_amount", 1, &"run", &"wave_shot", 0, &"run_amount", &"wave_shot", 1, &"wave"]
 
 [node name="player_character" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
@@ -31,6 +133,120 @@ shape = SubResource("CylinderShape3D_ujja1")
 [node name="fox" parent="Fox" instance=ExtResource("9_1073e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.08)
 
+[node name="Skeleton3D" parent="Fox/fox/metarig" index="0"]
+bones/0/rotation = Quaternion(0.318061, 1.13019e-07, 3.79158e-08, 0.94807)
+bones/1/rotation = Quaternion(-0.28584, 1.01953e-14, -6.81496e-08, 0.958277)
+bones/2/rotation = Quaternion(-0.0440506, 7.30681e-15, -1.05025e-08, 0.999029)
+bones/3/rotation = Quaternion(-0.00151397, -1.07242e-14, -3.60959e-10, 0.999999)
+bones/4/rotation = Quaternion(0.25071, 0, 5.97739e-08, 0.968062)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(-0.122635, 5.48147e-15, -2.92386e-08, 0.992452)
+bones/6/rotation = Quaternion(-0.118412, -1.18371e-07, -1.41158e-08, 0.992965)
+bones/7/rotation = Quaternion(-0.606711, -0.346753, -0.355267, 0.620846)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(-0.0124129, 0.089719, 0.0857215, 0.992194)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(0.0333274, -0.147711, 0.00710875, 0.988443)
+bones/10/scale = Vector3(1, 1, 1)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(-0.0124129, -0.0897191, -0.0857215, 0.992194)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/rotation = Quaternion(0.0333274, 0.147711, -0.00710872, 0.988443)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(-9.91945e-08, 0.698729, 0.715386, 5.27526e-08)
+bones/16/rotation = Quaternion(-9.91945e-08, 0.698729, 0.715386, 5.27526e-08)
+bones/18/rotation = Quaternion(-0.250681, 0.833933, 0.124263, 0.475682)
+bones/18/scale = Vector3(1, 1, 1)
+bones/19/rotation = Quaternion(0.908839, -0.123408, 0.0639731, 0.393306)
+bones/19/scale = Vector3(1, 1, 1)
+bones/20/rotation = Quaternion(0.175031, -0.0597676, -0.0854102, 0.979029)
+bones/21/rotation = Quaternion(-0.0959038, 0.0761928, -0.0634603, 0.990439)
+bones/21/scale = Vector3(1, 1, 1)
+bones/22/rotation = Quaternion(0.00229014, 0.90353, -0.428021, 0.0206379)
+bones/22/scale = Vector3(1, 1, 1)
+bones/23/scale = Vector3(1, 1, 1)
+bones/24/scale = Vector3(1, 1, 1)
+bones/25/rotation = Quaternion(0.175031, 0.0597676, 0.0854102, 0.979029)
+bones/25/scale = Vector3(1, 1, 1)
+bones/26/rotation = Quaternion(-0.0959038, -0.0761928, 0.0634603, 0.990439)
+bones/26/scale = Vector3(1, 1, 1)
+bones/27/rotation = Quaternion(-0.00229013, 0.90353, -0.428021, -0.0206379)
+bones/27/scale = Vector3(1, 1, 1)
+bones/28/rotation = Quaternion(0.524721, -0.47546, 0.46695, 0.529682)
+bones/28/scale = Vector3(1, 1, 1)
+bones/29/rotation = Quaternion(-0.733894, 0.0185489, -0.00455601, 0.678996)
+
+[node name="Skeleton3D" parent="Fox/fox/foxrig" index="0"]
+bones/0/position = Vector3(0, 0.644367, -0.128643)
+bones/0/rotation = Quaternion(0.318061, 1.13019e-07, 3.79158e-08, 0.94807)
+bones/1/rotation = Quaternion(-0.28584, 2.13175e-14, -6.81496e-08, 0.958277)
+bones/2/rotation = Quaternion(-0.0440506, 3.71196e-15, -1.05025e-08, 0.999029)
+bones/3/rotation = Quaternion(-0.000774519, -0.00564612, 0.0100206, 0.999934)
+bones/4/rotation = Quaternion(0.25071, -1.55972e-14, 5.97739e-08, 0.968062)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(-0.122635, 1.01799e-14, -2.92386e-08, 0.992452)
+bones/6/rotation = Quaternion(-0.118412, -1.18371e-07, -1.41158e-08, 0.992965)
+bones/7/rotation = Quaternion(-0.606711, -0.346753, -0.355268, 0.620845)
+bones/8/rotation = Quaternion(-0.17465, 0.706617, -0.549449, 0.410237)
+bones/9/rotation = Quaternion(0.0700008, 0.054836, 0.00912455, 0.995997)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(0.0333274, -0.147711, 0.00710875, 0.988443)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.17465, -0.706617, 0.54945, 0.410237)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(0.0700008, -0.054836, -0.00912452, 0.995997)
+bones/14/rotation = Quaternion(0.0333274, 0.147711, -0.0071087, 0.988443)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(-9.91945e-08, 0.698729, 0.715386, 5.27526e-08)
+bones/16/rotation = Quaternion(-9.91945e-08, 0.698729, 0.715386, 5.27526e-08)
+bones/17/rotation = Quaternion(0.250681, 0.833933, 0.124263, -0.475681)
+bones/17/scale = Vector3(1, 1, 1)
+bones/18/rotation = Quaternion(-0.250681, 0.833933, 0.124263, 0.475682)
+bones/18/scale = Vector3(1, 1, 1)
+bones/19/position = Vector3(0.245666, 0.0577781, 0.102044)
+bones/19/rotation = Quaternion(0.908839, -0.123408, 0.0639731, 0.393306)
+bones/19/scale = Vector3(1, 1, 1)
+bones/20/rotation = Quaternion(0.175032, -0.0597677, -0.0854102, 0.979029)
+bones/20/scale = Vector3(1, 1, 1)
+bones/21/rotation = Quaternion(-0.0959038, 0.0761928, -0.0634603, 0.990439)
+bones/21/scale = Vector3(1, 1, 1)
+bones/22/rotation = Quaternion(0.00229014, 0.90353, -0.428021, 0.0206379)
+bones/22/scale = Vector3(1, 1, 1)
+bones/23/scale = Vector3(1, 1, 1)
+bones/24/position = Vector3(-0.245666, 0.057778, 0.102044)
+bones/24/rotation = Quaternion(0.908839, 0.123408, -0.0639728, 0.393306)
+bones/24/scale = Vector3(1, 1, 1)
+bones/25/rotation = Quaternion(0.175032, 0.0597677, 0.0854102, 0.979029)
+bones/25/scale = Vector3(1, 1, 1)
+bones/26/rotation = Quaternion(-0.0959038, -0.0761928, 0.0634603, 0.990439)
+bones/26/scale = Vector3(1, 1, 1)
+bones/27/rotation = Quaternion(-0.00229016, 0.90353, -0.428021, -0.020638)
+bones/27/scale = Vector3(1, 1, 1)
+bones/28/rotation = Quaternion(0.524722, -0.47546, 0.46695, 0.529682)
+bones/28/scale = Vector3(1, 1, 1)
+bones/29/rotation = Quaternion(0.907375, -0.0660296, -0.0284556, -0.414126)
+bones/29/scale = Vector3(1, 1, 1)
+
 [node name="Name" type="Label3D" parent="Fox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45795, 0)
 double_sided = false
+
+[node name="AnimationTree" type="AnimationTree" parent="Fox"]
+root_node = NodePath("../fox")
+tree_root = SubResource("AnimationNodeBlendTree_y6io0")
+anim_player = NodePath("../fox/AnimationPlayer")
+parameters/Add2/add_amount = 1.0
+parameters/Blend2/blend_amount = 0
+parameters/drift_blend/blend_amount = 0.0
+parameters/drift_left_add/add_amount = 0
+parameters/drift_left_seek/seek_request = -1.0
+parameters/drift_right_add/add_amount = 0
+parameters/drift_right_seek/seek_request = -1.0
+parameters/run_amount/blend_amount = 0.0
+parameters/wave_shot/active = false
+parameters/wave_shot/internal_active = false
+parameters/wave_shot/request = 0
+
+[editable path="Fox/fox"]

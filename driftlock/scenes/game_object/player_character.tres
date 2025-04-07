@@ -1,0 +1,28 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=6 format=3 uid="uid://cdlypuws7nbcs"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_5w7e4"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygq7c"]
+animation = &"drift"
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_rjtn7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8gwvw"]
+animation = &"tail"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d7xmh"]
+animation = &"wave"
+
+[resource]
+"nodes/Add2 2/node" = SubResource("AnimationNodeAdd2_5w7e4")
+"nodes/Add2 2/position" = Vector2(340, 180)
+nodes/drift/node = SubResource("AnimationNodeAnimation_ygq7c")
+nodes/drift/position = Vector2(-60, 360)
+nodes/output/position = Vector2(660, 100)
+nodes/primary/node = SubResource("AnimationNodeTimeSeek_rjtn7")
+nodes/primary/position = Vector2(160, 260)
+nodes/tail/node = SubResource("AnimationNodeAnimation_8gwvw")
+nodes/tail/position = Vector2(120, 580)
+nodes/wave/node = SubResource("AnimationNodeAnimation_d7xmh")
+nodes/wave/position = Vector2(-60, 200)
+node_connections = [&"Add2 2", 0, &"primary", &"Add2 2", 1, &"tail", &"output", 0, &"Add2 2", &"primary", 0, &"drift"]

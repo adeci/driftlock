@@ -21,8 +21,8 @@
 [ext_resource type="Resource" uid="uid://d2bk0vf1dxvdw" path="res://entities/resources/worldspawn/worldspawn_ssr.tres" id="17_esq0s"]
 [ext_resource type="Resource" uid="uid://bppk0apwmcy4" path="res://entities/resources/worldspawn/worldspawn_tone.tres" id="18_d065k"]
 [ext_resource type="Resource" uid="uid://b7sirueasntcp" path="res://entities/resources/worldspawn/worldspawn_vfog.tres" id="19_04qyh"]
-[ext_resource type="Resource" uid="uid://dcvol41l1vkch" path="res://entities/func_mover.tres" id="21_425q8"]
-[ext_resource type="Resource" uid="uid://i5iwul0nhpva" path="res://entities/func_button.tres" id="22_0f0bj"]
+[ext_resource type="Resource" path="res://entities/func_mover.tres" id="21_425q8"]
+[ext_resource type="Resource" path="res://entities/func_button.tres" id="22_0f0bj"]
 
 [resource]
 script = ExtResource("4_h6ivm")

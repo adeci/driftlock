@@ -22,11 +22,16 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
-		if Input.is_action_just_pressed("DRIFT"):
+		if Input.is_action_just_pressed("DRIFT") and drifting == DriftMode.NONE:
 			drifting = DriftMode.WAITING
 		
-		if !Input.is_action_pressed("DRIFT") and (DriftMode.LEFT or DriftMode.RIGHT):
+		if !Input.is_action_pressed("DRIFT") and (drifting == DriftMode.LEFT or drifting == DriftMode.RIGHT):
 			drifting = DriftMode.NONE
+			$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
+			$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
+			$AnimationTree.set("parameters/drift_left_add/add_amount", 0.0)
+			$AnimationTree.set("parameters/drift_right_add/add_amount", 0.0)
+			$AnimationTree.set("parameters/drift_blend/blend_amount", 0.0)
 		
 		var left_turn_mod = 1.0
 		var right_turn_mod = 1.0
@@ -41,14 +46,21 @@ func _physics_process(delta):
 			
 		
 		if Input.is_action_just_pressed("WAVE"):
-			$fox/AnimationPlayer.play("wave")
-			rpc("remote_emote")
+			#$fox/AnimationPlayer.play("wave")
+			if percent_max_speed < 0.01:
+				$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+				rpc("remote_emote")
+			else:
+				$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 			
 		var target_velocity = Vector3.ZERO
 		#
 		if Input.is_action_pressed("RIGHT"):
 			if drifting == DriftMode.WAITING and !Input.is_action_pressed("LEFT"):
 				drifting = DriftMode.ANIM_RIGHT
+				$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
+				$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
+				$AnimationTree.set("parameters/drift_right_add/add_amount", 1.0)
 				get_tree().create_timer(drift_startup, true, true).timeout.connect(drift_right)
 			
 			looking_direction = lerp(looking_direction, looking_direction.rotated(Vector3.UP, -1), delta*rot_speed*right_turn_mod)
@@ -56,6 +68,9 @@ func _physics_process(delta):
 		if Input.is_action_pressed("LEFT"):
 			if drifting == DriftMode.WAITING and !Input.is_action_pressed("RIGHT"):
 				drifting = DriftMode.ANIM_LEFT
+				$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
+				$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
+				$AnimationTree.set("parameters/drift_left_add/add_amount", 1.0)
 				get_tree().create_timer(drift_startup, true, true).timeout.connect(drift_left)
 				
 			looking_direction = lerp(looking_direction, looking_direction.rotated(Vector3.UP, 1), delta*rot_speed*left_turn_mod)
@@ -64,6 +79,15 @@ func _physics_process(delta):
 			target_velocity = -looking_direction*speed
 		if Input.is_action_pressed("UP"):
 			target_velocity = looking_direction*speed
+			$AnimationTree.set("parameters/run_amount/blend_amount", min(1.0, percent_max_speed*2));
+		else :	
+			var current = $AnimationTree.get("parameters/run_amount/blend_amount")
+			$AnimationTree.set("parameters/run_amount/blend_amount", lerp(current, 0.0, 12*delta))
+		
+		if(Input.is_action_just_pressed("RESET")):
+			global_position = Vector3(0,0,0)
+			velocity = Vector3(0,0,0)
+			global_rotation = Vector3(0, 0, 0)
 		
 		global_rotation.y = atan2(looking_direction.x, looking_direction.z)
 
@@ -78,7 +102,7 @@ func _physics_process(delta):
 			#prev_velocity = Vector3.ZERO
 		
 		velocity = lerp(velocity, target_velocity, delta*1.0)
-
+		
 		move_and_slide()
 			
 		rpc("set_remote_position", global_position, global_rotation.y)
