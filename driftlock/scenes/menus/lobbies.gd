@@ -3,11 +3,14 @@ extends MarginContainer
 
 @export var sample_lobby_button: Button
 @export var lobby_list: VBoxContainer
+@export var ip_address: TextEdit
+@export var port: TextEdit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_CLOSE)
-	Steam.lobby_match_list.connect(_on_lobby_match_list)
+	if NetworkManager.steam_status:
+		Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_CLOSE)
+		Steam.lobby_match_list.connect(_on_lobby_match_list)
 
 
 # Steam Signals
@@ -35,4 +38,19 @@ func _on_lobby_match_list(these_lobbies: Array) -> void:
 
 
 func _on_join_pressed() -> void:
-	Steam.requestLobbyList()
+	if NetworkManager.steam_status:
+		Steam.requestLobbyList()
+
+
+func _on_play_pressed() -> void:
+	var ip = ip_address.text
+	var new_port = port.text
+	if ip.is_empty():
+		ip = "localhost"
+	if new_port.is_empty():
+		new_port = "9999"
+	
+	NetworkManager.address = ip
+	NetworkManager.PORT = int(new_port)
+	
+	NetworkManager.create_client()

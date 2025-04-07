@@ -11,7 +11,7 @@ var peer: MultiplayerPeer
 var steam_status := false
 
 # Network Globals
-const PORT: int = 9999
+var PORT: int = 9999
 var address := "localhost"
 var upnp = UPNP.new()
 var lobby_id: int = 0
@@ -113,7 +113,8 @@ func create_local(id: int) -> void:
 # Close Server
 func close_server() -> void:
 	multiplayer.multiplayer_peer.close()
-	Steam.leaveLobby(lobby_id)
+	if steam_status:
+		Steam.leaveLobby(lobby_id)
 	lobby_members.clear()
 	lobby_id = 0
 	owner_steam_id = 0
@@ -153,7 +154,8 @@ func _on_connected_failed() -> void:
 
 
 func _on_server_disconnect() -> void:
-	Steam.leaveLobby(lobby_id)
+	if steam_status:
+		Steam.leaveLobby(lobby_id)
 	lobby_members.clear()
 	lobby_id = 0
 	owner_steam_id = 0

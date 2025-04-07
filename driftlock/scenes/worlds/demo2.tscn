@@ -11,8 +11,8 @@
 [ext_resource type="Material" uid="uid://l0b4vyu7i5ws" path="res://assets/textures/world/nb_flats/NFMTPN05.tres" id="8_35dei"]
 [ext_resource type="Script" path="res://entities/scripts/func_mover.gd" id="9_cyhxu"]
 [ext_resource type="Script" path="res://entities/scripts/func_button.gd" id="10_kw6eo"]
-[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFLTB04H.tres" id="11_11rc2"]
-[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFLTW05H.tres" id="12_8ofne"]
+[ext_resource type="Material" uid="uid://cbg33h4feya0o" path="res://assets/textures/world/nb_flats/NFLTB04H.tres" id="11_11rc2"]
+[ext_resource type="Material" uid="uid://c26pfdybh24ia" path="res://assets/textures/world/nb_flats/NFLTW05H.tres" id="12_8ofne"]
 
 [sub_resource type="Environment" id="Environment_fbkef"]
 background_mode = 1

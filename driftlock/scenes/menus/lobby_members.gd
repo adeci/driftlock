@@ -32,7 +32,8 @@ func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_exit_pressed)
 	
 	# Steam Signals
-	Steam.avatar_loaded.connect(_on_loaded_avatar)
+	if NetworkManager.steam_status:
+		Steam.avatar_loaded.connect(_on_loaded_avatar)
 	
 	# Player Banners
 	for i in range(NetworkManager.player_limit):
@@ -43,8 +44,11 @@ func _ready() -> void:
 
 
 func _on_visibility() -> void:
-	Steam.getPlayerAvatar()
-	await avatar_loaded
+	if NetworkManager.steam_status:
+		Steam.getPlayerAvatar()
+		await avatar_loaded
+	else:
+		player_information[multiplayer.get_unique_id()] = TextureRect.new()
 	redraw_lobby()
 
 
@@ -65,8 +69,11 @@ func redraw_lobby() -> void:
 
 # Multiplayer Signal Functions
 func _on_player_joined(new_peer_id: int, _player_name: String) -> void:
-	Steam.getPlayerAvatar(2, NetworkManager.peer.get_steam64_from_peer_id(new_peer_id))
-	await avatar_loaded
+	if NetworkManager.steam_status:
+		Steam.getPlayerAvatar(2, NetworkManager.peer.get_steam64_from_peer_id(new_peer_id))
+		await avatar_loaded
+	else:
+		player_information[new_peer_id] = TextureRect.new()
 	redraw_lobby()
 
 

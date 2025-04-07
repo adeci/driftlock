@@ -12,6 +12,7 @@ extends CharacterBody3D
 @export var looking_direction = Vector3(1, 0, 0)
 
 enum DriftMode {NONE, WAITING, ANIM_LEFT, ANIM_RIGHT, LEFT, RIGHT}
+enum Animations {IDLE, DRIFTLEFT, DRIFTRIGHT, RUN, DRIFTCANCEL}
 var drifting = DriftMode.NONE
 const drift_startup = 0.5
 
@@ -27,6 +28,7 @@ func _physics_process(delta):
 		
 		if !Input.is_action_pressed("DRIFT") and (drifting == DriftMode.LEFT or drifting == DriftMode.RIGHT):
 			drifting = DriftMode.NONE
+			play_animation.rpc(Animations.DRIFTCANCEL)
 			$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
 			$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
 			$AnimationTree.set("parameters/drift_left_add/add_amount", 0.0)
@@ -58,6 +60,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("RIGHT"):
 			if drifting == DriftMode.WAITING and !Input.is_action_pressed("LEFT"):
 				drifting = DriftMode.ANIM_RIGHT
+				play_animation.rpc(Animations.DRIFTRIGHT)
 				$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
 				$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
 				$AnimationTree.set("parameters/drift_right_add/add_amount", 1.0)
@@ -68,6 +71,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("LEFT"):
 			if drifting == DriftMode.WAITING and !Input.is_action_pressed("RIGHT"):
 				drifting = DriftMode.ANIM_LEFT
+				play_animation.rpc(Animations.DRIFTLEFT)
 				$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
 				$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
 				$AnimationTree.set("parameters/drift_left_add/add_amount", 1.0)
@@ -79,8 +83,10 @@ func _physics_process(delta):
 			target_velocity = -looking_direction*speed
 		if Input.is_action_pressed("UP"):
 			target_velocity = looking_direction*speed
-			$AnimationTree.set("parameters/run_amount/blend_amount", min(1.0, percent_max_speed*2));
-		else :	
+			play_animation.rpc(Animations.RUN)
+			$AnimationTree.set("parameters/run_amount/blend_amount", min(1.0, percent_max_speed*2))
+		else :
+			play_animation.rpc(Animations.IDLE)
 			var current = $AnimationTree.get("parameters/run_amount/blend_amount")
 			$AnimationTree.set("parameters/run_amount/blend_amount", lerp(current, 0.0, 12*delta))
 		
@@ -119,6 +125,32 @@ func set_remote_position(new_position, new_rotation):
 	rpc_position = new_position
 	global_rotation.y = new_rotation
 	
+
+# Network Animation Handler
+@rpc("unreliable")
+func play_animation(animation):
+	match animation:
+		Animations.IDLE:
+			var current = $AnimationTree.get("parameters/run_amount/blend_amount")
+			$AnimationTree.set("parameters/run_amount/blend_amount", lerp(current, 0.0, 12*get_physics_process_delta_time()))
+		Animations.DRIFTCANCEL:
+			$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
+			$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
+			$AnimationTree.set("parameters/drift_left_add/add_amount", 0.0)
+			$AnimationTree.set("parameters/drift_right_add/add_amount", 0.0)
+			$AnimationTree.set("parameters/drift_blend/blend_amount", 0.0)
+		Animations.RUN:
+			var current = $AnimationTree.get("parameters/run_amount/blend_amount")
+			$AnimationTree.set("parameters/run_amount/blend_amount", lerp(current, 1.0, 0.1))
+		Animations.DRIFTLEFT:
+			$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
+			$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
+			$AnimationTree.set("parameters/drift_left_add/add_amount", 1.0)
+		Animations.DRIFTRIGHT:
+			$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
+			$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
+			$AnimationTree.set("parameters/drift_right_add/add_amount", 1.0)
+
 
 @rpc("reliable")
 func remote_emote():

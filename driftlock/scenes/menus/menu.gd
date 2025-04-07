@@ -17,6 +17,10 @@ func _ready() -> void:
 
 func _on_host_pressed() -> void:
 	$MainMenu.visible = false
+	if NetworkManager.steam_status:
+		$HostPopup/HostButtonsContainerENet.visible = false
+	else:
+		$HostPopup/HostButtonsContainerSteam.visible = false
 	$HostPopup.visible = true
 
 
