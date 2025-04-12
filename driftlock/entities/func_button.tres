@@ -28,13 +28,10 @@ description = "Interactive button brush."
 func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
-"active_time": 1.0,
 "axis": Vector3(0, -1, 0),
 "depth": 0.8,
 "speed": 8.0,
-"target": "",
-"targetfunc": "",
-"targetname": ""
+"target": ""
 }
 class_property_descriptions = {}
 auto_apply_to_matching_node_properties = false

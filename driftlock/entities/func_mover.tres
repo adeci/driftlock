@@ -28,6 +28,7 @@ description = "Moving brush."
 func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
+"active_time": 5.0,
 "looped": false,
 "speed": 1.0,
 "targetname": "",
