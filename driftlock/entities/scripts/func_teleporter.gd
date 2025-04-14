@@ -138,7 +138,7 @@ func update_arrow_direction() -> void:
 			debug_arrow.rotation_degrees = Vector3(180, 0, 0)
 	debug_arrow.position = arrow_pos
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		if debug_arrow:
 			debug_arrow.visible = true

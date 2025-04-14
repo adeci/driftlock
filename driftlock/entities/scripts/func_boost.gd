@@ -10,7 +10,7 @@ func _func_godot_apply_properties(props: Dictionary):
 func _init() -> void:
 	connect("body_shape_entered", body_shape_entered)
 
-func body_shape_entered(body_id, body: Node, body_shape_idx: int, self_shape_idx: int) -> void:
+func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_idx: int) -> void:
 	if body is CharacterBody3D:
 		if velocity.x != 0:
 			body.velocity.x = velocity.x

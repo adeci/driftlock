@@ -33,14 +33,14 @@ func _process(delta: float) -> void:
 	var target_position = base_translation + (axis * (depth if is_pressed else 0.0))
 	position = position.lerp(target_position, speed * delta)
 
-func body_shape_entered(body_id, body: Node, body_shape_idx: int, self_shape_idx: int) -> void:
+func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_idx: int) -> void:
 	if body is StaticBody3D:
 		return
 	if overlaps == 0:
 		press()
 	overlaps += 1
 
-func body_shape_exited(body_id, body: Node, body_shape_idx: int, self_shape_idx: int) -> void:
+func body_shape_exited(_body_id, body: Node, _body_shape_idx: int, _self_shape_idx: int) -> void:
 	if body is StaticBody3D:
 		return
 	overlaps -= 1
