@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://vrn6aak26auv"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_7rhxs"]
+[ext_resource type="Script" path="res://entities/scripts/func_teleporter.gd" id="2_q5kgx"]
+
+[resource]
+script = ExtResource("1_7rhxs")
+spawn_type = 2
+origin_type = 4
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+build_occlusion = false
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 1
+collision_priority = 1.0
+collision_shape_margin = 0.04
+add_textures_metadata = false
+add_vertex_metadata = false
+add_face_position_metadata = false
+add_face_normal_metadata = false
+add_collision_shape_face_range_metadata = false
+script_class = ExtResource("2_q5kgx")
+classname = "func_teleporter"
+description = "Teleporter that sends entities to another teleporter. Connect two teleporters using target/targetname pairs. Arrow shows exit direction."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"delay": 2,
+"exit_direction": {
+"Backward (-Z)": 2,
+"Down (-Y)": 5,
+"Forward (+Z)": 0,
+"Left (-X)": 3,
+"Right (+X)": 1,
+"Up (+Y)": 4
+},
+"offset_distance": 1.0,
+"show_debug_arrows": true,
+"target": "",
+"targetname": ""
+}
+class_property_descriptions = {
+"delay": "Cooldown time in seconds to prevent looping",
+"exit_direction": "Direction the player will exit relative to the teleporter's orientation",
+"offset_distance": "How far from the teleporter to place the player when exiting",
+"show_debug_arrows": "Whether to show debug arrows in-game (always visible in editor)",
+"target": "Name of the destination teleporter to link to",
+"targetname": "Unique name for this teleporter"
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0, 0.5, 1, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Area3D"
+name_property = "targetname"

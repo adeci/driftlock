@@ -119,7 +119,14 @@ func drift_left():
 	drifting = DriftMode.LEFT
 func drift_right():
 	drifting = DriftMode.RIGHT
-
+	
+func set_looking_direction(new_direction: Vector3) -> void:
+	new_direction.y = 0
+	new_direction = new_direction.normalized()
+	looking_direction = new_direction
+	global_rotation.y = atan2(looking_direction.x, looking_direction.z)
+	global_rotation.y = atan2(looking_direction.x, looking_direction.z)
+	
 @rpc("unreliable")
 func set_remote_position(new_position, new_rotation):
 	rpc_position = new_position
