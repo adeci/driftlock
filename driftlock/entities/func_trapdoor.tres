@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://c2ly1ry1e34mw"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_3kx0e"]
+[ext_resource type="Script" path="res://entities/scripts/func_trapdoor.gd" id="2_owtea"]
+
+[resource]
+script = ExtResource("1_3kx0e")
+spawn_type = 2
+origin_type = 4
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+build_occlusion = false
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 1
+collision_priority = 1.0
+collision_shape_margin = 0.04
+add_textures_metadata = false
+add_vertex_metadata = false
+add_face_position_metadata = false
+add_face_normal_metadata = false
+add_collision_shape_face_range_metadata = false
+script_class = ExtResource("2_owtea")
+classname = "func_trapdoor"
+description = "Moving brush, motion does not affect other bodies."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"active_time": 5.0,
+"loop_pause": 0.0,
+"looped": false,
+"speed": 1.0,
+"targetname": "",
+"translation": Vector3(0, 0, 0)
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "StaticBody3D"
+name_property = ""
