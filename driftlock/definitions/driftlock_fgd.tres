@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=25 format=3 uid="uid://bvtc30terxlda"]
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=26 format=3 uid="uid://bvtc30terxlda"]
 
 [ext_resource type="Resource" uid="uid://nayxb8n7see2" path="res://addons/func_godot/fgd/phong_base.tres" id="1_bnexv"]
 [ext_resource type="Resource" uid="uid://da7k67tthqksi" path="res://entities/worldspawn.tres" id="2_goi1k"]
@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://dcvol41l1vkch" path="res://entities/func_mover.tres" id="21_425q8"]
 [ext_resource type="Resource" uid="uid://i5iwul0nhpva" path="res://entities/func_button.tres" id="22_0f0bj"]
 [ext_resource type="Resource" uid="uid://c2ly1ry1e34mw" path="res://entities/func_trapdoor.tres" id="23_3p2v8"]
+[ext_resource type="Resource" uid="uid://b7lpgairk78xs" path="res://entities/func_boost.tres" id="24_vcxfb"]
 
 [resource]
 script = ExtResource("4_h6ivm")
@@ -31,4 +32,4 @@ export_file = false
 target_map_editor = 1
 fgd_name = "driftlock"
 base_fgd_files = Array[Resource]([])
-entity_definitions = Array[Resource]([ExtResource("1_bnexv"), ExtResource("2_goi1k"), ExtResource("3_mcwle"), ExtResource("4_3mv22"), ExtResource("5_byygd"), ExtResource("6_bg42p"), ExtResource("7_8gafc"), ExtResource("8_4jd7h"), ExtResource("9_no3iw"), ExtResource("10_hyk80"), ExtResource("11_x4xmt"), ExtResource("12_hhqwa"), ExtResource("13_fn242"), ExtResource("14_ifqtq"), ExtResource("15_ghvr8"), ExtResource("16_e0w64"), ExtResource("17_esq0s"), ExtResource("18_d065k"), ExtResource("19_04qyh"), ExtResource("3_idc05"), ExtResource("21_425q8"), ExtResource("22_0f0bj"), ExtResource("23_3p2v8")])
+entity_definitions = Array[Resource]([ExtResource("1_bnexv"), ExtResource("2_goi1k"), ExtResource("3_mcwle"), ExtResource("4_3mv22"), ExtResource("5_byygd"), ExtResource("6_bg42p"), ExtResource("7_8gafc"), ExtResource("8_4jd7h"), ExtResource("9_no3iw"), ExtResource("10_hyk80"), ExtResource("11_x4xmt"), ExtResource("12_hhqwa"), ExtResource("13_fn242"), ExtResource("14_ifqtq"), ExtResource("15_ghvr8"), ExtResource("16_e0w64"), ExtResource("17_esq0s"), ExtResource("18_d065k"), ExtResource("19_04qyh"), ExtResource("3_idc05"), ExtResource("21_425q8"), ExtResource("22_0f0bj"), ExtResource("23_3p2v8"), ExtResource("24_vcxfb")])
