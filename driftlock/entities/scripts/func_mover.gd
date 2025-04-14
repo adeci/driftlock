@@ -5,6 +5,7 @@ extends AnimatableBody3D
 @export var translation: Vector3 = Vector3(0, 0, 0)
 @export var speed: float = 1
 @export var active_time: float = 5
+@export var loop_pause: float = 0
 @export var looped: bool = false
 
 enum State {READY, ACTIVE}
@@ -26,6 +27,8 @@ func _func_godot_apply_properties(props: Dictionary) -> void:
 		speed = props["speed"] as float
 	if "active_time" in props:
 		active_time = props["active_time"] as float
+	if "loop_pause" in props:
+		loop_pause = props["loop_pause"] as float
 	if "looped" in props:
 		looped = props["looped"] as bool
 
@@ -66,12 +69,20 @@ func _physics_process(delta: float) -> void:
 		and sign(trans_z)*(position.z + trans_x * delta * speed) >= sign(trans_z)*end.z):
 			position = end
 			reverse_direction()
-			if not looped:
+			if looped:
+				pause_movement(loop_pause)
+			else:
 				moving = false
 		else:
 			position.x += trans_x * delta * speed
 			position.y += trans_y * delta * speed
 			position.z += trans_z * delta * speed
+
+func pause_movement(time: float) -> void:
+	if (time > 0):
+		moving = false
+		await get_tree().create_timer(time).timeout
+		moving = true
 
 func reverse_direction() -> void:
 	trans_x = -trans_x
