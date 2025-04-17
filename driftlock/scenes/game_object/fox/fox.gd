@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@onready var camera = $Camera3D
+@onready var camera: Camera3D = $Camera3D
 
 # How fast the player moves in meters per second.
 @export var speed = 30
@@ -15,11 +15,21 @@ enum DriftMode {NONE, WAITING, ANIM_LEFT, ANIM_RIGHT, LEFT, RIGHT}
 enum Animations {IDLE, DRIFTLEFT, DRIFTRIGHT, RUN, DRIFTCANCEL}
 var drifting = DriftMode.NONE
 const drift_startup = 0.5
+const jump_velocity = 10
+const fov_multiplier = 1.3
+const speedup_multiplier = 1.5
+const speedup_time = 10
+var speedup_timer = Timer.new()
+var held_item = null
 
 var rpc_position = Vector3.ZERO
 
 func _ready() -> void:
 	camera.current = is_multiplayer_authority()
+	add_child(speedup_timer)
+	speedup_timer.one_shot = true
+	speedup_timer.autostart = false
+	speedup_timer.wait_time = speedup_time
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -46,7 +56,8 @@ func _physics_process(delta):
 				right_turn_mod = lerp(1.0, 1.5, percent_max_speed)
 				left_turn_mod = 0.5
 			
-		
+		if Input.is_action_just_pressed("USE"):
+			use_item()
 		if Input.is_action_just_pressed("WAVE"):
 			#$fox/AnimationPlayer.play("wave")
 			if percent_max_speed < 0.01:
@@ -162,3 +173,42 @@ func play_animation(animation):
 @rpc("reliable")
 func remote_emote():
 	$fox/AnimationPlayer.play("wave")
+
+func set_item(item: GameManager.Item) -> void:
+	held_item = item
+
+func use_item() -> void:
+	var item = held_item
+	held_item = null
+	match item:
+		null:
+			print("No item!")
+		GameManager.Item.SPEEDUP:
+			print("Used speedup!")
+			speedup()
+		GameManager.Item.BOOST:
+			print("Used boost!")
+			boost()
+		GameManager.Item.JUMP:
+			print("Used jump!")
+			jump()
+
+func speedup() -> void:
+	if speedup_timer.is_stopped():
+		var old_speed = speed
+		var old_fov = camera.fov
+		speed *= speedup_multiplier
+		camera.fov *= fov_multiplier
+		speedup_timer.start()
+		await speedup_timer.timeout
+		speed = old_speed
+		camera.fov = old_fov
+	else:
+		speedup_timer.start()
+
+func boost() -> void:
+	velocity.x = speedup_multiplier * speed * looking_direction.x
+	velocity.z = speedup_multiplier * speed * looking_direction.z
+
+func jump() -> void:
+	velocity.y = jump_velocity

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDModelPointClass" load_steps=3 format=3 uid="uid://bwwspbmb512hc"]
+
+[ext_resource type="PackedScene" uid="uid://bvkq33d8qh0rl" path="res://scenes/game_object/item/item.tscn" id="1_2lymi"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_model_point_class.gd" id="1_twmoq"]
+
+[resource]
+script = ExtResource("1_twmoq")
+target_map_editor = 1
+models_sub_folder = "trenchbroom"
+scale_expression = ""
+generate_size_property = false
+generate_gd_ignore_file = false
+scene_file = ExtResource("1_2lymi")
+apply_rotation_on_map_build = true
+classname = "pickup_item"
+description = "Item that a player can use."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"respawn_time": 10.0
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"model": "\"assets/objects/trenchbroom/pickup_item.glb\"",
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""
