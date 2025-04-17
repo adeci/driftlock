@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://b6egb07jkt6nb"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_badw7"]
+[ext_resource type="Script" path="res://entities/scripts/func_respawnpoint.gd" id="2_xts1m"]
+
+[resource]
+script = ExtResource("1_badw7")
+script_class = ExtResource("2_xts1m")
+apply_rotation_on_map_build = true
+classname = "func_respawnpoint"
+description = "Defines a respawn position for a specific checkpoint. Players will respawn here when using the respawn key after activating the linked checkpoint."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"checkpoint_id": 1,
+"show_debug_visual": true
+}
+class_property_descriptions = {
+"checkpoint_id": "ID of the checkpoint this respawn point is linked to",
+"show_debug_visual": "Show a visual arrow to represent the respawn point in game"
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0, 0.8, 1, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Node3D"
+name_property = ""
