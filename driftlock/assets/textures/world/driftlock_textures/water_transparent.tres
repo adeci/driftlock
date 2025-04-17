@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cowebtd5tcyvi"]
+
+[ext_resource type="Texture2D" uid="uid://1bvv4bx06gpm" path="res://assets/textures/world/driftlock_textures/water_transparent.png" id="1_1s6el"]
+
+[resource]
+albedo_texture = ExtResource("1_1s6el")
+metallic_specular = 0.0
+texture_filter = 2
