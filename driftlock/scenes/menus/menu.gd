@@ -1,6 +1,8 @@
 extends MarginContainer
 
 
+enum levels {DEMO}
+
 var level
 
 # Called when the node enters the scene tree for the first time.
@@ -60,11 +62,13 @@ func _on_lobby_button_pressed() -> void:
 	$LobbyMenu.visible = true
 
 
-func _on_start_level(file_path: String) -> void:
+func _on_start_level(level_name) -> void:
 	$MainMenu.visible = false
 	$HostPopup.visible = false
 	$LobbyMenu.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
-	level = load(file_path).instantiate()
-	add_child(level)
+	var level
+	match level_name:
+		levels.DEMO:
+			get_tree().change_scene_to_file("res://scenes/worlds/demo_level.tscn")

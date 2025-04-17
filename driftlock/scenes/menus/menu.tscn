@@ -144,6 +144,28 @@ color = Color(0, 0, 0, 1)
 layout_mode = 2
 theme_override_constants/separation = 5
 
+[node name="demo_level" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "demo_level"
+
+[node name="Exit" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Exit"
+
 [node name="MultiplayerButtons" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2"]
 visible = false
 layout_mode = 2
@@ -529,6 +551,9 @@ text = "Level: "
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_30ux2")
+selected = 0
+item_count = 1
+popup/item_0/text = "Demo"
 
 [node name="LobbyMenu" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
 layout_mode = 2
@@ -683,6 +708,7 @@ text = "Sample"
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Multiplayer" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["multiplayer_buttons"]]
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_exit_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_layer_exit_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/MultiplayerButtons/Buttons/Join" to="LobbyList/ElementSeperator/Lobbies" method="_on_join_pressed"]

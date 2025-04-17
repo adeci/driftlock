@@ -2,7 +2,7 @@ extends Node
 
 # Network Signals
 signal player_connected(peer_id: int, player_info: String)
-signal load_level(id: int)
+signal load_level(level: GameManager.Level)
 signal player_disconnected(peer_id: int)
 signal server_disconnected
 
@@ -102,12 +102,12 @@ func create_client(id: int = 0) -> void:
 		lobby_members[multiplayer.get_unique_id()] = player_info
 
 
-func create_local(id: int) -> void:
+func create_local(level: GameManager.Level) -> void:
 	var local_peer = ENetMultiplayerPeer.new()
 	local_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = local_peer
 	lobby_members[multiplayer.get_unique_id()] = player_info
-	_sync_level(id)
+	_sync_level(level)
 
 
 # Close Server
@@ -135,9 +135,9 @@ func _populate_lobby_members(player_name: String) -> void:
 	player_connected.emit(peer_id, player_name)
 
 @rpc("reliable")
-func _sync_level(id: int) -> void:
-	current_level = id
-	load_level.emit(id)
+func _sync_level(level: GameManager.Level) -> void:
+	current_level = level
+	load_level.emit(level)
 
 
 func _on_player_disconnected(peer_id: int) -> void:

@@ -22,27 +22,28 @@ var levels = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Load Debugging Levels
-	var dir = DirAccess.open(worlds)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.contains(".tscn"):
-				levels.append(file_name)
-			file_name = dir.get_next()
-	
-	# Add Level Select Buttons
-	var exit = $%SampleUIElements/Exit.duplicate()
-	var count: int = 0
-	for level in levels:
-		var level_button = exit.duplicate()
-		level_button.text = level
-		level_button.pressed.connect(NetworkManager.create_local.bind(count))
-		count += 1
-		$Layer2/LevelSelectButtons/Buttons.add_child(level_button)
-	exit.pressed.connect(_on_layer_exit_pressed)
-	$Layer2/LevelSelectButtons/Buttons.add_child(exit)
+	$Layer2/LevelSelectButtons/Buttons/demo_level.pressed.connect(_on_level_button_pressed.bind(GameManager.Level.DEMO))
+	## Load Debugging Levels
+	#var dir = DirAccess.open(worlds)
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if file_name.contains(".tscn"):
+				#levels.append(file_name)
+			#file_name = dir.get_next()
+	#
+	## Add Level Select Buttons
+	#var exit = $%SampleUIElements/Exit.duplicate()
+	#var count: int = 0
+	#for level in levels:
+		#var level_button = exit.duplicate()
+		#level_button.text = level
+		#level_button.pressed.connect(NetworkManager.create_local.bind(count))
+		#count += 1
+		#$Layer2/LevelSelectButtons/Buttons.add_child(level_button)
+	#exit.pressed.connect(_on_layer_exit_pressed)
+	#$Layer2/LevelSelectButtons/Buttons.add_child(exit)
 
 
 func toggle_layer(_toggled_on:bool, layer_name: String):
@@ -57,3 +58,7 @@ func _on_layer_exit_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_level_button_pressed(level: GameManager.Level) -> void:
+	NetworkManager.create_local(level)

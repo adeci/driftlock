@@ -12,6 +12,13 @@ extends HBoxContainer
 		"options_buttons": options_buttons,
 }
 
+# Race Conditions
+var leave_pressed: bool = false
+
+
+func _ready() -> void:
+	NetworkManager.server_disconnected.connect(_on_leave_pressed)
+
 
 func toggle_layer(_toggled_on:bool, layer_name: String):
 	var layer_container = menus[layer_name]
@@ -24,7 +31,10 @@ func _on_layer_exit_pressed() -> void:
 
 
 func _on_leave_pressed() -> void:
-	NetworkManager.close_server()
+	if not leave_pressed:
+		leave_pressed = true
+		NetworkManager.close_server()
+		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
 
 
 func _on_resume_game_pressed() -> void:
