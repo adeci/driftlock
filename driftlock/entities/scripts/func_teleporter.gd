@@ -85,6 +85,23 @@ func _ready() -> void:
 	
 	# Create the shader material
 	setup_portal_shader()
+	find_and_apply_shader()
+	
+	# Schedule a delayed shader application as a fallback
+	call_deferred("delayed_shader_application")
+
+func delayed_shader_application() -> void:
+	# Wait for a short delay to ensure entity is fully built
+	await get_tree().create_timer(0.5).timeout
+	find_and_apply_shader()
+
+func find_and_apply_shader() -> void:
+	mesh_instance = find_mesh_instance()
+	if mesh_instance:
+		print("Found mesh instance for teleporter: ", name)
+		apply_shader_to_mesh()
+	else:
+		print("Looking for mesh instance for teleporter: ", name)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -96,7 +113,7 @@ func _process(delta: float) -> void:
 			
 	# Update shader time parameter
 	time += delta
-	if portal_shader_material and mesh_instance:
+	if portal_shader_material and mesh_instance and mesh_instance.mesh:
 		portal_shader_material.set_shader_parameter("time", time)
 
 func _func_godot_build_complete() -> void:
@@ -107,17 +124,58 @@ func _func_godot_build_complete() -> void:
 	mesh_instance = find_mesh_instance()
 	
 	if mesh_instance:
+		print("Found mesh instance during build_complete: ", mesh_instance.name)
 		# Apply our shader to the mesh instance
 		apply_shader_to_mesh()
 	else:
-		print("Warning: Could not find mesh instance for teleporter " + targetname)
+		print("Warning: Could not find mesh instance during build_complete")
+		# Schedule a delayed attempt
+		call_deferred("delayed_find_mesh")
+		
+func delayed_find_mesh() -> void:
+	await get_tree().create_timer(0.2).timeout
+	mesh_instance = find_mesh_instance()
+	if mesh_instance:
+		print("Found mesh instance after delay: ", mesh_instance.name)
+		apply_shader_to_mesh()
+	else:
+		print("Still could not find mesh instance after delay")
+		
+func print_children_hierarchy(node: Node = null, indent: String = "") -> void:
+	if node == null:
+		node = self
+		print("Children hierarchy for teleporter: ", name)
+	
+	print(indent + node.name + " - " + node.get_class())
+	indent += "  "
+	for child in node.get_children():
+		print_children_hierarchy(child, indent)
 
 func find_mesh_instance() -> MeshInstance3D:
-	# Look for a MeshInstance3D child that was created by func_godot
+	# First, look for a MeshInstance3D child with "mesh_instance" in the name
 	for child in get_children():
 		if child is MeshInstance3D and "mesh_instance" in child.name:
 			return child
+	
+	# If not found, check for any MeshInstance3D
+	for child in get_children():
+		if child is MeshInstance3D:
+			return child
+			
+	# If still not found, recursively search all children
+	return find_mesh_in_children(self)
+	
+func find_mesh_in_children(node: Node) -> MeshInstance3D:
+	for child in node.get_children():
+		if child is MeshInstance3D:
+			return child
+		
+		var result = find_mesh_in_children(child)
+		if result != null:
+			return result
+	
 	return null
+
 
 func setup_portal_shader() -> void:
 	portal_shader_material = ShaderMaterial.new()
@@ -126,30 +184,46 @@ func setup_portal_shader() -> void:
 		print("Error: Portal shader not found at res://assets/shaders/portal_shader.gdshader")
 		return
 	
+	print("Portal shader loaded successfully")
 	portal_shader_material.shader = shader
 	_update_shader_params()
 
 func apply_shader_to_mesh() -> void:
-	if not mesh_instance or not portal_shader_material:
+	if not mesh_instance:
+		print("Cannot apply shader: No mesh instance")
 		return
+		
+	if not portal_shader_material:
+		print("Cannot apply shader: No shader material")
+		return
+	
+	print("Applying shader to mesh: ", mesh_instance.name)
 	
 	# Get the original mesh
 	var original_mesh = mesh_instance.mesh
 	if not original_mesh:
+		print("Cannot apply shader: Mesh instance has no mesh")
 		return
+	
+	print("Original mesh has ", original_mesh.get_surface_count(), " surfaces")
 	
 	# Create a copy of the mesh to avoid modifying the original
 	var mesh_copy = original_mesh.duplicate()
 	
 	# Apply our shader material to all surfaces
 	for i in range(mesh_copy.get_surface_count()):
+		print("Applying shader to surface ", i)
 		mesh_copy.surface_set_material(i, portal_shader_material)
 	
 	# Set the modified mesh
 	mesh_instance.mesh = mesh_copy
 	
-	# Make sure it's transparent
-	mesh_instance.transparency = 0.9
+	# Configure transparency and make sure it's visible
+	mesh_instance.visible = true
+	mesh_instance.transparency = 0.5
+	mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	
+	print("Shader applied successfully to mesh")
 
 func calculate_bounds() -> void:
 	bounds = AABB()
