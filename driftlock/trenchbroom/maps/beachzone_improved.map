@@ -2591,6 +2591,7 @@
 "exit_direction" "2"
 "portal_color" "0 255 255"
 "portal_speed" "0.3"
+"portal_edge_color" "230 51 255"
 // brush 0
 {
 ( 5696 4592 256 ) ( 5696 4593 256 ) ( 5696 4592 257 ) world/nb_flats/NFLTB04H [ 0 -1 0 0 ] [ 0 0 -1 0 ] 270 1 1
@@ -3779,9 +3780,11 @@
 {
 "classname" "func_teleporter"
 "exit_direction" "2"
-"show_debug_arrows" "1"
+"show_debug_arrows" "0"
 "target" "tele_5_R"
 "targetname" "tele_3_R"
+"portal_speed" "0.3"
+"portal_edge_color" "230 51 255"
 // brush 0
 {
 ( -2560 4416 -1696 ) ( -2560 4417 -1696 ) ( -2560 4416 -1695 ) __TB_empty [ 0 -1 0 0 ] [ 0 0 -1 0 ] 270 1 1
@@ -3911,8 +3914,12 @@
 "classname" "func_teleporter"
 "targetname" "tele_5_R"
 "exit_direction" "2"
-"show_debug_arrows" "1"
+"show_debug_arrows" "0"
 "target" "finaltele"
+"portal_speed" "0.1"
+"portal_color" "255 255 255"
+"portal_edge_color" "0 0 0"
+"portal_distortion" "0.7"
 // brush 0
 {
 ( -896 4416 -1696 ) ( -896 4417 -1696 ) ( -896 4416 -1695 ) __TB_empty [ 0 -1 0 0 ] [ 0 0 -1 0 ] 270 1 1
@@ -4143,12 +4150,12 @@
 "checkpoint_id" "2"
 // brush 0
 {
-( 5664 4272 240 ) ( 5664 4273 240 ) ( 5664 4272 241 ) special/clip [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( 5664 4272 240 ) ( 5664 4272 241 ) ( 5665 4272 240 ) special/clip [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( 5664 4272 240 ) ( 5665 4272 240 ) ( 5664 4273 240 ) special/clip [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( 5680 4640 768 ) ( 5680 4641 768 ) ( 5681 4640 768 ) special/clip [ 1 0 0 0 ] [ 0 -1 0 0 ] 180 1 1
-( 5680 4624 256 ) ( 5681 4624 256 ) ( 5680 4624 257 ) special/clip [ -1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( 5680 4640 256 ) ( 5680 4640 257 ) ( 5680 4641 256 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 5088 4176 240 ) ( 5088 4177 240 ) ( 5088 4176 241 ) special/clip [ 0 -1 0 -32 ] [ 0 0 -1 0 ] 180 1 1
+( 5104 4032 240 ) ( 5104 4032 241 ) ( 5105 4032 240 ) special/clip [ 1 0 0 48 ] [ 0 0 -1 0 ] 90 1 1
+( 5104 4176 112 ) ( 5105 4176 112 ) ( 5104 4177 112 ) special/clip [ -1 0 0 -48 ] [ 0 -1 0 -32 ] 180 1 1
+( 5120 4544 768 ) ( 5120 4545 768 ) ( 5121 4544 768 ) special/clip [ 1 0 0 48 ] [ 0 -1 0 -32 ] 90 1 1
+( 5120 4832 256 ) ( 5121 4832 256 ) ( 5120 4832 257 ) special/clip [ -1 0 0 -48 ] [ 0 0 -1 0 ] 0 1 1
+( 5120 4544 256 ) ( 5120 4544 257 ) ( 5120 4545 256 ) special/clip [ 0 1 0 32 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
 // entity 80
