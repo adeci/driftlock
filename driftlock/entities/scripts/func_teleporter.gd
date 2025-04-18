@@ -1,10 +1,10 @@
 @tool
 extends Area3D
-@export var show_debug_arrows: bool = true:
+@export var show_debug_arrows: bool = false:
 	set(value):
 		show_debug_arrows = value
 		if debug_arrow:
-			debug_arrow.visible = value if not Engine.is_editor_hint() else true
+			debug_arrow.visible = value if not Engine.is_editor_hint() else false
 @export var targetname: String = ""
 @export var target: String = ""
 @export var delay: float = 0.5

@@ -497,7 +497,6 @@ shape = SubResource("ConvexPolygonShape3D_0o37l")
 [node name="entity_tele1" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 3.75, -1.25)
 script = ExtResource("17_17fgl")
-show_debug_arrows = false
 targetname = "tele1"
 target = "tele2"
 delay = 2.0
@@ -515,7 +514,6 @@ shape = SubResource("ConvexPolygonShape3D_3gsye")
 [node name="entity_tele2" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.75, -1.5)
 script = ExtResource("17_17fgl")
-show_debug_arrows = false
 targetname = "tele2"
 target = "tele1"
 delay = 2.0

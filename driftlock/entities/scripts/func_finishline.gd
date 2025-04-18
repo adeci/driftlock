@@ -1,11 +1,11 @@
 @tool
 extends Area3D
 
-@export var show_debug_visuals: bool = true:
+@export var show_debug_visuals: bool = false:
 	set(value):
 		show_debug_visuals = value
 		if debug_visual:
-			debug_visual.visible = value if not Engine.is_editor_hint() else true
+			debug_visual.visible = value if not Engine.is_editor_hint() else false
 
 var debug_visual: MeshInstance3D
 var player_finish_cooldown: Dictionary = {}

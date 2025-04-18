@@ -6,11 +6,11 @@ extends Node3D
 	set(value):
 		exit_direction = value
 		update_arrow_direction()
-@export var show_debug_visual: bool = true:
+@export var show_debug_visual: bool = false:
 	set(value):
 		show_debug_visual = value
 		if debug_visual:
-			debug_visual.visible = value if not Engine.is_editor_hint() else true
+			debug_visual.visible = value if not Engine.is_editor_hint() else false
 
 var debug_visual: MeshInstance3D
 

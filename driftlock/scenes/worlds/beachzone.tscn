@@ -119,6 +119,7 @@ shape = SubResource("ConcavePolygonShape3D_fas0d")
 [node name="entity_2_func_finishline" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.25, 0)
 script = ExtResource("9_6p3oj")
+show_debug_visuals = true
 
 [node name="entity_2_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_finishline"]
 shape = SubResource("ConvexPolygonShape3D_k8vfg")
@@ -126,6 +127,7 @@ shape = SubResource("ConvexPolygonShape3D_k8vfg")
 [node name="entity_3_func_checkpoint" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.25, 16.5)
 script = ExtResource("10_4k5wj")
+show_debug_visuals = true
 
 [node name="entity_3_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_3_func_checkpoint"]
 shape = SubResource("ConvexPolygonShape3D_7arry")
@@ -134,6 +136,7 @@ shape = SubResource("ConvexPolygonShape3D_7arry")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.25, 2.25, -0.25)
 script = ExtResource("10_4k5wj")
 checkpoint_id = 2
+show_debug_visuals = true
 
 [node name="entity_4_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_4_func_checkpoint"]
 shape = SubResource("ConvexPolygonShape3D_o6x7i")
@@ -142,6 +145,7 @@ shape = SubResource("ConvexPolygonShape3D_o6x7i")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.75, -2.75, -61)
 script = ExtResource("10_4k5wj")
 checkpoint_id = 3
+show_debug_visuals = true
 
 [node name="entity_5_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_5_func_checkpoint"]
 shape = SubResource("ConvexPolygonShape3D_dv5rs")
@@ -151,14 +155,17 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 26.75,
 script = ExtResource("11_1svib")
 checkpoint_id = 3
 exit_direction = null
+show_debug_visual = true
 
 [node name="entity_7_func_respawnpoint" type="Node3D" parent="FuncGodotMap"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 67.25, 3.25, 2.75)
 script = ExtResource("11_1svib")
 checkpoint_id = 2
 exit_direction = null
+show_debug_visual = true
 
 [node name="entity_8_func_respawnpoint" type="Node3D" parent="FuncGodotMap"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.25, 4.25, 23.75)
 script = ExtResource("11_1svib")
 exit_direction = null
+show_debug_visual = true
