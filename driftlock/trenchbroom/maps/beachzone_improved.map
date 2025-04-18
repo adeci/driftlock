@@ -143,8 +143,11 @@
 // entity 2
 {
 "classname" "func_water"
-"buoyancy" "0.1"
+"buoyancy" "0.95"
 "water_foam" "1"
+"movement_slowdown" "0.3"
+"water_wave_height" "0.1"
+"water_wave_speed" "0.5"
 // brush 0
 {
 ( -6640 6416 -96 ) ( -6640 6417 -96 ) ( -6640 6416 -95 ) world/driftlock_textures/water_transparent [ 0 -1 0 0 ] [ 0 0 -1 -32 ] 180 1 1

@@ -24,20 +24,20 @@ add_face_normal_metadata = false
 add_collision_shape_face_range_metadata = false
 script_class = ExtResource("2_bl8fs")
 classname = "func_water"
-description = "Water volume with buoyancy and visual effects."
+description = "Water volume with buoyancy and visual effects. Slows down player movement."
 func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
 "buoyancy": 0.8,
+"movement_slowdown": 0.6,
 "water_color": Color(0, 0.4, 0.6, 0.5),
-"water_foam": false,
 "water_wave_height": 0.1,
 "water_wave_speed": 1.0
 }
 class_property_descriptions = {
 "buoyancy": "How floaty entities are in water (0-1)",
+"movement_slowdown": "Factor to slow down player movement in water (0-1)",
 "water_color": "Color and opacity of water",
-"water_foam": "Enable foam effect on water surface",
 "water_wave_height": "Height of water surface waves",
 "water_wave_speed": "Speed of water surface waves"
 }
