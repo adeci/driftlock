@@ -52,37 +52,31 @@ func _physics_process(delta: float) -> void:
 			apply_water_physics(body, delta)
 
 func apply_water_physics(body: CharacterBody3D, delta: float) -> void:
-	# Get water surface height
-	var water_surface = global_position.y
-	for child in get_children():
-		if child is CollisionShape3D and child.shape is BoxShape3D:
-			water_surface += child.shape.size.y * 0.5
-		break
-
-	# Apply reduced gravity (buoyancy)
+	# Instead of changing gravity completely, we just reduce its effect
 	if "fall_acceleration" in body:
-		var reduced_gravity = body.fall_acceleration * (1.0 - buoyancy)
-		body.velocity.y -= reduced_gravity * delta
+		# Apply reduced gravity (buoyancy factor reduces the effect of gravity)
+		var fall_effect = body.fall_acceleration * (1.0 - buoyancy) * delta
+		
+		# Only reduce downward velocity, don't slow down upward velocity
+		if body.velocity.y < 0:
+			body.velocity.y = max(body.velocity.y - fall_effect, body.velocity.y * 0.95)
+		else:
+			body.velocity.y -= fall_effect * 0.5  # Reduce upward velocity less
 
-		# Allow player to move up and down in water more easily
-		if Input.is_action_pressed("DOWN"):
-			body.velocity.y -= 5.0 * delta
-		if Input.is_action_pressed("UP"):
-			body.velocity.y += 5.0 * delta
-
-	# Instead of changing the speed property, apply a slowdown factor to velocity
-	# Only slow horizontal movement and only when not on ground
-	if !body.is_on_floor():
-		# Slow down horizontal movement in water by applying a drag force
-		var horizontal_velocity = Vector2(body.velocity.x, body.velocity.z)
-		if horizontal_velocity.length() > 0:
-			horizontal_velocity = horizontal_velocity * movement_slowdown
+	# Slow down horizontal movement in water
+	var horizontal_velocity = Vector2(body.velocity.x, body.velocity.z)
+	if horizontal_velocity.length_squared() > 0.01:
+		# Apply gradual slowdown rather than instant reduction
+		horizontal_velocity = horizontal_velocity.lerp(Vector2.ZERO, (1.0 - movement_slowdown) * delta * 3.0)
 		body.velocity.x = horizontal_velocity.x
 		body.velocity.z = horizontal_velocity.y
-
-	# Set water state on the player if it has the property
+	
+	# Set a property on the body so the camera shader knows we're underwater
 	if "is_in_water" in body:
 		body.is_in_water = true
+	else:
+		# If the property doesn't exist, add it
+		body.set("is_in_water", true)
 
 func _on_body_entered(body: Node) -> void:
 	if body is CharacterBody3D:
