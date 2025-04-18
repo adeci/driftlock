@@ -16,6 +16,8 @@ var player_race_times: Dictionary = {} # Tracks when each player started the rac
 var player_required_checkpoints: Dictionary = {} # Tracks required checkpoint count for each player
 var player_respawning: Dictionary = {} # Tracks if a player is currently respawning
 
+var spawn_points: Dictionary = {}
+
 # Respawn settings
 var respawn_hold_time: float = 2.0  # Seconds to hold player at respawn
 var respawn_invincible_time: float = 5.0  # Seconds player is non-collidable after respawn
@@ -25,6 +27,59 @@ var debug_mode: bool = true
 
 func _ready() -> void:
 	print("RaceManager initialized and ready")
+
+# Register a spawn point with the manager
+func register_spawn_point(spawn_id: int, position: Vector3, direction: Vector3, rotation_y: float = 0.0) -> void:
+	spawn_points[spawn_id] = {
+		"position": position,
+		"direction": direction,
+		"rotation_y": rotation_y
+	}
+	
+	# Also set this as the initial respawn point for players
+	if not player_respawns.has(spawn_id):
+		player_respawns[spawn_id] = position
+		player_respawn_rotations[spawn_id] = rotation_y
+
+	if debug_mode:
+		print("Registered spawn point for ID %d at position %s" % [spawn_id, position])
+
+# Get a spawn position
+func get_spawn_position(spawn_id: int = 1) -> Vector3:
+	if spawn_points.has(spawn_id):
+		return spawn_points[spawn_id]["position"]
+	return Vector3.ZERO  # Default spawn if none set
+
+# Get a spawn direction vector
+func get_spawn_direction(spawn_id: int = 1) -> Vector3:
+	if spawn_points.has(spawn_id):
+		return spawn_points[spawn_id]["direction"]
+	return Vector3(0, 0, 1)  # Default direction if none set
+
+# Get a spawn rotation
+func get_spawn_rotation(spawn_id: int = 1) -> float:
+	if spawn_points.has(spawn_id):
+		return spawn_points[spawn_id]["rotation_y"]
+	return 0.0  # Default rotation if none set
+
+# Assign a spawn point to a player
+# Modify the assign_spawn_to_player function in RaceManager.gd
+func assign_spawn_to_player(player_id: int, spawn_id: int = 1) -> void:
+	if not spawn_points.has(spawn_id):
+		if debug_mode:
+			print("No spawn point with ID %d found for player %d" % [spawn_id, player_id])
+		return
+	
+	# Make sure the player is registered
+	if not player_checkpoints.has(player_id):
+		register_player(player_id)
+	
+	# Set initial respawn point to the spawn point
+	player_respawns[player_id] = spawn_points[spawn_id]["position"]
+	player_respawn_rotations[player_id] = spawn_points[spawn_id]["rotation_y"]
+	
+	if debug_mode:
+		print("Assigned player %d to spawn point %d at position %s" % [player_id, spawn_id, player_respawns[player_id]])
 
 # Register a checkpoint with the manager
 func register_checkpoint(checkpoint: Node, checkpoint_id: int, is_required: bool = true) -> void:

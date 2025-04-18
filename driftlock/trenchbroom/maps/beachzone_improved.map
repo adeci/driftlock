@@ -246,12 +246,6 @@
 }
 // entity 4
 {
-"classname" "func_respawnpoint"
-"origin" "-520 2264 1192"
-"show_debug_visual" "1"
-}
-// entity 5
-{
 "classname" "func_geo"
 // brush 0
 {
@@ -301,7 +295,7 @@
 ( 1296 -336 -16 ) ( 1296 -337 -16 ) ( 1296 -336 -15 ) world/nb_flats/NFFT52H [ 3.6739403974420594e-16 1 0 -48 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 6
+// entity 5
 {
 "classname" "func_geo"
 // brush 0
@@ -368,7 +362,7 @@
 ( 256 256 0 ) ( 256 255 0 ) ( 256 256 1 ) world/driftlock_textures/sand [ -3.6739403974420594e-16 -1 0 0 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 7
+// entity 6
 {
 "classname" "func_mover"
 "looped" "1"
@@ -391,7 +385,7 @@
 ( 1680 672 0 ) ( 1680 672 1 ) ( 1680 673 0 ) world/nb_flats/NFSTGY12 [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 8
+// entity 7
 {
 "classname" "func_geo"
 "looped" "1"
@@ -414,7 +408,7 @@
 ( 1680 1568 0 ) ( 1680 1568 1 ) ( 1680 1569 0 ) world/nb_flats/NFWDVTV [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 9
+// entity 8
 {
 "classname" "func_mover"
 "looped" "1"
@@ -437,7 +431,7 @@
 ( 1872 1760 0 ) ( 1872 1760 1 ) ( 1872 1761 0 ) world/nb_flats/NFSTGY12 [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 10
+// entity 9
 {
 "classname" "func_mover"
 "looped" "1"
@@ -460,7 +454,7 @@
 ( 1488 1760 0 ) ( 1488 1760 1 ) ( 1488 1761 0 ) world/nb_flats/NFSTGY12 [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 11
+// entity 10
 {
 "classname" "func_geo"
 // brush 0
@@ -619,7 +613,7 @@
 ( 1408 2576 -16 ) ( 1408 2576 -15 ) ( 1408 2577 -16 ) world/driftlock_textures/sand [ -1.2481505346883809e-15 1 0 48 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 12
+// entity 11
 {
 "classname" "func_boost"
 "velocity" "0 0 25"
@@ -633,7 +627,7 @@
 ( 1200 2816 16 ) ( 1200 2816 17 ) ( 1200 2817 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 13
+// entity 12
 {
 "classname" "func_geo"
 // brush 0
@@ -792,7 +786,7 @@
 ( 1904 2816 0 ) ( 1904 2720 0 ) ( 1904 2720 128 ) world/driftlock_textures/sand [ 0 -1 0 -0.91918945 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 14
+// entity 13
 {
 "classname" "func_boost"
 "velocity" "0 0 -25"
@@ -806,7 +800,7 @@
 ( 2000 2640 0 ) ( 2000 2640 1 ) ( 2000 2641 0 ) special/clip [ 0 -1 0 0 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
-// entity 15
+// entity 14
 {
 "classname" "func_geo"
 // brush 0
@@ -999,7 +993,7 @@
 ( 1152 -400 0 ) ( 1152 -592 0 ) ( 1152 -592 128 ) world/nb_flats/NFFT52H [ 5.053215498074303e-16 1 0 -48 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 16
+// entity 15
 {
 "classname" "func_geo"
 // brush 0
@@ -1201,7 +1195,7 @@
 ( 1104 96 0 ) ( 1104 96 1 ) ( 1104 97 0 ) world/nb_flats/NFFT52H [ -6.815966449235829e-16 -1 0 32 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 17
+// entity 16
 {
 "classname" "func_geo"
 // brush 0
@@ -1457,7 +1451,7 @@
 ( 1392 -336 -16 ) ( 1424 -592 -16 ) ( 1424 -592 112 ) world/nb_flats/NFFT52H [ -0.1240347345892085 0.9922778767136677 0 -5.9382935 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 18
+// entity 17
 {
 "classname" "func_boost"
 "velocity" "0 0 -30"
@@ -1471,7 +1465,7 @@
 ( -1024 4736 16 ) ( -1024 4736 17 ) ( -1024 4737 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 19
+// entity 18
 {
 "classname" "func_geo"
 "looped" ""
@@ -1495,7 +1489,7 @@
 ( 976 2432 0 ) ( 976 2432 1 ) ( 976 2433 0 ) world/nb_flats/NFWDVTV [ 0 1 0 32 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 20
+// entity 19
 {
 "classname" "func_geo"
 "looped" ""
@@ -1518,7 +1512,7 @@
 ( 2384 2176 -16 ) ( 2384 2176 -15 ) ( 2384 2177 -16 ) world/nb_flats/NFWDVTV [ 0 -1 0 32 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 21
+// entity 20
 {
 "classname" "func_boost"
 "velocity" "0 0 -30"
@@ -1532,7 +1526,7 @@
 ( -448 4224 16 ) ( -448 4224 17 ) ( -448 4225 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 22
+// entity 21
 {
 "classname" "func_boost"
 "velocity" "0 0 -50"
@@ -1546,7 +1540,7 @@
 ( 448 4608 16 ) ( 448 4608 17 ) ( 448 4609 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 23
+// entity 22
 {
 "classname" "func_boost"
 "velocity" "0 0 -50"
@@ -1560,7 +1554,7 @@
 ( 1408 4224 16 ) ( 1408 4224 17 ) ( 1408 4225 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 24
+// entity 23
 {
 "classname" "func_boost"
 "velocity" "0 0 -70"
@@ -1574,7 +1568,7 @@
 ( 2368 4736 16 ) ( 2368 4736 17 ) ( 2368 4737 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 25
+// entity 24
 {
 "classname" "func_boost"
 "velocity" "0 0 -70"
@@ -1588,7 +1582,7 @@
 ( 3008 4608 16 ) ( 3008 4608 17 ) ( 3008 4609 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 26
+// entity 25
 {
 "classname" "func_boost"
 "velocity" "0 0 -70"
@@ -1602,7 +1596,7 @@
 ( 3776 4224 16 ) ( 3776 4224 17 ) ( 3776 4225 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 }
-// entity 27
+// entity 26
 {
 "classname" "func_boost"
 "velocity" "0 0 -70"
@@ -1616,7 +1610,7 @@
 ( 4352 4736 16 ) ( 4352 4736 17 ) ( 4352 4737 16 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 28
+// entity 27
 {
 "classname" "func_geo"
 // brush 0
@@ -1841,7 +1835,7 @@
 ( -1696 4192 -1696 ) ( -1696 4192 -1695 ) ( -1696 4193 -1696 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 -16 ] 180 1 1
 }
 }
-// entity 29
+// entity 28
 {
 "classname" "func_geo"
 // brush 0
@@ -2050,7 +2044,7 @@
 ( -1440 5056 -96 ) ( -1440 3856 -144 ) ( -1440 3856 -96 ) world/nb_flats/NFFT52H [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 30
+// entity 29
 {
 "classname" "func_geo"
 // brush 0
@@ -2225,7 +2219,7 @@
 ( -2175.8620484583753 4160 -1152 ) ( -2368 4352.137951541625 -1152 ) ( -2368 4352.137951541625 -1296 ) world/nb_flats/NFFT52H [ 0.7071067811865476 -0.7071067811865476 0 22.294434 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 31
+// entity 30
 {
 "classname" "func_geo"
 // brush 0
@@ -2333,7 +2327,7 @@
 ( -1376 4832 0 ) ( -1376 4832 1 ) ( -1376 4833 0 ) world/nb_flats/NFGSTN01 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 32
+// entity 31
 {
 "classname" "func_geo"
 // brush 0
@@ -2643,7 +2637,7 @@
 ( 4960 4528 0 ) ( 4960 4528 1 ) ( 4960 4529 0 ) world/nb_flats/NFFT52H [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 33
+// entity 32
 {
 "classname" "func_geo"
 // brush 0
@@ -2683,7 +2677,7 @@
 ( 5744 4288 752 ) ( 5744 4256 224 ) ( 5744 4256 752 ) world/nb_flats/NFLTW05V [ 0 1 0 16 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
-// entity 34
+// entity 33
 {
 "classname" "func_teleporter"
 "show_debug_arrows" "1"
@@ -2700,7 +2694,7 @@
 ( 5728 4608 272 ) ( 5728 4608 273 ) ( 5728 4609 272 ) world/nb_flats/NFLTB04H [ 0 1 0 0 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
-// entity 35
+// entity 34
 {
 "classname" "func_teleporter"
 "targetname" "firsttele"
@@ -2715,7 +2709,7 @@
 ( 1680 2816 0 ) ( 1680 2816 1 ) ( 1680 2817 0 ) world/nb_flats/NFLTB04H [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 36
+// entity 35
 {
 "classname" "func_geo"
 // brush 0
@@ -2791,7 +2785,7 @@
 ( 1696 2640 0 ) ( 1696 2640 1 ) ( 1696 2641 0 ) world/nb_flats/NFLTW05V [ 0 1 0 0 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
-// entity 37
+// entity 36
 {
 "classname" "func_water"
 "buoyancy" "1"
@@ -2810,7 +2804,7 @@
 ( -1760 4528 -336 ) ( -1760 4416 -336 ) ( -1760 4416 -208 ) world/driftlock_textures/water_transparent [ 0 1 0 -16 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 38
+// entity 37
 {
 "classname" "func_geo"
 // brush 0
@@ -2823,7 +2817,7 @@
 ( 4160 4736 0 ) ( 4160 4608 0 ) ( 4160 4608 128 ) world/driftlock_textures/sand [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 39
+// entity 38
 {
 "classname" "func_geo"
 // brush 0
@@ -2836,7 +2830,7 @@
 ( 4352 4608 0 ) ( 4352 4736 128 ) ( 4352 4736 0 ) world/driftlock_textures/boost [ 0 1.3113417024479546e-07 0.9999999999999915 0 ] [ 0 0.9999999999999915 -1.3113417024479546e-07 0 ] 270 1 1
 }
 }
-// entity 40
+// entity 39
 {
 "classname" "func_geo"
 // brush 0
@@ -2849,7 +2843,7 @@
 ( 3776 4096 0 ) ( 3776 4224 128 ) ( 3776 4224 0 ) world/driftlock_textures/sand [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 41
+// entity 40
 {
 "classname" "func_group"
 "_tb_type" "_tb_group"
@@ -2857,7 +2851,7 @@
 "_tb_id" "1"
 "_tb_linked_group_id" "{f43521d7-5bee-4658-85a3-822f1c84e62c}"
 }
-// entity 42
+// entity 41
 {
 "classname" "func_water"
 "buoyancy" "0.2"
@@ -2939,7 +2933,7 @@
 ( 7104 7136 -80 ) ( 7104 7136 -79 ) ( 7104 7137 -80 ) special/clip [ 0 1 0 0 ] [ 0 0 -1 -32 ] 90 1 1
 }
 }
-// entity 43
+// entity 42
 {
 "classname" "func_geo"
 // brush 0
@@ -2988,7 +2982,7 @@
 ( -864 4192 -1696 ) ( -864 4192 -1695 ) ( -864 4193 -1696 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 -16 ] 180 1 1
 }
 }
-// entity 44
+// entity 43
 {
 "classname" "func_geo"
 // brush 0
@@ -3001,7 +2995,7 @@
 ( -864 4192 -1280 ) ( -864 4192 -1279 ) ( -864 4193 -1280 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 16 ] 0 1 1
 }
 }
-// entity 45
+// entity 44
 {
 "classname" "func_geo"
 // brush 0
@@ -3050,7 +3044,7 @@
 ( -2496 4128 -1296 ) ( -2496 4096 -1312 ) ( -2496 4096 -1296 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 46
+// entity 45
 {
 "classname" "func_geo"
 // brush 0
@@ -3063,7 +3057,7 @@
 ( -2528 4192 -1280 ) ( -2528 4192 -1279 ) ( -2528 4193 -1280 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 16 ] 180 1 1
 }
 }
-// entity 47
+// entity 46
 {
 "classname" "func_geo"
 // brush 0
@@ -3112,7 +3106,7 @@
 ( -1664 4960 -1296 ) ( -1664 4928 -1312 ) ( -1664 4928 -1296 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 48
+// entity 47
 {
 "classname" "func_geo"
 // brush 0
@@ -3125,7 +3119,7 @@
 ( -1696 5024 -1280 ) ( -1696 5024 -1279 ) ( -1696 5025 -1280 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 16 ] 0 1 1
 }
 }
-// entity 49
+// entity 48
 {
 "classname" "func_geo"
 // brush 0
@@ -3174,7 +3168,7 @@
 ( -1664 3296 -1296 ) ( -1664 3264 -1312 ) ( -1664 3264 -1296 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 50
+// entity 49
 {
 "classname" "func_geo"
 // brush 0
@@ -3187,7 +3181,7 @@
 ( -1696 3360 -1280 ) ( -1696 3360 -1279 ) ( -1696 3361 -1280 ) world/nb_flats/NFSTBN12 [ 0 1 0 0 ] [ 0 0 -1 16 ] 180 1 1
 }
 }
-// entity 51
+// entity 50
 {
 "classname" "func_geo"
 // brush 0
@@ -3542,7 +3536,7 @@
 ( -2848 592 544 ) ( -2848 560 528 ) ( -2848 560 544 ) world/driftlock_textures/sand [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 52
+// entity 51
 {
 "classname" "func_geo"
 // brush 0
@@ -3555,7 +3549,7 @@
 ( -2480 1216 1120 ) ( -2480 1232 1248 ) ( -2480 1232 1120 ) world/driftlock_textures/sand [ 0 1 0 0 ] [ 0 0 -1 32 ] 90 1 1
 }
 }
-// entity 53
+// entity 52
 {
 "classname" "func_boost"
 "velocity" "0 0 -30"
@@ -3569,7 +3563,7 @@
 ( -608 1200 1136 ) ( -608 1199 1136 ) ( -608 1200 1137 ) special/clip [ -3.882351334913527e-23 4.371139006309477e-08 0.999999999999999 0 ] [ 8.881784197001243e-16 -0.999999999999999 4.371139006309477e-08 32 ] 180 0.5 0.5
 }
 }
-// entity 54
+// entity 53
 {
 "classname" "func_geo"
 // brush 0
@@ -3636,7 +3630,7 @@
 ( -608 1296 1104 ) ( -576 1040 1104 ) ( -576 1040 1232 ) world/driftlock_textures/sand [ 0.12403473458920958 -0.9922778767136676 0 17.405151 ] [ 0 0 -1 32 ] 0 1 1
 }
 }
-// entity 55
+// entity 54
 {
 "classname" "func_geo"
 // brush 0
@@ -3683,7 +3677,7 @@
 ( -448 1520 1120 ) ( -512 1284 1104 ) ( -512 1284 1120 ) world/driftlock_textures/sand [ 0.2617329702427047 0.9651403277699734 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 56
+// entity 55
 {
 "classname" "func_geo"
 // brush 0
@@ -3723,7 +3717,7 @@
 ( -432 2576 1120 ) ( -432 2576 1121 ) ( -432 2577 1120 ) world/nb_flats/NFLTW03H [ 0 1 0 0 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
-// entity 57
+// entity 56
 {
 "classname" "func_teleporter"
 "exit_direction" "3"
@@ -3739,7 +3733,7 @@
 ( -448 2576 1136 ) ( -448 2576 1137 ) ( -448 2577 1136 ) world/nb_flats/NFLTB04H [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 58
+// entity 57
 {
 "classname" "func_teleporter"
 "targetname" "pooptele"
@@ -3756,7 +3750,7 @@
 ( 624 64 16 ) ( 624 64 17 ) ( 624 65 16 ) world/nb_flats/NFLTB04H [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 59
+// entity 58
 {
 "classname" "func_boost"
 "velocity" "0 0 20"
@@ -3769,4 +3763,18 @@
 ( -2848 592 560 ) ( -4720 560 1136 ) ( -4720 592 1136 ) special/clip [ 1.2533528690759166e-07 -0.9999999999999913 -3.856470373597709e-08 0 ] [ -0.9557790087219415 -1.3113417002275085e-07 0.29408584883752054 36.23633 ] 0 0.4 0.4
 ( -4528 592 1076.9230769230767 ) ( -4528 560 1076.9230769230767 ) ( -4528 560 1204.9230769230767 ) special/clip [ 0 1.3113417024479546e-07 -0.9999999999999915 -24 ] [ 0 -0.9999999999999915 -1.3113417024479546e-07 -16 ] 0 0.4 0.4
 }
+}
+// entity 59
+{
+"classname" "func_respawnpoint"
+"origin" "-536 2408 1128"
+"show_debug_visual" "1"
+}
+// entity 60
+{
+"classname" "func_spawnpoint"
+"origin" "312 8 88"
+"exit_direction" "2"
+"show_debug_visual" "1"
+"spawn_id" "1"
 }
