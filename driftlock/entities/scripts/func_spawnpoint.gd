@@ -26,16 +26,20 @@ func spawn_player(player: Node3D) -> void:
 	# Position the player
 	player.global_position = global_position
 	
-	# Set rotation based on exit direction
-	player.global_rotation.y = global_rotation.y
+	# Calculate proper rotation based on exit direction
+	var direction = get_exit_direction_vector()
+	var look_rotation = atan2(direction.x, direction.z)
+	
+	# Set rotation 
+	player.global_rotation.y = look_rotation
 	
 	# Set looking direction if available
 	if player.has_method("set_looking_direction"):
-		player.set_looking_direction(get_exit_direction_vector())
+		player.set_looking_direction(direction)
 	elif "looking_direction" in player:
-		player.looking_direction = get_exit_direction_vector()
+		player.looking_direction = direction
 		
-	print("Spawned player at position: " + str(global_position))
+	print("Spawned player at position: " + str(global_position) + " with rotation: " + str(look_rotation))
 
 func _func_godot_apply_properties(props: Dictionary) -> void:
 	if "spawn_id" in props:
@@ -51,8 +55,13 @@ func _ready() -> void:
 		return
 		
 	create_debug_visual()
+	
 	# Register this spawn point with RaceManager
-	RaceManager.register_spawn_point(spawn_id, global_position, get_exit_direction_vector(), global_rotation.y)
+	# Calculate proper rotation based on exit direction
+	var direction = get_exit_direction_vector()
+	var look_rotation = atan2(direction.x, direction.z)
+	
+	RaceManager.register_spawn_point(spawn_id, global_position, direction, look_rotation)
 	
 	print("Spawn point registered with ID: ", spawn_id)
 
