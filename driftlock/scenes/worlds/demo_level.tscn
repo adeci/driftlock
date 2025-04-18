@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://d3ggh71lc5cv5"]
 
-[ext_resource type="PackedScene" uid="uid://c3arvlrph21we" path="res://scenes/worlds/demo.tscn" id="1_04itg"]
+[ext_resource type="PackedScene" uid="uid://cjgfsuttdlwfr" path="res://scenes/worlds/demo2.tscn" id="1_4s4bx"]
 [ext_resource type="PackedScene" uid="uid://d1wudvik8akhs" path="res://scenes/menus/GUI.tscn" id="2_d36iu"]
 
 [node name="DemoLevel" type="Node3D"]
 
-[node name="World" parent="." instance=ExtResource("1_04itg")]
+[node name="World2" parent="." instance=ExtResource("1_4s4bx")]
 
 [node name="GUI" parent="." instance=ExtResource("2_d36iu")]
 visible = false

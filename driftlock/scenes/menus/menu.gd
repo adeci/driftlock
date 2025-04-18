@@ -1,10 +1,6 @@
 extends MarginContainer
 
 
-enum levels {DEMO}
-
-var level
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_lobby_exit_pressed)
@@ -37,8 +33,6 @@ func _on_create_lobby_pressed() -> void:
 
 
 func _on_lobby_exit_pressed() -> void:
-	if NetworkManager.current_level > -1:
-		self.remove_child(level)
 	NetworkManager.close_server()
 	$LobbyMenu.visible = false
 	$MainMenu.visible = true
@@ -68,7 +62,8 @@ func _on_start_level(level_name) -> void:
 	$LobbyMenu.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
-	var level
 	match level_name:
-		levels.DEMO:
+		GameManager.Level.DEMO:
 			get_tree().change_scene_to_file("res://scenes/worlds/demo_level.tscn")
+		GameManager.Level.BEACH:
+			get_tree().change_scene_to_file("res://scenes/worlds/beachzone_level.tscn")
