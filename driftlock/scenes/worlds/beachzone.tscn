@@ -154,18 +154,15 @@ shape = SubResource("ConvexPolygonShape3D_dv5rs")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 26.75, -1.75, -117.75)
 script = ExtResource("11_1svib")
 checkpoint_id = 3
-exit_direction = null
 show_debug_visual = true
 
 [node name="entity_7_func_respawnpoint" type="Node3D" parent="FuncGodotMap"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 67.25, 3.25, 2.75)
 script = ExtResource("11_1svib")
 checkpoint_id = 2
-exit_direction = null
 show_debug_visual = true
 
 [node name="entity_8_func_respawnpoint" type="Node3D" parent="FuncGodotMap"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.25, 4.25, 23.75)
 script = ExtResource("11_1svib")
-exit_direction = null
 show_debug_visual = true
