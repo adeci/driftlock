@@ -502,6 +502,12 @@ targetname = "tele1"
 target = "tele2"
 delay = 2.0
 exit_direction = 1
+portal_color = null
+portal_edge_color = null
+portal_speed = null
+portal_distortion = null
+portal_scale = null
+edge_intensity = null
 
 [node name="entity_11_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_tele1"]
 shape = SubResource("ConvexPolygonShape3D_3gsye")
@@ -514,6 +520,12 @@ targetname = "tele2"
 target = "tele1"
 delay = 2.0
 exit_direction = 3
+portal_color = null
+portal_edge_color = null
+portal_speed = null
+portal_distortion = null
+portal_scale = null
+edge_intensity = null
 
 [node name="entity_12_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_tele2"]
 shape = SubResource("ConvexPolygonShape3D_lpn7q")
