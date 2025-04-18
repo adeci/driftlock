@@ -43,10 +43,10 @@ extends Area3D
 
 var cooldown: bool = false
 var debug_arrow: MeshInstance3D
-var portal_mesh: MeshInstance3D
 var portal_shader_material: ShaderMaterial
 var bounds: AABB
 var time: float = 0.0
+var mesh_instance: MeshInstance3D
 
 func _func_godot_apply_properties(props: Dictionary) -> void:
 	if "targetname" in props:
@@ -77,12 +77,14 @@ func _func_godot_apply_properties(props: Dictionary) -> void:
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		create_debug_arrow()
-		create_portal_mesh()
 		return
+	
 	body_entered.connect(_on_body_entered)
 	add_to_group("teleporter")
 	create_debug_arrow()
-	create_portal_mesh()
+	
+	# Create the shader material
+	setup_portal_shader()
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -94,13 +96,60 @@ func _process(delta: float) -> void:
 			
 	# Update shader time parameter
 	time += delta
-	if portal_shader_material:
+	if portal_shader_material and mesh_instance:
 		portal_shader_material.set_shader_parameter("time", time)
 
 func _func_godot_build_complete() -> void:
 	calculate_bounds()
 	update_arrow_direction()
-	position_portal_mesh()
+	
+	# Find the mesh instance created by func_godot
+	mesh_instance = find_mesh_instance()
+	
+	if mesh_instance:
+		# Apply our shader to the mesh instance
+		apply_shader_to_mesh()
+	else:
+		print("Warning: Could not find mesh instance for teleporter " + targetname)
+
+func find_mesh_instance() -> MeshInstance3D:
+	# Look for a MeshInstance3D child that was created by func_godot
+	for child in get_children():
+		if child is MeshInstance3D and "mesh_instance" in child.name:
+			return child
+	return null
+
+func setup_portal_shader() -> void:
+	portal_shader_material = ShaderMaterial.new()
+	var shader = load("res://assets/shaders/portal_shader.gdshader")
+	if not shader:
+		print("Error: Portal shader not found at res://assets/shaders/portal_shader.gdshader")
+		return
+	
+	portal_shader_material.shader = shader
+	_update_shader_params()
+
+func apply_shader_to_mesh() -> void:
+	if not mesh_instance or not portal_shader_material:
+		return
+	
+	# Get the original mesh
+	var original_mesh = mesh_instance.mesh
+	if not original_mesh:
+		return
+	
+	# Create a copy of the mesh to avoid modifying the original
+	var mesh_copy = original_mesh.duplicate()
+	
+	# Apply our shader material to all surfaces
+	for i in range(mesh_copy.get_surface_count()):
+		mesh_copy.surface_set_material(i, portal_shader_material)
+	
+	# Set the modified mesh
+	mesh_instance.mesh = mesh_copy
+	
+	# Make sure it's transparent
+	mesh_instance.transparency = 0.9
 
 func calculate_bounds() -> void:
 	bounds = AABB()
@@ -162,42 +211,6 @@ func create_debug_arrow() -> void:
 	debug_arrow.visible = show_debug_arrows if not Engine.is_editor_hint() else true
 	add_child(debug_arrow)
 
-func create_portal_mesh() -> void:
-	if portal_mesh:
-		portal_mesh.queue_free()
-		
-	portal_mesh = MeshInstance3D.new()
-	
-	# Load portal shader
-	portal_shader_material = ShaderMaterial.new()
-	var shader = load("res://assets/shaders/portal_shader.gdshader")
-	if not shader:
-		# Create the shader if it doesn't exist yet (for example in the editor)
-		print("Portal shader not found! Creating default material instead.")
-		var material = StandardMaterial3D.new()
-		material.albedo_color = portal_color
-		material.emission_enabled = true
-		material.emission = portal_color
-		material.emission_energy_multiplier = 1.5
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		portal_mesh.mesh = PlaneMesh.new()
-		portal_mesh.mesh.material = material
-	else:
-		portal_shader_material.shader = shader
-		_update_shader_params()
-		
-		# Create a mesh based on the collision shape
-		if bounds.size == Vector3.ZERO:
-			calculate_bounds()
-			
-		# Create a quad mesh for the portal
-		var quad = QuadMesh.new()
-		quad.material = portal_shader_material
-		portal_mesh.mesh = quad
-		
-	add_child(portal_mesh)
-	position_portal_mesh()
-
 func _update_shader_params() -> void:
 	if portal_shader_material:
 		portal_shader_material.set_shader_parameter("portal_color", portal_color)
@@ -207,42 +220,6 @@ func _update_shader_params() -> void:
 		portal_shader_material.set_shader_parameter("portal_scale", portal_scale)
 		portal_shader_material.set_shader_parameter("edge_intensity", edge_intensity)
 		portal_shader_material.set_shader_parameter("time", time)
-
-func position_portal_mesh() -> void:
-	if not portal_mesh:
-		return
-		
-	if bounds.size == Vector3.ZERO:
-		calculate_bounds()
-	
-	var center = bounds.position + bounds.size/2
-	
-	# Position the portal based on the collision shape and exit direction
-	match exit_direction:
-		0: # Forward (+Z)
-			portal_mesh.position = Vector3(center.x, center.y, center.z + bounds.size.z/2 - 0.05)
-			portal_mesh.rotation_degrees = Vector3(90, 0, 0)
-			portal_mesh.scale = Vector3(bounds.size.x, bounds.size.y, 1)
-		1: # Right (+X)
-			portal_mesh.position = Vector3(center.x + bounds.size.x/2 - 0.05, center.y, center.z)
-			portal_mesh.rotation_degrees = Vector3(0, 90, 0)
-			portal_mesh.scale = Vector3(bounds.size.z, bounds.size.y, 1)
-		2: # Backward (-Z)
-			portal_mesh.position = Vector3(center.x, center.y, center.z - bounds.size.z/2 + 0.05)
-			portal_mesh.rotation_degrees = Vector3(-90, 0, 0)
-			portal_mesh.scale = Vector3(bounds.size.x, bounds.size.y, 1)
-		3: # Left (-X)
-			portal_mesh.position = Vector3(center.x - bounds.size.x/2 + 0.05, center.y, center.z)
-			portal_mesh.rotation_degrees = Vector3(0, -90, 0)
-			portal_mesh.scale = Vector3(bounds.size.z, bounds.size.y, 1)
-		4: # Up (+Y)
-			portal_mesh.position = Vector3(center.x, center.y + bounds.size.y/2 - 0.05, center.z)
-			portal_mesh.rotation_degrees = Vector3(0, 0, 0)
-			portal_mesh.scale = Vector3(bounds.size.x, bounds.size.z, 1)
-		5: # Down (-Y)
-			portal_mesh.position = Vector3(center.x, center.y - bounds.size.y/2 + 0.05, center.z)
-			portal_mesh.rotation_degrees = Vector3(180, 0, 0)
-			portal_mesh.scale = Vector3(bounds.size.x, bounds.size.z, 1)
 
 func update_arrow_direction() -> void:
 	if not debug_arrow:
