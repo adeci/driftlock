@@ -14,6 +14,7 @@ func _ready() -> void:
 	NetworkManager.player_connected.connect(add_player_character)
 	NetworkManager.player_disconnected.connect(remove_player_character)
 
+
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 	var player = player_character.instantiate()
 	player.set_multiplayer_authority(peer_id)
@@ -31,45 +32,30 @@ func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 		# Assign this spawn point to the player for respawning too
 		RaceManager.assign_spawn_to_player(peer_id, spawn_id)
 		
-		# Now we can safely set the global position
-		player.global_position = RaceManager.get_spawn_position(spawn_id)
+		# Get transformation data from RaceManager
+		var spawn_position = RaceManager.get_spawn_position(spawn_id)
+		var spawn_direction = RaceManager.get_spawn_direction(spawn_id)
+		var spawn_rotation = RaceManager.get_spawn_rotation(spawn_id)
 		
-		# Get direction and calculate rotation
-		var direction = RaceManager.get_spawn_direction(spawn_id)
+		# Set player transforms
+		player.global_position = spawn_position
+		player.global_rotation.y = spawn_rotation
 		
-		# Set player rotation
-		player.global_rotation.y = RaceManager.get_spawn_rotation(spawn_id)
+		var fox = player.get_node("Fox")
+		if fox:
+			# Set the looking_direction property
+			if "looking_direction" in fox:
+				fox.looking_direction = spawn_direction
+				print("Set looking_direction on Fox: " + str(spawn_direction))
+			
+			# Or use the method if available
+			elif fox.has_method("set_looking_direction"):
+				fox.set_looking_direction(spawn_direction)
+				print("Called set_looking_direction on Fox")
 		
-		# Set looking direction if available
-		if player.has_method("set_looking_direction"):
-			player.set_looking_direction(direction)
-		elif "looking_direction" in player:
-			player.looking_direction = direction
-	
-	print("Player " + str(peer_id) + " spawned at position: " + str(player.global_position))
-	
-	# IMPORTANT: Wait until after add_child to set global transforms
-	if RaceManager.spawn_points.size() > 0:
-		# For simplicity, use the first spawn point
-		var spawn_id = RaceManager.spawn_points.keys()[0]
-		
-		# Assign this spawn point to the player for respawning too
-		RaceManager.assign_spawn_to_player(peer_id, spawn_id)
-		
-		# Now we can safely set the global position
-		player.global_position = RaceManager.get_spawn_position(spawn_id)
-		
-		# Set player rotation
-		var rotation_y = RaceManager.get_spawn_rotation(spawn_id)
-		player.global_rotation.y = rotation_y
-		
-		# If player has a looking_direction property, set it as well
-		if player.has_method("set_looking_direction"):
-			player.set_looking_direction(RaceManager.get_spawn_direction(spawn_id))
-		elif "looking_direction" in player:
-			player.looking_direction = RaceManager.get_spawn_direction(spawn_id)
-	
-	print("Player " + str(peer_id) + " spawned at position: " + str(player.global_position))
+		print("Player " + str(peer_id) + " spawned at position: " + str(spawn_position) + " with rotation: " + str(spawn_rotation))
+	else:
+		print("No spawn points found. Using default spawn position.")
 
 
 func remove_player_character(peer_id) -> void:

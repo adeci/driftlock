@@ -13,10 +13,19 @@ func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
 "checkpoint_id": 1,
+"exit_direction": {
+"Backward (-Z)": 2,
+"Down (-Y)": 5,
+"Forward (+Z)": 0,
+"Left (-X)": 3,
+"Right (+X)": 1,
+"Up (+Y)": 4
+},
 "show_debug_visual": true
 }
 class_property_descriptions = {
 "checkpoint_id": "ID of the checkpoint this respawn point is linked to",
+"exit_direction": "Direction the player will face when spawning",
 "show_debug_visual": "Show a visual arrow to represent the respawn point in game"
 }
 auto_apply_to_matching_node_properties = false

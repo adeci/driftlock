@@ -63,7 +63,6 @@ func get_spawn_rotation(spawn_id: int = 1) -> float:
 	return 0.0  # Default rotation if none set
 
 # Assign a spawn point to a player
-# Modify the assign_spawn_to_player function in RaceManager.gd
 func assign_spawn_to_player(player_id: int, spawn_id: int = 1) -> void:
 	if not spawn_points.has(spawn_id):
 		if debug_mode:
@@ -93,14 +92,16 @@ func register_checkpoint(checkpoint: Node, checkpoint_id: int, is_required: bool
 		print("Registered checkpoint %d at position %s (Required: %s)" % [checkpoint_id, checkpoint.global_position, is_required])
 
 # Register a respawn point with the manager
-func register_respawn_point(checkpoint_id: int, position: Vector3, rotation_y: float = 0.0) -> void:
+func register_respawn_point(checkpoint_id: int, position: Vector3, rotation_y: float = 0.0, direction: Vector3 = Vector3.ZERO) -> void:
 	respawn_points[checkpoint_id] = {
 		"position": position,
-		"rotation_y": rotation_y
+		"rotation_y": rotation_y,
+		"direction": direction
 	}
 
 	if debug_mode:
-		print("Registered respawn point for checkpoint %d at position %s" % [checkpoint_id, position])
+		print("Registered respawn point for checkpoint %d at position %s with direction %s" % 
+		[checkpoint_id, position, direction])
 
 # Register a player with the RaceManager
 func register_player(player_id: int) -> void:
@@ -234,6 +235,27 @@ func get_respawn_rotation(player_id: int) -> float:
 	if player_respawn_rotations.has(player_id):
 		return player_respawn_rotations[player_id]
 	return 0.0  # Default rotation if none set
+
+# Get respawn direction for a player
+func get_respawn_direction(player_id: int) -> Vector3:
+	# If we have a respawn position for this player
+	if player_respawns.has(player_id):
+		# Check if we have an entry in player_checkpoints for this player
+		if player_checkpoints.has(player_id) and player_checkpoints[player_id].size() > 0:
+			# The last checkpoint the player activated
+			var last_checkpoint_id = player_checkpoints[player_id].back()
+			
+			# If we have direction data for this checkpoint
+			if respawn_points.has(last_checkpoint_id) and respawn_points[last_checkpoint_id].has("direction"):
+				return respawn_points[last_checkpoint_id]["direction"]
+			
+			# If we don't have direction data but have rotation, calculate it
+			elif player_respawn_rotations.has(player_id):
+				var rotation = player_respawn_rotations[player_id]
+				return Vector3(sin(rotation), 0, cos(rotation))
+	
+	# Default direction (forward)
+	return Vector3(0, 0, 1)
 
 # Complete the respawn process
 func complete_respawn(player_id: int) -> void:

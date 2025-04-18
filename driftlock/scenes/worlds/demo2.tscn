@@ -351,7 +351,7 @@ indices = PackedInt32Array(0, 1, 2, 0, 2, 3)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tjfui"]
 data = PackedVector3Array(-3, 2.25, -26.75, 3, 2.25, -26.75, 3, -1.75, -26.75, -3, 2.25, -26.75, 3, -1.75, -26.75, -3, -1.75, -26.75)
 
-[node name="World2" type="Node3D"]
+[node name="World3" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
 script = ExtResource("1_1dhnc")
 
