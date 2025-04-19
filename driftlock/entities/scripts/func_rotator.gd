@@ -61,11 +61,15 @@ func activate_looped() -> void:
 	var amount: Vector3 = degrees * axis
 	tween = create_tween().set_loops()
 	if smooth:
-		tween.tween_property(self, "rotation_degrees", amount, speed).as_relative().set_delay(loop_pause).set_trans(TRANS_TYPE)
-		tween.tween_property(self, "rotation_degrees", -amount, speed).as_relative().set_delay(loop_pause).set_trans(TRANS_TYPE)
+		tween.tween_property(self, "rotation_degrees", amount, speed).as_relative().set_trans(TRANS_TYPE)
+		tween.tween_interval(loop_pause)
+		tween.tween_property(self, "rotation_degrees", -amount, speed).as_relative().set_trans(TRANS_TYPE)
+		tween.tween_interval(loop_pause)
 	else:
-		tween.tween_property(self, "rotation_degrees", amount, speed).as_relative().set_delay(loop_pause)
-		tween.tween_property(self, "rotation_degrees", -amount, speed).as_relative().set_delay(loop_pause)
+		tween.tween_property(self, "rotation_degrees", amount, speed).as_relative()
+		tween.tween_interval(loop_pause)
+		tween.tween_property(self, "rotation_degrees", -amount, speed).as_relative()
+		tween.tween_interval(loop_pause)
 
 func activate_timed() -> void:
 	is_active = true
