@@ -55,15 +55,17 @@ func _ready() -> void:
 	invincibility_timer.autostart = false
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	add_child(invincibility_timer)
-
-	# Store original collision settings
-	original_collision_layer = collision_layer
-	original_collision_mask = collision_mask
-
+	
 	# Register with RaceManager if we're authoritative
 	if is_multiplayer_authority():
 		RaceManager.register_player(get_multiplayer_authority())
 		RaceManager.respawn_started.connect(_on_respawn_started)
+		self.set_collision_layer_value(2, false)
+		self.set_collision_layer_value(1, true)
+
+	# Store original collision settings
+	original_collision_layer = collision_layer
+	original_collision_mask = collision_mask
 
 
 func _physics_process(delta):
@@ -171,7 +173,7 @@ func _physics_process(delta):
 
 		rpc("set_remote_position", global_position, global_rotation.y)
 	else:
-		global_position = global_position.lerp(rpc_position, 0.1)
+		global_position = global_position.lerp(rpc_position, 10*delta)
 
 func drift_left():
 	drifting = DriftMode.LEFT
@@ -240,6 +242,7 @@ func _on_respawn_timer_timeout() -> void:
 	RaceManager.complete_respawn(get_multiplayer_authority())
 
 	# Start invincibility timer
+	self.set_collision_mask_value(2, false)
 	invincibility_timer.start()
 
 # When invincibility period ends
