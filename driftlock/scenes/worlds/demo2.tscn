@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://entities/scripts/func_teleporter.gd" id="17_17fgl"]
 [ext_resource type="PackedScene" uid="uid://bvkq33d8qh0rl" path="res://scenes/game_object/item/item.tscn" id="18_6jr2t"]
 [ext_resource type="Script" path="res://entities/scripts/func_rotator.gd" id="19_enqe2"]
-[ext_resource type="Material" uid="uid://dtebcfxuvtwu7" path="res://assets/textures/world/nb_flats/NFTKGN00.tres" id="20_2376j"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFTKGN00.tres" id="20_2376j"]
 
 [sub_resource type="Environment" id="Environment_hckr3"]
 background_mode = 1
@@ -413,6 +413,8 @@ shape = SubResource("ConvexPolygonShape3D_oxr25")
 
 [node name="entity_3_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.25, -2)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("10_kw6eo")
 target = "door1"
 axis = Vector3(-1, 0, 0)
@@ -455,6 +457,8 @@ shape = SubResource("ConvexPolygonShape3D_jp8yt")
 
 [node name="entity_6_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.75, 3.5, 4.25)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("10_kw6eo")
 target = "bridge1"
 axis = Vector3(1, 0, 0)
@@ -468,6 +472,8 @@ shape = SubResource("ConvexPolygonShape3D_cbemg")
 
 [node name="entity_7_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.75, 3.5, 2.5)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("10_kw6eo")
 target = "trapdoor1"
 axis = Vector3(1, 0, 0)
@@ -495,6 +501,8 @@ shape = SubResource("ConvexPolygonShape3D_heura")
 
 [node name="entity_9_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 1.25, 0)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("10_kw6eo")
 target = "door1"
 axis = Vector3(-1, 0, 0)
@@ -601,12 +609,12 @@ occluder = SubResource("ArrayOccluder3D_odjkt")
 shape = SubResource("ConcavePolygonShape3D_jnwtf")
 
 [node name="entity_20_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.75, -7)
+transform = Transform3D(0.996344, 0.0854303, 0, -0.0854303, 0.996344, 0, 0, 0, 1, 1, 4.75, -7)
 script = ExtResource("19_enqe2")
 targetname = "rotator1"
 axis = Vector3(0, 0, 1)
 degrees = -180.0
-speed = 0.8
+speed = 1.25
 looped = true
 smooth = true
 

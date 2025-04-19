@@ -62,6 +62,8 @@ func _ready() -> void:
 		RaceManager.respawn_started.connect(_on_respawn_started)
 		self.set_collision_layer_value(2, false)
 		self.set_collision_layer_value(1, true)
+		self.set_collision_mask_value(2, true)
+		self.set_collision_mask_value(1, true)
 
 	# Store original collision settings
 	original_collision_layer = collision_layer
@@ -153,7 +155,8 @@ func _physics_process(delta):
 		if respawning:
 			# You can add visual effects here if needed
 			# to indicate player is respawning/collisions off for a bit
-			pass
+			self.set_collision_mask_value(2, false)
+			invincibility_timer.start()
 
 		global_rotation.y = atan2(looking_direction.x, looking_direction.z)
 
@@ -232,8 +235,7 @@ func _on_respawn_timer_timeout() -> void:
 
 	# Make player non-collidable with other players
 	# Assuming player-player collision is on layer/mask bit 1
-	collision_layer &= ~2  # Turn off bit 1 in collision layer
-	collision_mask &= ~2   # Turn off bit 1 in collision mask
+	#self.set_collision_mask_value(2, false)
 
 	# Player can move now
 	respawning = false
@@ -242,8 +244,7 @@ func _on_respawn_timer_timeout() -> void:
 	RaceManager.complete_respawn(get_multiplayer_authority())
 
 	# Start invincibility timer
-	self.set_collision_mask_value(2, false)
-	invincibility_timer.start()
+	#invincibility_timer.start()
 
 # When invincibility period ends
 func _on_invincibility_timer_timeout() -> void:
