@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://dnvrve8p8pjg1"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_xubvj"]
+[ext_resource type="Script" path="res://entities/scripts/func_spawnpoint.gd" id="2_fdeoy"]
+
+[resource]
+script = ExtResource("1_xubvj")
+script_class = ExtResource("2_fdeoy")
+apply_rotation_on_map_build = true
+classname = "func_spawnpoint"
+description = "Defines a spawn position for players entering the map. Players will be spawned here when joining the game."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"exit_direction": {
+"Backward (-Z)": 2,
+"Down (-Y)": 5,
+"Forward (+Z)": 0,
+"Left (-X)": 3,
+"Right (+X)": 1,
+"Up (+Y)": 4
+},
+"show_debug_visual": true,
+"spawn_id": 1
+}
+class_property_descriptions = {
+"exit_direction": "Direction the player will face when spawning",
+"show_debug_visual": "Show a visual arrow to represent the spawn point in game",
+"spawn_id": "Unique ID for this spawn point"
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(1, 1, 0, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Node3D"
+name_property = ""

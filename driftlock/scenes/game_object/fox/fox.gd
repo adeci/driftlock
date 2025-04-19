@@ -30,6 +30,8 @@ var invincibility_timer: Timer
 var original_collision_layer: int
 var original_collision_mask: int
 
+var is_in_water: bool = false
+
 var rpc_position = Vector3.ZERO
 
 func _ready() -> void:

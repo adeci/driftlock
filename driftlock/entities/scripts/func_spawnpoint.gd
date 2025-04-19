@@ -1,7 +1,7 @@
 @tool
 extends Node3D
 
-@export var checkpoint_id: int = 1
+@export var spawn_id: int = 1
 @export_enum("Forward (+Z)", "Right (+X)", "Backward (-Z)", "Left (-X)", "Up (+Y)", "Down (-Y)") var exit_direction: int = 0:
 	set(value):
 		exit_direction = value
@@ -13,9 +13,25 @@ extends Node3D
 
 var debug_visual: MeshInstance3D
 
+func spawn_player(player: Node3D) -> void:
+	if player == null:
+		return
+	if not player.is_inside_tree():
+		printerr("Cannot spawn player - not in scene tree")
+		return
+	player.global_position = global_position
+	var direction = get_exit_direction_vector()
+	var look_rotation = atan2(direction.x, direction.z)
+	player.global_rotation.y = look_rotation
+	if player.has_method("set_looking_direction"):
+		player.set_looking_direction(direction)
+	elif "looking_direction" in player:
+		player.looking_direction = direction
+	print("Spawned player at position: " + str(global_position) + " with rotation: " + str(look_rotation))
+
 func _func_godot_apply_properties(props: Dictionary) -> void:
-	if "checkpoint_id" in props:
-		checkpoint_id = props["checkpoint_id"] as int
+	if "spawn_id" in props:
+		spawn_id = props["spawn_id"] as int
 	if "exit_direction" in props:
 		exit_direction = props["exit_direction"] as int
 	if "show_debug_visual" in props:
@@ -23,9 +39,9 @@ func _func_godot_apply_properties(props: Dictionary) -> void:
 
 func _ready() -> void:
 	var direction = get_exit_direction_vector()
-	var rotation_y = atan2(direction.x, direction.z)
-	RaceManager.register_respawn_point(checkpoint_id, global_position, rotation_y, direction)
-	print("Respawn point registered for checkpoint ID: ", checkpoint_id)
+	var look_rotation = atan2(direction.x, direction.z)
+	RaceManager.register_spawn_point(spawn_id, global_position, direction, look_rotation)
+	print("Spawn point registered with ID: ", spawn_id)
 
 func get_exit_direction_vector() -> Vector3:
 	var base_direction: Vector3

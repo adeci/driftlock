@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ues3saaml4df"
-path.s3tc="res://.godot/imported/NFBRGN01.png-93977661c579c84b269c314009e29172.s3tc.ctex"
+uid="uid://1bvv4bx06gpm"
+path.s3tc="res://.godot/imported/water_transparent.png-c1fd61317e153b634321851d3c286fd4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/world/nb_flats/NFBRGN01.png"
-dest_files=["res://.godot/imported/NFBRGN01.png-93977661c579c84b269c314009e29172.s3tc.ctex"]
+source_file="res://assets/textures/world/driftlock_textures/water_transparent.png"
+dest_files=["res://.godot/imported/water_transparent.png-c1fd61317e153b634321851d3c286fd4.s3tc.ctex"]
 
 [params]
 
