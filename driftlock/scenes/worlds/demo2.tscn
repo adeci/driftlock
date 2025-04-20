@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://entities/scripts/func_teleporter.gd" id="17_17fgl"]
 [ext_resource type="PackedScene" uid="uid://bvkq33d8qh0rl" path="res://scenes/game_object/item/item.tscn" id="18_6jr2t"]
 [ext_resource type="Script" path="res://entities/scripts/func_rotator.gd" id="19_enqe2"]
-[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFTKGN00.tres" id="20_2376j"]
+[ext_resource type="Material" uid="uid://cl6yarj7tj357" path="res://assets/textures/world/nb_flats/NFTKGN00.tres" id="20_2376j"]
 
 [sub_resource type="Environment" id="Environment_hckr3"]
 background_mode = 1
@@ -614,7 +614,7 @@ script = ExtResource("19_enqe2")
 targetname = "rotator1"
 axis = Vector3(0, 0, 1)
 degrees = -180.0
-speed = 0.8
+speed = 1.25
 looped = true
 smooth = true
 

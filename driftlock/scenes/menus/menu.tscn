@@ -144,7 +144,7 @@ color = Color(0, 0, 0, 1)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="demo_level" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
+[node name="DemoLevel" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -153,9 +153,9 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
-text = "demo_level"
+text = "Demo"
 
-[node name="beach_level" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
+[node name="BeachLevel" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -164,7 +164,18 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
-text = "beachzone"
+text = "Beachzone"
+
+[node name="DugeonLevel" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Dungeon"
 
 [node name="Exit" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/LevelSelectButtons/Buttons"]
 layout_mode = 2
@@ -563,10 +574,12 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_30ux2")
 selected = 0
-item_count = 2
+item_count = 3
 popup/item_0/text = "Demo"
 popup/item_1/text = "Beachzone"
 popup/item_1/id = 1
+popup/item_2/text = "Dungeon"
+popup/item_2/id = 2
 
 [node name="LobbyMenu" type="MarginContainer" parent="LobbyMenu/ElementSeperator"]
 layout_mode = 2

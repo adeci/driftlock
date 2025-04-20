@@ -75,6 +75,8 @@ func _on_start_level(level_name) -> void:
 			packed_scene = preload("res://scenes/Levels/demo_level.tscn")
 		GameManager.Level.BEACH:
 			packed_scene = preload("res://scenes/Levels/beachzone_level.tscn")
+		GameManager.Level.DUNGEON:
+			packed_scene = preload("res://scenes/Levels/dungeon_level.tscn")
 	if multiplayer.is_server():
 		remote_play.rpc(NetworkManager.current_level)
 	get_tree().change_scene_to_packed(packed_scene)

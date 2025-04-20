@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://uvdbar07s0rx"]
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://bfi57ab7fw7g5"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_gpcew"]
 [ext_resource type="Script" path="res://entities/scripts/func_killzone.gd" id="2_rvnq6"]

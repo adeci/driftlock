@@ -22,8 +22,9 @@ var levels = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Layer2/LevelSelectButtons/Buttons/demo_level.pressed.connect(_on_level_button_pressed.bind(GameManager.Level.DEMO))
-	$Layer2/LevelSelectButtons/Buttons/beach_level.pressed.connect(_on_level_button_pressed.bind(GameManager.Level.BEACH))
+	$Layer2/LevelSelectButtons/Buttons/DemoLevel.pressed.connect(_on_level_button_pressed.bind(GameManager.Level.DEMO))
+	$Layer2/LevelSelectButtons/Buttons/BeachLevel.pressed.connect(_on_level_button_pressed.bind(GameManager.Level.BEACH))
+	$Layer2/LevelSelectButtons/Buttons/DugeonLevel.pressed.connect(_on_level_button_pressed.bind(GameManager.Level.DUNGEON))
 	## Load Debugging Levels
 	#var dir = DirAccess.open(worlds)
 	#if dir:
