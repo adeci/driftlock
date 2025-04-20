@@ -1,8 +1,12 @@
 extends MarginContainer
 
 
+var host_ready: bool = false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	NetworkManager.load_level.connect(remote_play)
 	NetworkManager.server_disconnected.connect(_on_lobby_exit_pressed)
 	$LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons.play_level.connect(_on_start_level)
 	if (NetworkManager.lobby_id):
@@ -65,8 +69,18 @@ func _on_start_level(level_name) -> void:
 	$LobbyMenu.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
+	var packed_scene: PackedScene
 	match level_name:
 		GameManager.Level.DEMO:
-			get_tree().change_scene_to_file("res://scenes/Levels/demo_level.tscn")
+			packed_scene = preload("res://scenes/Levels/demo_level.tscn")
 		GameManager.Level.BEACH:
-			get_tree().change_scene_to_file("res://scenes/Levels/beachzone_level.tscn")
+			packed_scene = preload("res://scenes/Levels/beachzone_level.tscn")
+	if multiplayer.is_server():
+		remote_play.rpc(NetworkManager.current_level)
+	get_tree().change_scene_to_packed(packed_scene)
+
+
+@rpc("reliable")
+func remote_play(level: GameManager.Level) -> void:
+	NetworkManager.current_level = level
+	_on_start_level(level)
