@@ -67,6 +67,6 @@ func _on_start_level(level_name) -> void:
 	$SampleUIElements.visible = false
 	match level_name:
 		GameManager.Level.DEMO:
-			get_tree().change_scene_to_file("res://scenes/worlds/demo_level.tscn")
+			get_tree().change_scene_to_file("res://scenes/Levels/demo_level.tscn")
 		GameManager.Level.BEACH:
-			get_tree().change_scene_to_file("res://scenes/worlds/beachzone_level.tscn")
+			get_tree().change_scene_to_file("res://scenes/Levels/beachzone_level.tscn")
