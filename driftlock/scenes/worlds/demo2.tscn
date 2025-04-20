@@ -351,7 +351,7 @@ indices = PackedInt32Array(0, 1, 2, 0, 2, 3)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tjfui"]
 data = PackedVector3Array(-3, 2.25, -26.75, 3, 2.25, -26.75, 3, -1.75, -26.75, -3, 2.25, -26.75, 3, -1.75, -26.75, -3, -1.75, -26.75)
 
-[node name="World2" type="Node3D"]
+[node name="World3" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
 script = ExtResource("1_1dhnc")
 
@@ -497,7 +497,6 @@ shape = SubResource("ConvexPolygonShape3D_0o37l")
 [node name="entity_tele1" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 3.75, -1.25)
 script = ExtResource("17_17fgl")
-show_debug_arrows = false
 targetname = "tele1"
 target = "tele2"
 delay = 2.0
@@ -509,7 +508,6 @@ shape = SubResource("ConvexPolygonShape3D_3gsye")
 [node name="entity_tele2" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.75, -1.5)
 script = ExtResource("17_17fgl")
-show_debug_arrows = false
 targetname = "tele2"
 target = "tele1"
 delay = 2.0

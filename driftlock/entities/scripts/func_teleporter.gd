@@ -1,10 +1,10 @@
 @tool
 extends Area3D
-@export var show_debug_arrows: bool = true:
+@export var show_debug_arrows: bool = false:
 	set(value):
 		show_debug_arrows = value
 		if debug_arrow:
-			debug_arrow.visible = value if not Engine.is_editor_hint() else true
+			debug_arrow.visible = value if not Engine.is_editor_hint() else false
 @export var targetname: String = ""
 @export var target: String = ""
 @export var delay: float = 0.5
@@ -13,9 +13,40 @@ extends Area3D
 	set(value):
 		exit_direction = value
 		update_arrow_direction()
+
+# Portal shader properties
+@export_category("Portal Appearance")
+@export var portal_color: Color = Color(0.5, 0.0, 0.8, 0.7):
+	set(value):
+		portal_color = value
+		_update_shader_params()
+@export var portal_edge_color: Color = Color(0.9, 0.2, 1.0, 0.9):
+	set(value):
+		portal_edge_color = value
+		_update_shader_params()
+@export var portal_speed: float = 1.0:
+	set(value):
+		portal_speed = value
+		_update_shader_params()
+@export var portal_distortion: float = 0.5:
+	set(value):
+		portal_distortion = value
+		_update_shader_params()
+@export var portal_scale: float = 3.0:
+	set(value):
+		portal_scale = value
+		_update_shader_params()
+@export var edge_intensity: float = 0.5:
+	set(value):
+		edge_intensity = value
+		_update_shader_params()
+
 var cooldown: bool = false
 var debug_arrow: MeshInstance3D
+var portal_shader_material: ShaderMaterial
 var bounds: AABB
+var time: float = 0.0
+var mesh_instance: MeshInstance3D
 
 func _func_godot_apply_properties(props: Dictionary) -> void:
 	if "targetname" in props:
@@ -30,18 +61,169 @@ func _func_godot_apply_properties(props: Dictionary) -> void:
 		exit_direction = props["exit_direction"] as int
 	if "show_debug_arrows" in props:
 		show_debug_arrows = props["show_debug_arrows"] as bool
+	if "portal_color" in props:
+		portal_color = props["portal_color"] as Color
+	if "portal_edge_color" in props:
+		portal_edge_color = props["portal_edge_color"] as Color
+	if "portal_speed" in props:
+		portal_speed = props["portal_speed"] as float
+	if "portal_distortion" in props:
+		portal_distortion = props["portal_distortion"] as float
+	if "portal_scale" in props:
+		portal_scale = props["portal_scale"] as float
+	if "edge_intensity" in props:
+		edge_intensity = props["edge_intensity"] as float
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		create_debug_arrow()
 		return
+	
 	body_entered.connect(_on_body_entered)
 	add_to_group("teleporter")
 	create_debug_arrow()
+	
+	# Create the shader material
+	setup_portal_shader()
+	find_and_apply_shader()
+	
+	# Schedule a delayed shader application as a fallback
+	call_deferred("delayed_shader_application")
+
+func delayed_shader_application() -> void:
+	# Wait for a short delay to ensure entity is fully built
+	await get_tree().create_timer(0.5).timeout
+	find_and_apply_shader()
+
+func find_and_apply_shader() -> void:
+	mesh_instance = find_mesh_instance()
+	if mesh_instance:
+		print("Found mesh instance for teleporter: ", name)
+		apply_shader_to_mesh()
+	else:
+		print("Looking for mesh instance for teleporter: ", name)
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		if debug_arrow:
+			debug_arrow.visible = true
+	else:
+		if debug_arrow:
+			debug_arrow.visible = show_debug_arrows
+			
+	# Update shader time parameter
+	time += delta
+	if portal_shader_material and mesh_instance and mesh_instance.mesh:
+		portal_shader_material.set_shader_parameter("time", time)
 
 func _func_godot_build_complete() -> void:
 	calculate_bounds()
 	update_arrow_direction()
+	
+	# Find the mesh instance created by func_godot
+	mesh_instance = find_mesh_instance()
+	
+	if mesh_instance:
+		print("Found mesh instance during build_complete: ", mesh_instance.name)
+		# Apply our shader to the mesh instance
+		apply_shader_to_mesh()
+	else:
+		print("Warning: Could not find mesh instance during build_complete")
+		# Schedule a delayed attempt
+		call_deferred("delayed_find_mesh")
+		
+func delayed_find_mesh() -> void:
+	await get_tree().create_timer(0.2).timeout
+	mesh_instance = find_mesh_instance()
+	if mesh_instance:
+		print("Found mesh instance after delay: ", mesh_instance.name)
+		apply_shader_to_mesh()
+	else:
+		print("Still could not find mesh instance after delay")
+		
+func print_children_hierarchy(node: Node = null, indent: String = "") -> void:
+	if node == null:
+		node = self
+		print("Children hierarchy for teleporter: ", name)
+	
+	print(indent + node.name + " - " + node.get_class())
+	indent += "  "
+	for child in node.get_children():
+		print_children_hierarchy(child, indent)
+
+func find_mesh_instance() -> MeshInstance3D:
+	# First, look for a MeshInstance3D child with "mesh_instance" in the name
+	for child in get_children():
+		if child is MeshInstance3D and "mesh_instance" in child.name:
+			return child
+	
+	# If not found, check for any MeshInstance3D
+	for child in get_children():
+		if child is MeshInstance3D:
+			return child
+			
+	# If still not found, recursively search all children
+	return find_mesh_in_children(self)
+	
+func find_mesh_in_children(node: Node) -> MeshInstance3D:
+	for child in node.get_children():
+		if child is MeshInstance3D:
+			return child
+		
+		var result = find_mesh_in_children(child)
+		if result != null:
+			return result
+	
+	return null
+
+
+func setup_portal_shader() -> void:
+	portal_shader_material = ShaderMaterial.new()
+	var shader = load("res://assets/shaders/portal_shader.gdshader")
+	if not shader:
+		print("Error: Portal shader not found at res://assets/shaders/portal_shader.gdshader")
+		return
+	
+	print("Portal shader loaded successfully")
+	portal_shader_material.shader = shader
+	_update_shader_params()
+
+func apply_shader_to_mesh() -> void:
+	if not mesh_instance:
+		print("Cannot apply shader: No mesh instance")
+		return
+		
+	if not portal_shader_material:
+		print("Cannot apply shader: No shader material")
+		return
+	
+	print("Applying shader to mesh: ", mesh_instance.name)
+	
+	# Get the original mesh
+	var original_mesh = mesh_instance.mesh
+	if not original_mesh:
+		print("Cannot apply shader: Mesh instance has no mesh")
+		return
+	
+	print("Original mesh has ", original_mesh.get_surface_count(), " surfaces")
+	
+	# Create a copy of the mesh to avoid modifying the original
+	var mesh_copy = original_mesh.duplicate()
+	
+	# Apply our shader material to all surfaces
+	for i in range(mesh_copy.get_surface_count()):
+		print("Applying shader to surface ", i)
+		mesh_copy.surface_set_material(i, portal_shader_material)
+	
+	# Set the modified mesh
+	mesh_instance.mesh = mesh_copy
+	
+	# Configure transparency and make sure it's visible
+	mesh_instance.visible = true
+	mesh_instance.transparency = 0.5
+	mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	
+	print("Shader applied successfully to mesh")
 
 func calculate_bounds() -> void:
 	bounds = AABB()
@@ -68,7 +250,6 @@ func calculate_bounds() -> void:
 						max_point.z = max(max_point.z, v.z)
 					shape_aabb = AABB(min_point, max_point - min_point)
 				
-
 			shape_aabb = shape_aabb.grow(0.1)
 			
 			if first:
@@ -104,6 +285,16 @@ func create_debug_arrow() -> void:
 	debug_arrow.visible = show_debug_arrows if not Engine.is_editor_hint() else true
 	add_child(debug_arrow)
 
+func _update_shader_params() -> void:
+	if portal_shader_material:
+		portal_shader_material.set_shader_parameter("portal_color", portal_color)
+		portal_shader_material.set_shader_parameter("portal_edge_color", portal_edge_color)
+		portal_shader_material.set_shader_parameter("portal_speed", portal_speed)
+		portal_shader_material.set_shader_parameter("portal_distortion", portal_distortion)
+		portal_shader_material.set_shader_parameter("portal_scale", portal_scale)
+		portal_shader_material.set_shader_parameter("edge_intensity", edge_intensity)
+		portal_shader_material.set_shader_parameter("time", time)
+
 func update_arrow_direction() -> void:
 	if not debug_arrow:
 		return
@@ -137,14 +328,6 @@ func update_arrow_direction() -> void:
 			arrow_pos = Vector3(center.x, center.y - extents.y - 0.1, center.z)
 			debug_arrow.rotation_degrees = Vector3(180, 0, 0)
 	debug_arrow.position = arrow_pos
-
-func _process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		if debug_arrow:
-			debug_arrow.visible = true
-	else:
-		if debug_arrow:
-			debug_arrow.visible = show_debug_arrows
 
 func _on_body_entered(body: Node3D) -> void:
 	if cooldown or target.is_empty() or Engine.is_editor_hint():
