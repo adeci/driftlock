@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://cqfaubuunmrqp"]
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://b6egb07jkt6nb"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_badw7"]
 [ext_resource type="Script" path="res://entities/scripts/func_respawnpoint.gd" id="2_xts1m"]
