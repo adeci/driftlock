@@ -16,9 +16,7 @@ var level_loaded := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	multiplayer.connected_to_server.connect(_toggle_permissions)
-	multiplayer.server_disconnected.connect(_toggle_permissions)
-	NetworkManager.load_level.connect(remote_play)
+	multiplayer.server_disconnected.connect(_toggle_permissions.bind(false))
 	
 	## Load Debugging Levels
 	#var dir = DirAccess.open(worlds)
@@ -35,20 +33,18 @@ func _ready() -> void:
 		#level_options.add_item(level)
 
 
-func _toggle_permissions() -> void:
-	level_options.disabled = not level_options.disabled
-	play_button.disabled = not play_button.disabled
+func _toggle_permissions(toggle: bool = false) -> void:
+	level_options.disabled = toggle
+	play_button.disabled = toggle
 
 
 func _on_play_pressed() -> void:
 	if multiplayer.is_server():
 		var level = level_options.get_selected_id()
 		NetworkManager.current_level = level
-		remote_play.rpc(level)
 		play_level.emit(level)
 
 
-@rpc("reliable")
-func remote_play(level: GameManager.Level) -> void:
-	NetworkManager.current_level = level
-	play_level.emit(level)
+func _on_lobby_menu_draw() -> void:
+	if not multiplayer.is_server():
+		_toggle_permissions(true)

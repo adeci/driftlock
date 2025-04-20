@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk4wxctqpknmk"]
+
+[ext_resource type="PackedScene" path="res://scenes/worlds/beachzone-improved.tscn" id="1_d1dlx"]
+[ext_resource type="PackedScene" uid="uid://d1wudvik8akhs" path="res://scenes/menus/GUI.tscn" id="2_tgwl6"]
+
+[node name="BeachzoneLevel" type="Node3D"]
+
+[node name="World" parent="." instance=ExtResource("1_d1dlx")]
+
+[node name="GUI" parent="." instance=ExtResource("2_tgwl6")]
+visible = false

@@ -3,10 +3,15 @@ extends MarginContainer
 var racing: bool
 var placement: int
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not multiplayer.is_server() or NetworkManager.local:
+		$MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby.visible = false
+
 	$MainMenu.visible = false
 	$RaceUI.visible = true
+
 	self.visible = true
 	
 	racing = false

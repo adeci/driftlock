@@ -2,7 +2,7 @@
 extends Node
 
 enum Item {SPEEDUP, BOOST, JUMP}
-enum Level {DEMO}
+enum Level {DEMO, BEACH}
 
 signal button_pressed(target: String)
 

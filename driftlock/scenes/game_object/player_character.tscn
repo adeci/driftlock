@@ -116,6 +116,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287159, 0.848344, 0.937532)
 
 [node name="Fox" parent="." instance=ExtResource("7_w5udo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("8_10ar3")
 fall_acceleration = 1000
 

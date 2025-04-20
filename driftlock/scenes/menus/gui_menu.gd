@@ -1,6 +1,9 @@
 extends HBoxContainer
 
 
+signal exit_to_lobby
+
+
 # Layer Radio ButtonsNodes
 @export var layer_1: ButtonGroup
 
@@ -39,3 +42,13 @@ func _on_leave_pressed() -> void:
 
 func _on_resume_game_pressed() -> void:
 	Input.action_press("PAUSE")
+
+@rpc("reliable")
+func _on_exit_to_lobby_pressed() -> void:
+	get_tree().paused = true
+	if multiplayer.is_server():
+		_on_exit_to_lobby_pressed.rpc()
+	for i in range(60):
+		await get_tree().process_frame
+	NetworkManager.current_level = -1
+	get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")

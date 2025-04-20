@@ -1,17 +1,20 @@
 extends MarginContainer
 
 
-enum levels {DEMO}
+var host_ready: bool = false
 
-var level
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	NetworkManager.load_level.connect(remote_play)
 	NetworkManager.server_disconnected.connect(_on_lobby_exit_pressed)
 	$LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons.play_level.connect(_on_start_level)
-	$MainMenu.visible = true
+	if (NetworkManager.lobby_id):
+		$LobbyMenu.visible = true
+	else:
+		$MainMenu.visible = true
+		$LobbyMenu.visible = false
 	$HostPopup.visible = false
-	$LobbyMenu.visible = false
 	$LobbyLoading.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
@@ -37,8 +40,6 @@ func _on_create_lobby_pressed() -> void:
 
 
 func _on_lobby_exit_pressed() -> void:
-	if NetworkManager.current_level > -1:
-		self.remove_child(level)
 	NetworkManager.close_server()
 	$LobbyMenu.visible = false
 	$MainMenu.visible = true
@@ -68,7 +69,18 @@ func _on_start_level(level_name) -> void:
 	$LobbyMenu.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
-	var level
+	var packed_scene: PackedScene
 	match level_name:
-		levels.DEMO:
-			get_tree().change_scene_to_file("res://scenes/worlds/demo_level.tscn")
+		GameManager.Level.DEMO:
+			packed_scene = preload("res://scenes/Levels/demo_level.tscn")
+		GameManager.Level.BEACH:
+			packed_scene = preload("res://scenes/Levels/beachzone_level.tscn")
+	if multiplayer.is_server():
+		remote_play.rpc(NetworkManager.current_level)
+	get_tree().change_scene_to_packed(packed_scene)
+
+
+@rpc("reliable")
+func remote_play(level: GameManager.Level) -> void:
+	NetworkManager.current_level = level
+	_on_start_level(level)
