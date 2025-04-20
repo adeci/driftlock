@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ixww0i2kj7hn"]
+[gd_scene load_steps=9 format=3 uid="uid://d1wudvik8akhs"]
 
 [ext_resource type="Script" path="res://scenes/menus/gui_menu.gd" id="1_7evsw"]
 [ext_resource type="Script" path="res://scenes/menus/gui.gd" id="1_v31k2"]
-[ext_resource type="ButtonGroup" path="res://scenes/menus/layer1buttons.tres" id="2_4bl3u"]
-[ext_resource type="Texture2D" uid="uid://bjm3hlf3fp81l" path="res://assets/textures/items/item_frame.png" id="2_ffhm7"]
+[ext_resource type="ButtonGroup" uid="uid://bgbsanaoi6b8l" path="res://scenes/menus/layer1buttons.tres" id="2_4bl3u"]
+[ext_resource type="Texture2D" uid="uid://diskcll54xu68" path="res://assets/textures/items/item_frame.png" id="2_ffhm7"]
 
 [sub_resource type="Theme" id="Theme_elhrt"]
 default_font_size = 50

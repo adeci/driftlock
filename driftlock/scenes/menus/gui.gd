@@ -10,7 +10,7 @@ func _ready() -> void:
 		$MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby.visible = false
 
 	$MainMenu.visible = false
-	#$RaceUI.visible = true
+	$RaceUI.visible = true
 
 	self.visible = true
 	
