@@ -43,8 +43,8 @@ func _on_play_pressed() -> void:
 	if multiplayer.is_server():
 		var level = level_options.get_selected_id()
 		NetworkManager.current_level = level
-		remote_play.rpc(level)
 		play_level.emit(level)
+		remote_play.rpc(level)
 
 
 @rpc("reliable")

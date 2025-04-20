@@ -121,6 +121,7 @@ func close_server() -> void:
 	if steam_status:
 		Steam.leaveLobby(lobby_id)
 	lobby_members.clear()
+	player_information.clear()
 	lobby_id = 0
 	owner_steam_id = 0
 	current_level = -1
