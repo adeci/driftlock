@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://q0j4xfut71pk"]
+
+[ext_resource type="Texture2D" uid="uid://daf67l2tp0yfx" path="res://assets/textures/world/nb_flats/NFMTTK13.png" id="1_gdask"]
+
+[resource]
+albedo_texture = ExtResource("1_gdask")
+metallic_specular = 0.0
+texture_filter = 2

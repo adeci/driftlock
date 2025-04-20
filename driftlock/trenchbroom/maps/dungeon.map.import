@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bq2owjhi7o1qf"
+path="res://.godot/imported/dungeon.map-bd0180c5f3d10011b132f7101b6ac87b.tres"
+
+[deps]
+
+source_file="res://trenchbroom/maps/dungeon.map"
+dest_files=["res://.godot/imported/dungeon.map-bd0180c5f3d10011b132f7101b6ac87b.tres"]
+
+[params]
+

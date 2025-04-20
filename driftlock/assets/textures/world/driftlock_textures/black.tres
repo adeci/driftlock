@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://do64uay6t5s2y"]
+
+[ext_resource type="Texture2D" uid="uid://e6p8xyikg43" path="res://assets/textures/world/driftlock_textures/black.png" id="1_2sdww"]
+
+[resource]
+albedo_texture = ExtResource("1_2sdww")
+metallic_specular = 0.0
+texture_filter = 2

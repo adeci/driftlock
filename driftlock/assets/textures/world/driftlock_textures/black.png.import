@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daf67l2tp0yfx"
-path.s3tc="res://.godot/imported/NFMTTK13.png-606526af82adf428ebb27002c14c9dca.s3tc.ctex"
+uid="uid://e6p8xyikg43"
+path.s3tc="res://.godot/imported/black.png-1577742c6295f6f82ac65857c103ddf9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/world/nb_flats/NFMTTK13.png"
-dest_files=["res://.godot/imported/NFMTTK13.png-606526af82adf428ebb27002c14c9dca.s3tc.ctex"]
+source_file="res://assets/textures/world/driftlock_textures/black.png"
+dest_files=["res://.godot/imported/black.png-1577742c6295f6f82ac65857c103ddf9.s3tc.ctex"]
 
 [params]
 
