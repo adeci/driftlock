@@ -48,5 +48,7 @@ func _on_exit_to_lobby_pressed() -> void:
 	get_tree().paused = true
 	if multiplayer.is_server():
 		_on_exit_to_lobby_pressed.rpc()
+	for i in range(60):
+		await get_tree().process_frame
 	NetworkManager.current_level = -1
 	get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
