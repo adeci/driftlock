@@ -1,9 +1,6 @@
 extends MarginContainer
 
 
-signal avatar_loaded
-
-
 @export var player_container: MarginContainer
 @export var player_col_1: VBoxContainer
 @export var player_col_2: VBoxContainer
@@ -31,10 +28,6 @@ func _ready() -> void:
 	NetworkManager.player_disconnected.connect(_on_player_disconnected)
 	NetworkManager.server_disconnected.connect(_on_exit_pressed)
 	
-	# Steam Signals
-	if NetworkManager.steam_status:
-		Steam.avatar_loaded.connect(_on_loaded_avatar)
-	
 	# Player Banners
 	for i in range(NetworkManager.player_limit):
 		var player = player_container.duplicate()
@@ -46,11 +39,6 @@ func _ready() -> void:
 func _on_visibility() -> void:
 	if get_tree().paused:
 		get_tree().paused = false
-	if NetworkManager.steam_status:
-		Steam.getPlayerAvatar()
-		await avatar_loaded
-	else:
-		NetworkManager.player_information[multiplayer.get_unique_id()] = TextureRect.new()
 	redraw_lobby()
 
 
@@ -71,11 +59,6 @@ func redraw_lobby() -> void:
 
 # Multiplayer Signal Functions
 func _on_player_joined(new_peer_id: int, _player_name: String) -> void:
-	if NetworkManager.steam_status:
-		Steam.getPlayerAvatar(2, NetworkManager.peer.get_steam64_from_peer_id(new_peer_id))
-		await avatar_loaded
-	else:
-		NetworkManager.player_information[new_peer_id] = TextureRect.new()
 	redraw_lobby()
 
 
@@ -84,21 +67,5 @@ func _on_player_disconnected(old_peer_id: int) -> void:
 	redraw_lobby()
 
 
-# Steam Signal Functions
-func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByteArray) -> void:
-	# Create Image
-	var avatar_image := Image.create_from_data(avatar_size, avatar_size, false, Image.FORMAT_RGBA8, avatar_buffer)
-	
-	# Resize Image
-	if avatar_size > 64:
-		avatar_image.resize(64, 64, Image.INTERPOLATE_LANCZOS)
-	
-	# Create texture
-	var new_peer_id: int = NetworkManager.peer.get_peer_id_from_steam64(user_id)
-	NetworkManager.player_information[new_peer_id] = ImageTexture.create_from_image(avatar_image)
-	avatar_loaded.emit()
-
-
 func _on_exit_pressed() -> void:
-	NetworkManager.player_information.clear()
-	redraw_lobby()
+	pass

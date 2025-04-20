@@ -36,12 +36,16 @@ func _on_host_exit_pressed() -> void:
 
 func _on_create_lobby_pressed() -> void:
 	$HostPopup.visible = false
+	$LobbyLoading.visible = true
+	await NetworkManager.avatar_loaded
+	$LobbyLoading.visible = false
 	$LobbyMenu.visible = true
 
 
 func _on_lobby_exit_pressed() -> void:
 	NetworkManager.close_server()
 	$LobbyMenu.visible = false
+	$LobbyLoading.visible = false
 	$MainMenu.visible = true
 
 
