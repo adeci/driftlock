@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1wudvik8akhs"]
+[gd_scene load_steps=9 format=3 uid="uid://ixww0i2kj7hn"]
 
 [ext_resource type="Script" path="res://scenes/menus/gui_menu.gd" id="1_7evsw"]
 [ext_resource type="Script" path="res://scenes/menus/gui.gd" id="1_v31k2"]
-[ext_resource type="ButtonGroup" uid="uid://bgbsanaoi6b8l" path="res://scenes/menus/layer1buttons.tres" id="2_4bl3u"]
+[ext_resource type="ButtonGroup" path="res://scenes/menus/layer1buttons.tres" id="2_4bl3u"]
+[ext_resource type="Texture2D" uid="uid://bjm3hlf3fp81l" path="res://assets/textures/items/item_frame.png" id="2_ffhm7"]
+
+[sub_resource type="Theme" id="Theme_elhrt"]
+default_font_size = 50
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g21me"]
 
@@ -18,6 +22,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v31k2")
+
+[node name="RaceUI" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="ItemMargin" type="MarginContainer" parent="RaceUI"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="ItemFrame" type="TextureRect" parent="RaceUI/ItemMargin"]
+layout_mode = 2
+texture = ExtResource("2_ffhm7")
+expand_mode = 3
+stretch_mode = 2
+
+[node name="Item" type="TextureRect" parent="RaceUI/ItemMargin"]
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 2
+
+[node name="TimeMargin" type="MarginContainer" parent="RaceUI"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 15
+
+[node name="Time" type="Label" parent="RaceUI/TimeMargin"]
+layout_mode = 2
+theme = SubResource("Theme_elhrt")
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="RaceUI"]
+layout_mode = 2
+
+[node name="PlacementMargin" type="MarginContainer" parent="RaceUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Placement" type="Label" parent="RaceUI/PlacementMargin"]
+layout_mode = 2
+theme = SubResource("Theme_elhrt")
+horizontal_alignment = 1
 
 [node name="MainMenu" type="MarginContainer" parent="."]
 layout_mode = 2
