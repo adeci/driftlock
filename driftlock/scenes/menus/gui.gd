@@ -3,8 +3,6 @@ extends MarginContainer
 var racing: bool
 var placement: int
 
-signal exit_to_lobby
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +10,8 @@ func _ready() -> void:
 		$MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby.visible = false
 
 	$MainMenu.visible = false
-	#$RaceUI.visible = true
+	$RaceUI.visible = true
+
 	self.visible = true
 	
 	racing = false
