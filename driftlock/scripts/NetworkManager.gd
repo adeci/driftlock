@@ -21,6 +21,7 @@ var local: bool = false
 
 # Multiplayer Globals
 var lobby_members: Dictionary = {}
+var player_information: Dictionary = {}
 var player_info := "Name"
 var player_limit: int = 10
 var lobby_type := Steam.LOBBY_TYPE_PUBLIC
