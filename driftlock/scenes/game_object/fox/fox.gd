@@ -12,7 +12,7 @@ extends CharacterBody3D
 @export var looking_direction = Vector3(1, 0, 0)
 
 enum DriftMode {NONE, WAITING, ANIM_LEFT, ANIM_RIGHT, LEFT, RIGHT}
-enum Animations {IDLE, DRIFTLEFT, DRIFTRIGHT, RUN, DRIFTCANCEL}
+enum Animations {IDLE, DRIFTLEFT, DRIFTRIGHT, RUN, DRIFTCANCEL, WAVE, WAVECANCEL}
 var drifting = DriftMode.NONE
 const drift_startup = 0.5
 const jump_velocity = 10
@@ -111,9 +111,10 @@ func _physics_process(delta):
 			#$fox/AnimationPlayer.play("wave")
 			if percent_max_speed < 0.01:
 				$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-				rpc("remote_emote")
+				play_animation.rpc(Animations.WAVE)
 			else:
 				$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+				play_animation.rpc(Animations.WAVECANCEL)
 
 		var target_velocity = Vector3.ZERO
 		#
@@ -280,11 +281,15 @@ func play_animation(animation):
 			$AnimationTree.set("parameters/drift_right_seek/seek_request", 0.0)
 			$AnimationTree.set("parameters/drift_blend/blend_amount", 1.0)
 			$AnimationTree.set("parameters/drift_right_add/add_amount", 1.0)
+		Animations.WAVE:
+			$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		Animations.WAVECANCEL:
+			$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 
 
-@rpc("reliable")
-func remote_emote():
-	$fox/AnimationPlayer.play("wave")
+#@rpc("reliable")
+#func remote_emote():
+	#$fox/AnimationPlayer.play("wave")
 
 func set_item(item: GameManager.Item) -> void:
 	held_item = item

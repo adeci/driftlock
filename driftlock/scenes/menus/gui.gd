@@ -1,9 +1,13 @@
 extends MarginContainer
 
 
+signal exit_to_lobby
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	if not multiplayer.is_server() or NetworkManager.local:
+		$MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

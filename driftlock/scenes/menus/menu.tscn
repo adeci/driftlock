@@ -737,6 +737,7 @@ text = "Sample"
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Refresh" to="LobbyList/ElementSeperator/Lobbies" method="_on_join_pressed"]
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Play" to="." method="_on_lobby_button_pressed"]
 [connection signal="pressed" from="LobbyList/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Play" to="LobbyList/ElementSeperator/Lobbies" method="_on_play_pressed"]
+[connection signal="draw" from="LobbyMenu" to="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons" method="_on_lobby_menu_draw"]
 [connection signal="draw" from="LobbyMenu" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_exit_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_exit_pressed"]

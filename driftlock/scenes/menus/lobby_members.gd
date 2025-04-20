@@ -3,6 +3,7 @@ extends MarginContainer
 
 signal avatar_loaded
 
+
 @export var player_container: MarginContainer
 @export var player_col_1: VBoxContainer
 @export var player_col_2: VBoxContainer
@@ -44,6 +45,11 @@ func _ready() -> void:
 
 
 func _on_visibility() -> void:
+	if get_tree().paused:
+		get_tree().paused = false
+		for player_info in NetworkManager.lobby_members:
+			if not player_info == multiplayer.get_unique_id():
+				_on_player_joined(player_info, NetworkManager.lobby_members[player_info])
 	if NetworkManager.steam_status:
 		Steam.getPlayerAvatar()
 		await avatar_loaded

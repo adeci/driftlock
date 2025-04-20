@@ -77,7 +77,23 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Leave" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator"]
+[node name="BottomButtons" type="VBoxContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="ExitToLobby" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g21me")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w82hu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w82hu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pohg4")
+text = "Exit to Lobby"
+
+[node name="Leave" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -131,5 +147,6 @@ text = "Driftlock"
 
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/ResumeGame" to="." method="toggle_visibility"]
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
-[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/Leave" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_leave_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_exit_to_lobby_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/Leave" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_leave_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_layer_exit_pressed"]

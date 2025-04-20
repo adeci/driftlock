@@ -5,9 +5,12 @@ extends MarginContainer
 func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_lobby_exit_pressed)
 	$LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons.play_level.connect(_on_start_level)
-	$MainMenu.visible = true
+	if (NetworkManager.lobby_id):
+		$LobbyMenu.visible = true
+	else:
+		$MainMenu.visible = true
+		$LobbyMenu.visible = false
 	$HostPopup.visible = false
-	$LobbyMenu.visible = false
 	$LobbyLoading.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false

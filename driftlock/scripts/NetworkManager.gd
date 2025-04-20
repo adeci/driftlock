@@ -17,6 +17,7 @@ var upnp = UPNP.new()
 var lobby_id: int = 0
 var owner_steam_id: int 
 var current_level: int = -1
+var local: bool = false
 
 # Multiplayer Globals
 var lobby_members: Dictionary = {}
@@ -90,6 +91,7 @@ func create_server() -> void:
 		port_forward()
 		peer.create_server(PORT)
 		multiplayer.multiplayer_peer = peer
+		lobby_id = 1
 	lobby_members[multiplayer.get_unique_id()] = player_info
 
 
@@ -99,6 +101,7 @@ func create_client(id: int = 0) -> void:
 	else:
 		peer.create_client(address, PORT)
 		multiplayer.multiplayer_peer = peer
+		lobby_id = 1
 		lobby_members[multiplayer.get_unique_id()] = player_info
 
 
@@ -107,6 +110,7 @@ func create_local(level: GameManager.Level) -> void:
 	local_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = local_peer
 	lobby_members[multiplayer.get_unique_id()] = player_info
+	local = true
 	_sync_level(level)
 
 
@@ -119,6 +123,8 @@ func close_server() -> void:
 	lobby_id = 0
 	owner_steam_id = 0
 	current_level = -1
+	if local:
+		local = false
 
 
 # Multiplayer Signals
