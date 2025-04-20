@@ -46,7 +46,7 @@ func redraw_lobby() -> void:
 	for player_banner in player_banners:
 		player_banner.visible = false
 	var index: int = 0
-	for key in NetworkManager.player_information.keys():
+	for key in NetworkManager.player_information:
 		var player_name = NetworkManager.lobby_members[key]
 		var player_icon = NetworkManager.player_information[key]
 		var player_banner = player_banners[index]
@@ -58,7 +58,7 @@ func redraw_lobby() -> void:
 
 
 # Multiplayer Signal Functions
-func _on_player_joined(new_peer_id: int, _player_name: String) -> void:
+func _on_player_joined(_new_peer_id: int, _player_name: String) -> void:
 	redraw_lobby()
 
 

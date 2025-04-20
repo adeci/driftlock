@@ -4,7 +4,6 @@ extends Node
 signal player_connected(peer_id: int, player_info: String)
 signal load_level(level: GameManager.Level)
 signal player_disconnected(peer_id: int)
-signal port_forwarded
 signal avatar_loaded
 signal server_disconnected
 
@@ -99,6 +98,7 @@ func create_server() -> void:
 		multiplayer.multiplayer_peer = peer
 		Steam.createLobby(lobby_type, player_limit)
 		Steam.getPlayerAvatar()
+		lobby_members[multiplayer.get_unique_id()] = player_info
 	else:
 		if upnp_enabled:
 			thread = Thread.new()
@@ -107,13 +107,14 @@ func create_server() -> void:
 		multiplayer.multiplayer_peer = peer
 		lobby_id = 1
 		player_information[multiplayer.get_unique_id()] = TextureRect.new()
+		lobby_members[multiplayer.get_unique_id()] = player_info
 		avatar_loaded.emit()
-	lobby_members[multiplayer.get_unique_id()] = player_info
 
 
 func create_client(id: int = 0) -> void:
 	if steam_status:
 		Steam.joinLobby(id)
+		await multiplayer.connected_to_server
 		Steam.getPlayerAvatar()
 	else:
 		peer.create_client(address, PORT)
@@ -149,10 +150,6 @@ func close_server() -> void:
 # Multiplayer Signals
 func _on_player_connect(peer_id: int) -> void:
 	_populate_lobby_members.rpc_id(peer_id, player_info)
-	if steam_status:
-		Steam.getPlayerAvatar(2, peer.get_steam64_from_peer_id(peer_id))
-	else:
-		player_information[peer_id] = TextureRect.new()
 	if multiplayer.is_server() and current_level > -1:
 		_sync_level.rpc_id(peer_id, current_level)
 
@@ -161,6 +158,11 @@ func _on_player_connect(peer_id: int) -> void:
 func _populate_lobby_members(player_name: String) -> void:
 	var peer_id = multiplayer.get_remote_sender_id()
 	lobby_members[peer_id] = player_name
+	if steam_status:
+		Steam.getPlayerAvatar(2, peer.get_steam64_from_peer_id(peer_id))
+		await avatar_loaded
+	else:
+		player_information[peer_id] = TextureRect.new()
 	player_connected.emit(peer_id, player_name)
 
 @rpc("reliable")
@@ -171,6 +173,7 @@ func _sync_level(level: GameManager.Level) -> void:
 
 func _on_player_disconnected(peer_id: int) -> void:
 	lobby_members.erase(peer_id)
+	player_information.erase(peer_id)
 	player_disconnected.emit(peer_id)
 
 
@@ -227,7 +230,7 @@ func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByte
 	
 	# Create texture
 	var new_peer_id: int = NetworkManager.peer.get_peer_id_from_steam64(user_id)
-	NetworkManager.player_information[new_peer_id] = ImageTexture.create_from_image(avatar_image)
+	player_information[new_peer_id] = ImageTexture.create_from_image(avatar_image)
 	avatar_loaded.emit()
 
 
