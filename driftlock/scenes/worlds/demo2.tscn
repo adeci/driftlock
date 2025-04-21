@@ -14,7 +14,7 @@
 [ext_resource type="Material" uid="uid://c6xxu2b2gvhbv" path="res://assets/textures/world/nb_flats/NFSPHT01.tres" id="10_iig3o"]
 [ext_resource type="Script" path="res://entities/scripts/func_button.gd" id="10_kw6eo"]
 [ext_resource type="Material" uid="uid://cbg33h4feya0o" path="res://assets/textures/world/nb_flats/NFLTB04H.tres" id="11_11rc2"]
-[ext_resource type="Material" uid="uid://c26pfdybh24ia" path="res://assets/textures/world/nb_flats/NFLTW05H.tres" id="12_8ofne"]
+[ext_resource type="Material" uid="uid://dywr3samp1j8m" path="res://assets/textures/world/nb_flats/NFLTW05H.tres" id="12_8ofne"]
 [ext_resource type="Script" path="res://entities/scripts/func_trapdoor.gd" id="13_ntwjm"]
 [ext_resource type="Script" path="res://entities/scripts/func_boost.gd" id="15_xw80h"]
 [ext_resource type="Script" path="res://entities/scripts/func_teleporter.gd" id="17_17fgl"]
@@ -547,14 +547,41 @@ shape = SubResource("ConvexPolygonShape3D_ximvn")
 [node name="entity_13_pickup_item" parent="FuncGodotMap" instance=ExtResource("18_6jr2t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.25, 1.25, -6.75)
 respawn_time = 5.0
+item_color = Color(1, 1, 1, 1)
+flow_speed = 4.0
+color_saturation = 1.0
+color_brightness = 1.2
+pulse_intensity = 0.3
+rainbow_scale = 2.0
+rim_strength = 0.7
+glow_strength = 0.9
+transparency = 0.6
 
 [node name="entity_14_pickup_item" parent="FuncGodotMap" instance=ExtResource("18_6jr2t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.75, 1.25, 2.75)
 respawn_time = 5.0
+item_color = Color(1, 1, 1, 1)
+flow_speed = 4.0
+color_saturation = 1.0
+color_brightness = 1.2
+pulse_intensity = 0.3
+rainbow_scale = 2.0
+rim_strength = 0.7
+glow_strength = 0.9
+transparency = 0.6
 
 [node name="entity_15_pickup_item" parent="FuncGodotMap" instance=ExtResource("18_6jr2t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.25, 1.25, 4.25)
 respawn_time = 5.0
+item_color = Color(1, 1, 1, 1)
+flow_speed = 4.0
+color_saturation = 1.0
+color_brightness = 1.2
+pulse_intensity = 0.3
+rainbow_scale = 2.0
+rim_strength = 0.7
+glow_strength = 0.9
+transparency = 0.6
 
 [node name="entity_16_func_geo" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.25, -4.5)
@@ -614,7 +641,7 @@ script = ExtResource("19_enqe2")
 targetname = "rotator1"
 axis = Vector3(0, 0, 1)
 degrees = -180.0
-speed = 1.25
+speed = 0.8
 looped = true
 smooth = true
 

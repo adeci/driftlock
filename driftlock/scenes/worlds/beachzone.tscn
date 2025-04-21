@@ -88,7 +88,7 @@ points = PackedVector3Array(25.25, 2.25, -0.25, 25.25, -2.25, -0.25, 36.25, -2.2
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dv5rs"]
 points = PackedVector3Array(11.25, 2.25, -61, 11.25, -2.75, -61, 11.75, -2.75, -61, 11.75, 2.25, -61, 11.25, 2.25, -52, 11.25, -2.75, -52, 11.75, -2.75, -52, 11.75, 2.25, -52)
 
-[node name="World2" type="Node3D"]
+[node name="World3" type="Node3D"]
 script = ExtResource("1_8bql8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -120,7 +120,6 @@ shape = SubResource("ConcavePolygonShape3D_fas0d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.25, 0)
 script = ExtResource("9_6p3oj")
 show_debug_visuals = true
-required_laps = null
 
 [node name="entity_2_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_finishline"]
 shape = SubResource("ConvexPolygonShape3D_k8vfg")
