@@ -1579,7 +1579,7 @@ shader = ExtResource("31_2vxu8")
 shader_parameter/water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 shader_parameter/wave_height = 0.0
 shader_parameter/wave_speed = 0.0
-shader_parameter/time = 39.45
+shader_parameter/time = 2334.95
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_m22ff"]
 _surfaces = [{

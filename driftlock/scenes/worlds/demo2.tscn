@@ -427,7 +427,7 @@ mesh = SubResource("ArrayMesh_4ajfi")
 shape = SubResource("ConvexPolygonShape3D_bcjwp")
 
 [node name="entity_4_func_mover" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.775, 2.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.8475, 2.5, -2)
 sync_to_physics = false
 script = ExtResource("9_cyhxu")
 translation = Vector3(-11.5, 0, 0)
@@ -609,7 +609,7 @@ occluder = SubResource("ArrayOccluder3D_odjkt")
 shape = SubResource("ConcavePolygonShape3D_jnwtf")
 
 [node name="entity_20_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(-0.999966, -0.00818061, 0, 0.00818061, -0.999966, 0, 0, 0, 1, 1, 4.75, -7)
+transform = Transform3D(-0.109004, -0.994041, 0, 0.994041, -0.109004, 0, 0, 0, 1, 1, 4.75, -7)
 script = ExtResource("19_enqe2")
 targetname = "rotator1"
 axis = Vector3(0, 0, 1)

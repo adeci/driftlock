@@ -7,19 +7,13 @@ uniform float wave_speed : hint_range(0.0, 10.0) = 1.0;
 uniform float time;
 
 void vertex() {
-    // Get world position
     vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-    
-    // Apply wave effect to the top surface only
     if (NORMAL.y > 0.7) {
-        // Create two simple waves
         float wave1 = sin(world_pos.x * 2.0 + time * wave_speed) * cos(world_pos.z * 1.5 + time * wave_speed * 0.8) * wave_height;
         float wave2 = sin(world_pos.z * 1.7 + time * wave_speed * 0.9) * cos(world_pos.x * 1.3 + time * wave_speed * 0.7) * wave_height * 0.6;
         
-        // Apply waves
         VERTEX.y += wave1 + wave2;
         
-        // Simple normal recalculation for better lighting
         vec3 tangent = normalize(vec3(0.0, wave_height * cos(world_pos.x + time * wave_speed), 0.2));
         vec3 bitangent = normalize(vec3(0.2, wave_height * cos(world_pos.z + time * wave_speed), 0.0));
         NORMAL = normalize(cross(tangent, bitangent));
@@ -27,20 +21,13 @@ void vertex() {
 }
 
 void fragment() {
-    // Base water color
     ALBEDO = water_color.rgb;
-    
-    // Simple fresnel effect for edge highlighting
     float fresnel = pow(1.0 - dot(NORMAL, VIEW), 3.0);
-    
-    // Apply transparency
     ALPHA = water_color.a + fresnel * 0.1;
     
-    // Material properties
     METALLIC = 0.1;
     ROUGHNESS = 0.2;
     SPECULAR = 0.5;
-    
-    // Simple underwater glow
+
     EMISSION = water_color.rgb * 0.05;
 }
