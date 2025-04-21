@@ -50,6 +50,7 @@ func redraw_lobby() -> void:
 		var player_name = NetworkManager.lobby_members[key]
 		var player_icon = NetworkManager.player_information[key]
 		var player_banner = player_banners[index]
+		player_banner.name = str(key)
 		player_banner.get_node("./PlayerInformation/PlayerTextContainer/PlayerName").text = player_name
 		player_banner.get_node("./PlayerInformation/PlayerIcon/ProfileImage").set_texture(player_icon)
 		player_banner.name = str(key)
@@ -69,3 +70,8 @@ func _on_player_disconnected(old_peer_id: int) -> void:
 
 func _on_exit_pressed() -> void:
 	pass
+
+
+func _on_invite_pressed() -> void:
+	print("Invite Pressed")
+	NetworkManager.get_ping()
