@@ -189,7 +189,6 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="OptionsButtons" type="MarginContainer" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 28
 
@@ -202,6 +201,18 @@ color = Color(0, 0, 0, 1)
 layout_mode = 2
 theme_override_constants/separation = 5
 
+[node name="Volume" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g21me")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w82hu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w82hu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pohg4")
+text = "Volume
+"
+
 [node name="Exit" type="Button" parent="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -211,6 +222,8 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_g21me")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w82hu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_w82hu")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pohg4")
+toggle_mode = true
+button_group = ExtResource("2_4bl3u")
 text = "Exit"
 
 [node name="TitleContainer" type="MarginContainer" parent="MainMenu"]
@@ -225,7 +238,6 @@ theme_override_font_sizes/font_size = 100
 text = "Driftlock"
 
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/ResumeGame" to="." method="toggle_main_menu_visibility"]
-[connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_exit_to_lobby_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/Leave" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_leave_pressed"]
-[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_layer_exit_pressed"]
+[connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Volume" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_volume_settings_pressed"]

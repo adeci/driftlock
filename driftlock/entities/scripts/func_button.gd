@@ -36,7 +36,8 @@ func _process(delta: float) -> void:
 func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_idx: int) -> void:
 	if body is StaticBody3D:
 		return
-	if overlaps == 0:
+	if overlaps == 0 and body is CharacterBody3D:
+		SoundManager.play_sound(random_button_sound(), false, body.global_position)
 		press()
 	overlaps += 1
 
@@ -67,3 +68,12 @@ func release() -> void:
 		return
 	is_pressed = false
 	await get_tree().create_timer(release_delay).timeout
+	
+func random_button_sound() -> SoundManager.SoundCatalog:
+	var sound_options = [
+		SoundManager.SoundCatalog.BUTTON1,
+		SoundManager.SoundCatalog.BUTTON2,
+		SoundManager.SoundCatalog.BUTTON3
+	]
+	var selected_sound = sound_options[randi() % sound_options.size()]
+	return selected_sound

@@ -1,0 +1,118 @@
+[gd_scene load_steps=7 format=3 uid="uid://co547t0xa6ril"]
+
+[ext_resource type="Script" path="res://scenes/menus/volume_control.gd" id="1_l8f60"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knr4s"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kshb3"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrh0t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upoxm"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61aun"]
+
+[node name="VolumeControl" type="MarginContainer" node_paths=PackedStringArray("master_slider", "sfx_slider", "music_slider")]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -160.0
+offset_right = 175.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_l8f60")
+master_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Master/HSlider")
+sfx_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/SFX/HSlider")
+music_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Music/HSlider")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="PanelContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Volume Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Master" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Master"]
+layout_mode = 2
+text = "Master"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Master"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+value = 80.0
+
+[node name="SFX" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SFX"]
+layout_mode = 2
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/SFX"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+value = 80.0
+
+[node name="Music" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Music"]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Music"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+value = 80.0
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrh0t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_upoxm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_61aun")
+text = "Close"

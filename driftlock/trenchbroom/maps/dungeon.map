@@ -5650,8 +5650,8 @@
 {
 "classname" "func_water"
 "water_color" "6 77 56"
-"water_wave_height" "0"
-"water_wave_speed" "0"
+"water_wave_height" "0.1"
+"water_wave_speed" "0.5"
 "_tb_layer" "5"
 // brush 0
 {

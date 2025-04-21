@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2bxafe3twatl"]
 
-[ext_resource type="PackedScene" uid="uid://clhq4870pe0rp" path="res://scenes/worlds/dungeon.tscn" id="1_e4mp5"]
+[ext_resource type="PackedScene" uid="uid://6doav8byef0l" path="res://scenes/worlds/dungeon.tscn" id="1_e4mp5"]
 [ext_resource type="PackedScene" uid="uid://d1wudvik8akhs" path="res://scenes/menus/GUI.tscn" id="2_io5hw"]
 
 [node name="DungeonLevel" type="Node3D"]

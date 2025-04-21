@@ -9,6 +9,9 @@ func _ready() -> void:
 	NetworkManager.load_level.connect(remote_play)
 	NetworkManager.server_disconnected.connect(_on_lobby_exit_pressed)
 	$LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons.play_level.connect(_on_start_level)
+	
+	SoundManager.play_music(SoundManager.SoundCatalog.MENU_MUSIC, false)
+	
 	if (NetworkManager.lobby_id):
 		$LobbyMenu.visible = true
 	else:
@@ -66,6 +69,9 @@ func _on_lobby_button_pressed() -> void:
 	$LobbyLoading.visible = false
 	$LobbyMenu.visible = true
 
+func _on_volume_settings_pressed() -> void:
+	VolumeControl.show_control()
+	SoundManager.play_sound(SoundManager.SoundCatalog.BUTTON1)
 
 func _on_start_level(level_name) -> void:
 	$MainMenu.visible = false

@@ -334,12 +334,17 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	if not body is CharacterBody3D:
 		return
+		
 	var destination = get_destination_teleporter()
 	if destination == null:
 		print("Error: Destination teleporter not found for " + targetname + " targeting " + target)
 		return
+	var selected_sound = random_teleport_sound()
+	SoundManager.play_sound(selected_sound, true, global_position)
+	
 	cooldown = true
-	teleport_body(body, destination)
+	teleport_body(body, destination, selected_sound)
+	
 	await get_tree().create_timer(delay).timeout
 	cooldown = false
 
@@ -396,12 +401,15 @@ func get_exit_direction_vector(dest_teleporter: Node3D) -> Vector3:
 
 	return dest_teleporter.global_transform.basis * base_direction
 
-func teleport_body(body: CharacterBody3D, destination: Node3D) -> void:
+func teleport_body(body: CharacterBody3D, destination: Node3D, sound_category: SoundManager.SoundCatalog = -1) -> void:
 	var forward_dir = get_exit_direction_vector(destination)
 	var base_pos = get_exit_position(destination)
 	var teleport_position = base_pos + (forward_dir * offset_distance)
-
+	var old_position = body.global_position
 	body.global_position = teleport_position
+	
+	if sound_category != -1:
+		SoundManager.play_sound(sound_category, true, teleport_position)
 	
 	if "looking_direction" in body:
 		body.looking_direction = forward_dir
@@ -410,3 +418,12 @@ func teleport_body(body: CharacterBody3D, destination: Node3D) -> void:
 	if body.velocity.length() > 0:
 		var speed = body.velocity.length()
 		body.velocity = forward_dir * speed
+
+func random_teleport_sound() -> SoundManager.SoundCatalog:
+	var sound_options = [
+		SoundManager.SoundCatalog.TELE1,
+		SoundManager.SoundCatalog.TELE2,
+		SoundManager.SoundCatalog.TELE3
+	]
+	var selected_sound = sound_options[randi() % sound_options.size()]
+	return selected_sound

@@ -3,7 +3,6 @@ extends HBoxContainer
 
 signal exit_to_lobby
 
-
 # Layer Radio ButtonsNodes
 @export var layer_1: ButtonGroup
 
@@ -21,7 +20,7 @@ var ready_count: int = 0
 var scene_lock: bool = false:
 	get:
 		ready_count += 1
-		if ready_count == NetworkManager.lobby_members.size() - 1:
+		if ready_count == NetworkManager.lobby_members.size():
 			ready_count = 0
 			return true
 		else: return false
@@ -30,16 +29,19 @@ var scene_lock: bool = false:
 func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_leave_pressed)
 
-
 func toggle_layer(_toggled_on:bool, layer_name: String):
 	var layer_container = menus[layer_name]
 	layer_container.visible = not layer_container.visible
 
+func _on_volume_settings_pressed() -> void:
+	VolumeControl.show_control()
+	SoundManager.play_sound(SoundManager.SoundCatalog.BUTTON1)
+
 
 func _on_layer_exit_pressed() -> void:
 	var pressed_button := layer_1.get_pressed_button()
-	pressed_button.button_pressed = false
-
+	if pressed_button:
+		pressed_button.button_pressed = false
 
 func _on_leave_pressed() -> void:
 	if not leave_pressed:
@@ -56,8 +58,7 @@ func _on_exit_to_lobby_pressed() -> void:
 	get_tree().paused = true
 	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
 	remote_suspend.rpc()
-	if NetworkManager.lobby_members.size() == 1:
-		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
+	peer_ready()
 
 
 func _on_exit_clock_timeout() -> void:

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game_object/item/item.gd" id="1_86xu2"]
 [ext_resource type="Shader" path="res://assets/shaders/item_box_shader.gdshader" id="2_0iieu"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbbvj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_45jpk"]
 render_priority = 0
 shader = ExtResource("2_0iieu")
 shader_parameter/flow_speed = 4.0
@@ -25,7 +25,7 @@ points = PackedVector3Array(0.457871, 0.198079, 0.0157824, -0.48874, -0.0916874,
 script = ExtResource("1_86xu2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_gbbvj")
+material_override = SubResource("ShaderMaterial_45jpk")
 mesh = SubResource("SphereMesh_nv0a3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

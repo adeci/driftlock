@@ -134,6 +134,7 @@ func start_race(player_id: int) -> void:
 	emit_signal("race_started", player_id)
 	if debug_mode:
 		print("Race started for player %d" % player_id)
+	SoundManager.play_sound(SoundManager.SoundCatalog.GO)
 
 func activate_checkpoint(checkpoint_id: int, player_id: int, player_position: Vector3) -> void:
 	if not player_checkpoints.has(player_id):
@@ -204,9 +205,11 @@ func finish_race(player_id: int) -> bool:
 		emit_signal("race_won", player_id, race_time, lap_number)
 		emit_signal("race_completed", player_id, race_time)
 		print("RACE WON! Player %d finished %d laps in %.2f seconds!" % [player_id, lap_number, race_time])
+		SoundManager.play_sound(SoundManager.SoundCatalog.FINISH, false)
 		return true
 	else:
 		start_new_lap(player_id)
+		SoundManager.play_sound(SoundManager.SoundCatalog.LAP, false)
 		return false
 
 func start_new_lap(player_id: int) -> void:
@@ -243,6 +246,7 @@ func start_respawn(player_id: int) -> void:
 	emit_signal("respawn_started", player_id)
 	if debug_mode:
 		print("Player %d starting respawn process" % player_id)
+	SoundManager.play_sound(SoundManager.SoundCatalog.RESPAWN, false)
 
 
 func get_respawn_position(player_id: int) -> Vector3:
