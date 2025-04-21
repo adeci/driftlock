@@ -16,7 +16,6 @@ signal exit_to_lobby
 }
 
 # Race Conditions
-var exit_clock: SceneTreeTimer = null
 var leave_pressed: bool = false
 var ready_count: int = 0
 var scene_lock: bool = false:
@@ -30,8 +29,6 @@ var scene_lock: bool = false:
 
 func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_leave_pressed)
-	exit_clock = get_tree().create_timer(30, true) # Force exit condition
-	exit_clock.timeout.connect(_on_exit_clock_timeout)
 
 
 func toggle_layer(_toggled_on:bool, layer_name: String):
@@ -57,7 +54,7 @@ func _on_resume_game_pressed() -> void:
 
 func _on_exit_to_lobby_pressed() -> void:
 	get_tree().paused = true
-	exit_clock.start()
+	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
 	remote_suspend.rpc()
 	if NetworkManager.lobby_members.size() == 1:
 		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
