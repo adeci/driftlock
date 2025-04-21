@@ -56,7 +56,7 @@ func press() -> void:
 		return
 	is_pressed = true
 	var selected_sound = random_button_sound()
-	SoundManager.play_sound(selected_sound, true, global_position)
+	SoundManager.play_sound(selected_sound)
 	emit_pressed()
 
 func emit_pressed() -> void:

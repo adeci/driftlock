@@ -133,6 +133,7 @@ func start_race(player_id: int) -> void:
 	emit_signal("race_started", player_id)
 	if debug_mode:
 		print("Race started for player %d" % player_id)
+	SoundManager.play_sound(SoundManager.SoundCatalog.GO)
 
 func activate_checkpoint(checkpoint_id: int, player_id: int, player_position: Vector3) -> void:
 	if not player_checkpoints.has(player_id):

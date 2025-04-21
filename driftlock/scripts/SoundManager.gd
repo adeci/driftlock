@@ -98,10 +98,12 @@ func _ready() -> void:
 	
 	# Preload sounds
 	preload_sounds()
-
+func is_multiplayer_active() -> bool:
+		return multiplayer != null and multiplayer.multiplayer_peer != null and multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
+	
 func _process(delta: float) -> void:
 	# Process networked sound queue on server
-	if multiplayer.is_server():
+	if is_multiplayer_active() and multiplayer.is_server():
 		process_timer += delta
 		if process_timer >= process_network_interval and networked_sound_queue.size() > 0:
 			process_timer = 0.0
