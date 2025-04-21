@@ -36,12 +36,12 @@ func toggle_layer(_toggled_on:bool, layer_name: String):
 func _on_volume_settings_pressed() -> void:
 	VolumeControl.show_control()
 	SoundManager.play_sound(SoundManager.SoundCatalog.BUTTON1)
-	
+
 
 func _on_layer_exit_pressed() -> void:
 	var pressed_button := layer_1.get_pressed_button()
-	pressed_button.button_pressed = false
-
+	if pressed_button:
+		pressed_button.button_pressed = false
 
 func _on_leave_pressed() -> void:
 	if not leave_pressed:
