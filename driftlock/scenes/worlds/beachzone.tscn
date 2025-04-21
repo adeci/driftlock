@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=4 uid="uid://cwes15sn013ok"]
 
-[ext_resource type="Script" path="res://scenes/worlds/demo.gd" id="1_8bql8"]
+[ext_resource type="Script" path="res://scenes/manager/GameLogic.gd" id="1_8bql8"]
 [ext_resource type="Texture2D" uid="uid://b362l5fglbov4" path="res://assets/textures/panorama/fish_hoek_beach_4k.exr" id="2_2icun"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_yfi4k"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="3_48b2q"]
@@ -120,6 +120,7 @@ shape = SubResource("ConcavePolygonShape3D_fas0d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.25, 0)
 script = ExtResource("9_6p3oj")
 show_debug_visuals = true
+required_laps = null
 
 [node name="entity_2_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_finishline"]
 shape = SubResource("ConvexPolygonShape3D_k8vfg")

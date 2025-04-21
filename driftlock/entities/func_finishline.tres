@@ -28,9 +28,11 @@ description = "Finish line for racing. Players must activate all required checkp
 func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
+"required_laps": 3,
 "show_debug_visuals": true
 }
 class_property_descriptions = {
+"required_laps": "Number of laps required to win the race",
 "show_debug_visuals": "Show visual representation of the finish line in game"
 }
 auto_apply_to_matching_node_properties = false

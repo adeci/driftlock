@@ -73,6 +73,31 @@ layout_mode = 2
 theme = SubResource("Theme_elhrt")
 horizontal_alignment = 1
 
+[node name="LapMargin" type="MarginContainer" parent="RaceUI"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_top = 15
+
+[node name="LapText" type="Label" parent="RaceUI/LapMargin"]
+layout_mode = 2
+theme = SubResource("Theme_elhrt")
+text = "LAP: 1/3"
+horizontal_alignment = 1
+
+[node name="RaceCompleteMargin" type="MarginContainer" parent="RaceUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 15
+
+[node name="RaceComplete" type="Label" parent="RaceUI/RaceCompleteMargin"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_elhrt")
+text = "RACE COMPLETE!"
+horizontal_alignment = 1
+
 [node name="MainMenu" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 15

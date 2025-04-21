@@ -6,6 +6,8 @@ signal race_completed(player_id: int, time: float)
 signal all_checkpoints_cleared(player_id: int)
 signal respawn_started(player_id: int)
 signal respawn_complete(player_id: int)
+signal lap_completed(player_id: int, lap_number: int)
+signal race_won(player_id: int, total_time: float, lap_count: int)
 
 var checkpoints: Dictionary = {}
 var respawn_points: Dictionary = {}
@@ -21,6 +23,12 @@ var spawn_points: Dictionary = {}
 # Respawn settings
 var respawn_hold_time: float = 2.0
 var respawn_invincible_time: float = 5.0
+
+var auto_start_race: bool = true
+var player_ready_to_race: Dictionary = {}
+var player_current_lap: Dictionary = {}
+var player_completed_laps: Dictionary = {}
+var required_laps: int = 3 
 
 # Debug flag
 var debug_mode: bool = true
@@ -93,13 +101,32 @@ func register_player(player_id: int) -> void:
 		player_respawns[player_id] = Vector3.ZERO
 		player_respawn_rotations[player_id] = 0.0
 		player_respawning[player_id] = false
+		player_ready_to_race[player_id] = false  # New field
+		
+		player_current_lap[player_id] = 1
+		player_completed_laps[player_id] = 0
+		
 		var required_count = 0
 		for checkpoint_id in checkpoints:
 			if checkpoints[checkpoint_id]["required"]:
 				required_count += 1
 		player_required_checkpoints[player_id] = required_count
+		
 		if debug_mode:
 			print("Player %d registered with RaceManager. %d required checkpoints." % [player_id, required_count])
+		
+		if auto_start_race:
+			player_ready_to_race[player_id] = true
+
+
+func player_spawned(player_id: int) -> void:
+	if auto_start_race and player_ready_to_race.get(player_id, false) and not race_started_helper(player_id):
+		start_race(player_id)
+		if debug_mode:
+			print("Automatically started race for player %d" % player_id)
+
+func race_started_helper(player_id: int) -> bool:
+	return player_race_times.has(player_id) and player_race_times[player_id] > 0.0
 
 func start_race(player_id: int) -> void:
 	player_race_times[player_id] = Time.get_ticks_msec() / 1000.0
@@ -110,10 +137,16 @@ func start_race(player_id: int) -> void:
 func activate_checkpoint(checkpoint_id: int, player_id: int, player_position: Vector3) -> void:
 	if not player_checkpoints.has(player_id):
 		register_player(player_id)
+	if debug_mode:
+		print("Attempting to activate checkpoint %d for player %d in lap %d" % 
+			  [checkpoint_id, player_id, player_current_lap.get(player_id, 1)])
+		print("Current checkpoints: %s" % str(player_checkpoints[player_id]))
 	if checkpoint_id in player_checkpoints[player_id]:
 		if debug_mode:
-			print("Player %d already activated checkpoint %d" % [player_id, checkpoint_id])
+			print("Player %d already activated checkpoint %d in this lap" % [player_id, checkpoint_id])
 		return
+	if not player_checkpoints.has(player_id):
+		player_checkpoints[player_id] = []
 	player_checkpoints[player_id].append(checkpoint_id)
 	if respawn_points.has(checkpoint_id):
 		player_respawns[player_id] = respawn_points[checkpoint_id]["position"]
@@ -130,32 +163,71 @@ func activate_checkpoint(checkpoint_id: int, player_id: int, player_position: Ve
 			required_hit += 1
 	emit_signal("checkpoint_activated", checkpoint_id, player_id)
 	if debug_mode:
-		print("Player %d activated checkpoint %d. (%d/%d required checkpoints)" % 
-		[player_id, checkpoint_id, required_hit, player_required_checkpoints[player_id]])
-	if required_hit >= player_required_checkpoints[player_id]:
+		print("Player %d activated checkpoint %d in lap %d. (%d/%d required checkpoints)" % 
+		[player_id, checkpoint_id, player_current_lap.get(player_id, 1), required_hit, player_required_checkpoints.get(player_id, 0)])
+	if required_hit >= player_required_checkpoints.get(player_id, 0):
 		emit_signal("all_checkpoints_cleared", player_id)
 		if debug_mode:
-			print("Player %d has cleared all required checkpoints!" % player_id)
+			print("Player %d has cleared all required checkpoints for lap %d!" % 
+				 [player_id, player_current_lap.get(player_id, 1)])
 
 func finish_race(player_id: int) -> bool:
 	if not player_checkpoints.has(player_id):
 		if debug_mode:
 			print("Player %d hasn't started the race!" % player_id)
 		return false
+	if debug_mode:
+		print("Player %d crossed finish line in lap %d with checkpoints: %s" % 
+			  [player_id, player_current_lap.get(player_id, 1), str(player_checkpoints[player_id])])
 	var required_hit = 0
 	for cp_id in player_checkpoints[player_id]:
 		if checkpoints.has(cp_id) and checkpoints[cp_id]["required"]:
 			required_hit += 1
-	if required_hit < player_required_checkpoints[player_id]:
+	if debug_mode:
+		print("Player %d has hit %d/%d required checkpoints in lap %d" % 
+			  [player_id, required_hit, player_required_checkpoints.get(player_id, 0), 
+			   player_current_lap.get(player_id, 1)])
+	if required_hit < player_required_checkpoints.get(player_id, 0):
 		if debug_mode:
 			print("Player %d needs to clear all checkpoints before finishing! (%d/%d)" % 
-			[player_id, required_hit, player_required_checkpoints[player_id]])
+			[player_id, required_hit, player_required_checkpoints.get(player_id, 0)])
 		return false
-	var finish_time = Time.get_ticks_msec() / 1000.0
-	var race_time = finish_time - player_race_times[player_id]
-	emit_signal("race_completed", player_id, race_time)
-	print("RACE COMPLETE! Player %d finished in %.2f seconds!" % [player_id, race_time])
-	return true
+	player_completed_laps[player_id] += 1
+	var lap_number = player_completed_laps[player_id]
+	if debug_mode:
+		print("Player %d completed lap %d" % [player_id, lap_number])
+	emit_signal("lap_completed", player_id, lap_number)
+	if lap_number >= required_laps:
+		var finish_time = Time.get_ticks_msec() / 1000.0
+		var race_time = finish_time - player_race_times[player_id]
+		emit_signal("race_won", player_id, race_time, lap_number)
+		emit_signal("race_completed", player_id, race_time)
+		print("RACE WON! Player %d finished %d laps in %.2f seconds!" % [player_id, lap_number, race_time])
+		return true
+	else:
+		start_new_lap(player_id)
+		return false
+
+func start_new_lap(player_id: int) -> void:
+	var spawn_position = Vector3.ZERO
+	var spawn_rotation = 0.0
+	if spawn_points.size() > 0:
+		var spawn_id = spawn_points.keys()[0]
+		spawn_position = spawn_points[spawn_id]["position"]
+		spawn_rotation = spawn_points[spawn_id]["rotation_y"]
+	player_checkpoints[player_id] = []
+	player_current_lap[player_id] += 1
+	player_respawns[player_id] = spawn_position
+	player_respawn_rotations[player_id] = spawn_rotation
+	if debug_mode:
+		print("Starting lap %d for player %d - Respawn point set to starting position %s" % 
+			  [player_current_lap[player_id], player_id, spawn_position])
+
+func set_required_laps(laps: int) -> void:
+	if laps > 0:
+		required_laps = laps
+		if debug_mode:
+			print("Race configured for %d laps" % required_laps)
 
 func start_respawn(player_id: int) -> void:
 	if player_respawning[player_id]:
@@ -170,6 +242,8 @@ func start_respawn(player_id: int) -> void:
 	emit_signal("respawn_started", player_id)
 	if debug_mode:
 		print("Player %d starting respawn process" % player_id)
+
+
 func get_respawn_position(player_id: int) -> Vector3:
 	if player_respawns.has(player_id):
 		return player_respawns[player_id]
@@ -204,6 +278,8 @@ func reset_player(player_id: int) -> void:
 	player_checkpoints[player_id] = []
 	player_race_times[player_id] = 0.0
 	player_respawning[player_id] = false
+	player_current_lap[player_id] = 1
+	player_completed_laps[player_id] = 0
 	if debug_mode:
 		print("Reset race progress for player %d" % player_id)
 
@@ -213,7 +289,6 @@ func reset_race() -> void:
 	player_respawning.clear()
 	if debug_mode:
 		print("Race system reset")
-
 
 func reset_race_manager() -> void:
 	player_checkpoints.clear()
@@ -225,5 +300,7 @@ func reset_race_manager() -> void:
 	player_respawns.clear()
 	player_respawn_rotations.clear()
 	spawn_points.clear()
+	player_current_lap.clear()
+	player_completed_laps.clear()
 	if debug_mode:
 		print("Race system reset")

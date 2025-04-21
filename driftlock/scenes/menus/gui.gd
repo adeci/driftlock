@@ -2,7 +2,8 @@ extends MarginContainer
 
 var racing: bool
 var placement: int
-
+var current_lap: int = 1
+var total_laps: int = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,10 +18,15 @@ func _ready() -> void:
 	racing = false
 	RaceManager.race_started.connect(_race_started)
 	RaceManager.race_completed.connect(_race_completed)
+	RaceManager.lap_completed.connect(_lap_completed)
+
+	total_laps = RaceManager.required_laps
+	update_lap_display()
 	
 	placement = 1
-	pass
 
+func update_lap_display() -> void:
+	$RaceUI/LapMargin/LapText.text = "LAP: %d/%d" % [current_lap, total_laps]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -33,7 +39,14 @@ func _process(delta: float) -> void:
 func _race_started(player_id: int):
 	if player_id == multiplayer.get_unique_id():
 		racing = true
-		
+		current_lap = 1
+		update_lap_display()
+
+func _lap_completed(player_id: int, lap_number: int):
+	if player_id == multiplayer.get_unique_id():
+		current_lap = min(lap_number + 1, total_laps)
+		update_lap_display()
+
 func _race_completed(player_id: int, time: float):
 	if racing and player_id == multiplayer.get_unique_id():
 		racing = false
@@ -47,6 +60,7 @@ func _race_completed(player_id: int, time: float):
 				$RaceUI/PlacementMargin/Placement.text = "3rd!"
 			_:
 				$RaceUI/PlacementMargin/Placement.text = str(placement) + "th"
+		$RaceUI/RaceCompleteMargin/RaceComplete.visible = true
 	elif racing:
 		placement = placement + 1
 

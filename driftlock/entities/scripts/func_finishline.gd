@@ -6,6 +6,10 @@ extends Area3D
 		show_debug_visuals = value
 		if debug_visual:
 			debug_visual.visible = value if not Engine.is_editor_hint() else false
+			
+@export var required_laps: int = 3:
+	set(value):
+		required_laps = max(1, value)  # Ensure at least 1 lap
 
 var debug_visual: MeshInstance3D
 var player_finish_cooldown: Dictionary = {}
@@ -14,10 +18,13 @@ var cooldown_time: float = 5.0
 func _func_godot_apply_properties(props: Dictionary) -> void:
 	if "show_debug_visuals" in props:
 		show_debug_visuals = props["show_debug_visuals"] as bool
+	if "required_laps" in props:
+		required_laps = max(1, props["required_laps"] as int)
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	print("Finish line ready at position: ", global_position)
+	RaceManager.set_required_laps(required_laps)
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D:

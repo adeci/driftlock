@@ -57,7 +57,11 @@ func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 		print("Player " + str(peer_id) + " spawned at position: " + str(spawn_position) + " with rotation: " + str(spawn_rotation))
 	else:
 		print("No spawn points found. Using default spawn position.")
-
+	call_deferred("_start_race_for_player", peer_id)
+	
+func _start_race_for_player(peer_id: int) -> void:
+	# Make sure to start the race timer after the player is fully set up
+	RaceManager.player_spawned(peer_id)
 
 func remove_player_character(peer_id) -> void:
 	var player = get_node(str(peer_id))
