@@ -24,6 +24,18 @@ enum SoundCatalog {
 	MENU_MUSIC, BEACH_MUSIC, DUNGEON_MUSIC
 }
 
+var sound_volume_modifiers: Dictionary = {
+	SoundCatalog.RESPAWN: -15.0,
+	SoundCatalog.BUTTON1: -9.0,
+	SoundCatalog.BUTTON2: -9.0,
+	SoundCatalog.BUTTON3: -9.0,
+	SoundCatalog.ITEM_PICKUP: -7.0,
+	SoundCatalog.LAP: -15.0,
+	SoundCatalog.WATER_SUBMERGE: -20.0,
+	SoundCatalog.WATER_EMERGE: -20.0,
+	SoundCatalog.WATER_AMBIENCE: -8.0,
+}
+
 # Audio player pools
 var audio_pool_2d: Array[AudioStreamPlayer] = []
 var audio_pool_3d: Array[AudioStreamPlayer3D] = []
@@ -193,7 +205,7 @@ func preload_sounds() -> void:
 func play_sound(category: SoundCatalog, networked: bool = false, position: Vector3 = Vector3.ZERO) -> void:
 	if not sound_enabled:
 		return
-	
+	var volume_modifier = sound_volume_modifiers.get(category, 0.0)
 	# If networked sound and we're the server, queue it for broadcasting
 	if networked and multiplayer.is_server():
 		networked_sound_queue.append({
@@ -213,11 +225,13 @@ func play_sound(category: SoundCatalog, networked: bool = false, position: Vecto
 		if player:
 			player.stream = stream
 			player.position = position
+			player.volume_db = linear_to_db(sfx_volume) + volume_modifier
 			player.play()
 	else:
 		var player = get_free_player_2d()
 		if player:
 			player.stream = stream
+			player.volume_db = linear_to_db(sfx_volume) + volume_modifier
 			player.play()
 
 func play_sound_looping(category: SoundCatalog, position: Vector3 = Vector3.ZERO) -> void:

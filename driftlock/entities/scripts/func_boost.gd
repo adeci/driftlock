@@ -12,10 +12,15 @@ func _init() -> void:
 
 func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_idx: int) -> void:
 	if body is CharacterBody3D:
+		# Apply velocity changes
 		if velocity.x != 0:
 			body.velocity.x = velocity.x
 		if velocity.y != 0:
 			body.velocity.y = velocity.y
 		if velocity.z != 0:
 			body.velocity.z = velocity.z
-	SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST)
+			
+		if body.is_multiplayer_authority():
+			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST)
+		else:
+			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST, true, global_position)

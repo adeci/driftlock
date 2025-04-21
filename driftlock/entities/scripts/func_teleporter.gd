@@ -427,5 +427,3 @@ func random_teleport_sound() -> SoundManager.SoundCatalog:
 	]
 	var selected_sound = sound_options[randi() % sound_options.size()]
 	return selected_sound
-
-	

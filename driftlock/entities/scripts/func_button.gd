@@ -37,6 +37,10 @@ func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_
 	if body is StaticBody3D:
 		return
 	if overlaps == 0:
+		if body.is_multiplayer_authority():
+			SoundManager.play_sound(random_button_sound())
+		else:
+			SoundManager.play_sound(random_button_sound(), true, global_position)
 		press()
 	overlaps += 1
 
@@ -55,8 +59,6 @@ func press() -> void:
 	if is_pressed:
 		return
 	is_pressed = true
-	var selected_sound = random_button_sound()
-	SoundManager.play_sound(selected_sound)
 	emit_pressed()
 
 func emit_pressed() -> void:

@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://co547t0xa6ril"]
+
+[ext_resource type="Script" path="res://scenes/menus/volume_control.gd" id="1_l8f60"]
+
+[node name="VolumeControl" type="MarginContainer" node_paths=PackedStringArray("master_slider", "sfx_slider", "music_slider")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -56.0
+offset_right = 62.5
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l8f60")
+master_slider = NodePath("Volume Sliders/Master/HSlider")
+sfx_slider = NodePath("Volume Sliders/SFX/HSlider")
+music_slider = NodePath("Volume Sliders/Music/HSlider")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+
+[node name="Volume Sliders" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Volume Sliders"]
+layout_mode = 2
+text = "Volume Settings"
+
+[node name="HSeparator" type="HSeparator" parent="Volume Sliders"]
+layout_mode = 2
+
+[node name="Master" type="HBoxContainer" parent="Volume Sliders"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Volume Sliders/Master"]
+layout_mode = 2
+text = "Master"
+
+[node name="HSlider" type="HSlider" parent="Volume Sliders/Master"]
+layout_mode = 2
+
+[node name="SFX" type="HBoxContainer" parent="Volume Sliders"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Volume Sliders/SFX"]
+layout_mode = 2
+text = "SFX"
+
+[node name="HSlider" type="HSlider" parent="Volume Sliders/SFX"]
+layout_mode = 2
+
+[node name="Music" type="HBoxContainer" parent="Volume Sliders"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Volume Sliders/Music"]
+layout_mode = 2
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="Volume Sliders/Music"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+text = "Close"

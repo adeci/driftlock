@@ -312,15 +312,15 @@ func use_item() -> void:
 		GameManager.Item.SPEEDUP:
 			print("Used speedup!")
 			speedup()
-			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_ENHANCE, true, global_position)
+			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_ENHANCE)
 		GameManager.Item.BOOST:
 			print("Used boost!")
 			boost()
-			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST, true, global_position)
+			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST)
 		GameManager.Item.JUMP:
 			print("Used jump!")
 			jump()
-			SoundManager.play_sound(SoundManager.SoundCatalog.JUMP_BOOST, true, global_position)
+			SoundManager.play_sound(SoundManager.SoundCatalog.JUMP_BOOST)
 
 func speedup() -> void:
 	if speedup_timer.is_stopped():

@@ -75,7 +75,10 @@ func find_mesh_instance() -> MeshInstance3D:
 
 func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_idx: int) -> void:
 	if timer.is_stopped() and body is CharacterBody3D and body.has_method("set_item"):
-		SoundManager.play_sound(SoundManager.SoundCatalog.ITEM_PICKUP, true, global_position)
+		if body.is_multiplayer_authority():
+			SoundManager.play_sound(SoundManager.SoundCatalog.ITEM_PICKUP)
+		else:
+			SoundManager.play_sound(SoundManager.SoundCatalog.ITEM_PICKUP, true, global_position)
 		body.set_item(GameManager.generateItem())
 		visible = false
 		timer.start()
