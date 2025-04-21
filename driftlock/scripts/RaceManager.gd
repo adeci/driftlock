@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 signal checkpoint_activated(checkpoint_id: int, player_id: int)
