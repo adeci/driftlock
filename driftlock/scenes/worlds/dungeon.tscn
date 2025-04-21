@@ -1,29 +1,29 @@
-[gd_scene load_steps=248 format=4 uid="uid://6doav8byef0l"]
+[gd_scene load_steps=248 format=4 uid="uid://clhq4870pe0rp"]
 
 [ext_resource type="Script" path="res://scenes/worlds/demo.gd" id="1_h88li"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="3_15uq5"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="4_he4vp"]
 [ext_resource type="Script" path="res://entities/scripts/worldspawn.gd" id="5_f5cun"]
-[ext_resource type="Material" uid="uid://dbfmjlnur8bcc" path="res://assets/textures/world/nb_flats/NFRRK14D.tres" id="5_w4ttg"]
-[ext_resource type="Material" uid="uid://cauw36j55hny4" path="res://assets/textures/world/nb_flats/NFRRK14B.tres" id="6_mt1k4"]
-[ext_resource type="Material" uid="uid://7ljrlm0irys8" path="res://assets/textures/world/nb_flats/NFWOOD07.tres" id="7_edhjp"]
-[ext_resource type="Material" uid="uid://c06rpp5hiy3tb" path="res://assets/textures/world/nb_flats/NFFL72GR.tres" id="8_meyy0"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFRRK14D.tres" id="5_w4ttg"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFRRK14B.tres" id="6_mt1k4"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFWOOD07.tres" id="7_edhjp"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFFL72GR.tres" id="8_meyy0"]
 [ext_resource type="Material" uid="uid://bsly7mk58bs45" path="res://assets/textures/world/nb_flats/NFRRK14C.tres" id="9_3da4a"]
 [ext_resource type="Script" path="res://entities/scripts/func_finishline.gd" id="9_ksi6w"]
 [ext_resource type="Material" uid="uid://b7y303ek38pji" path="res://assets/textures/world/driftlock_textures/boost.tres" id="10_foheq"]
 [ext_resource type="Script" path="res://entities/scripts/func_checkpoint.gd" id="10_gfrqm"]
 [ext_resource type="Script" path="res://entities/scripts/func_respawnpoint.gd" id="11_4rx4d"]
-[ext_resource type="Material" uid="uid://do64uay6t5s2y" path="res://assets/textures/world/driftlock_textures/black.tres" id="11_nx5kd"]
-[ext_resource type="Material" uid="uid://q0j4xfut71pk" path="res://assets/textures/world/nb_flats/NFMTTK13.tres" id="12_wv1if"]
+[ext_resource type="Material" path="res://assets/textures/world/driftlock_textures/black.tres" id="11_nx5kd"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFMTTK13.tres" id="12_wv1if"]
 [ext_resource type="Script" path="res://entities/scripts/func_button.gd" id="13_1rvs8"]
 [ext_resource type="Material" uid="uid://c2bcl3qh2sw8w" path="res://assets/textures/world/nb_flats/NFSTEP03.tres" id="14_lymyi"]
 [ext_resource type="Script" path="res://entities/scripts/func_mover.gd" id="15_qi14e"]
-[ext_resource type="Material" uid="uid://b51c7a2u627yk" path="res://assets/textures/world/nb_flats/NFMTTK12.tres" id="16_hmk4b"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFMTTK12.tres" id="16_hmk4b"]
 [ext_resource type="Script" path="res://entities/scripts/func_trapdoor.gd" id="17_5qsne"]
-[ext_resource type="Material" uid="uid://bc1u2bcrdteoq" path="res://assets/textures/world/nb_flats/NFMTTK14.tres" id="18_jmycy"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFMTTK14.tres" id="18_jmycy"]
 [ext_resource type="Script" path="res://entities/scripts/func_rotator.gd" id="19_r3pjy"]
 [ext_resource type="PackedScene" uid="uid://bvkq33d8qh0rl" path="res://scenes/game_object/item/item.tscn" id="20_tqbdv"]
-[ext_resource type="Material" uid="uid://d2qceign5lfpy" path="res://assets/textures/world/nb_flats/NFCSPN04.tres" id="21_61vhr"]
+[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFCSPN04.tres" id="21_61vhr"]
 [ext_resource type="Script" path="res://entities/scripts/func_teleporter.gd" id="22_xjrtb"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="23_f0rp4"]
 [ext_resource type="Script" path="res://entities/scripts/torch_light.gd" id="24_rd3be"]
@@ -31,7 +31,7 @@
 [ext_resource type="Script" path="res://entities/scripts/func_killzone.gd" id="29_xgl4h"]
 [ext_resource type="Script" path="res://entities/scripts/func_water.gd" id="30_5v8eh"]
 [ext_resource type="Shader" path="res://assets/shaders/water_shader.gdshader" id="31_2vxu8"]
-[ext_resource type="Material" uid="uid://cowebtd5tcyvi" path="res://assets/textures/world/driftlock_textures/water_transparent.tres" id="32_35ip0"]
+[ext_resource type="Material" uid="uid://do55c0ss04s5u" path="res://assets/textures/world/driftlock_textures/water_transparent.tres" id="32_35ip0"]
 [ext_resource type="Material" uid="uid://dgmmy6q1ees1l" path="res://assets/textures/default_texture.tres" id="33_0cgc0"]
 [ext_resource type="Script" path="res://entities/scripts/func_boost.gd" id="34_vep46"]
 
@@ -1573,13 +1573,13 @@ points = PackedVector3Array(65.5, 22, 28.5, 65.5, 15, 28.5, 71.5, 15, 28.5, 71.5
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_t2ege"]
 points = PackedVector3Array(-66.75, -8.75, 13.5, -66.75, -10.75, 13.5, 66.75, -10.75, 13.5, 66.75, -8.75, 13.5, -66.75, -8.75, 45.5, -66.75, -10.75, 45.5, 66.75, -10.75, 45.5, 66.75, -8.75, 45.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5ll6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1qgk"]
 render_priority = 0
 shader = ExtResource("31_2vxu8")
 shader_parameter/water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 shader_parameter/wave_height = 0.0
 shader_parameter/wave_speed = 0.0
-shader_parameter/time = 3.51667
+shader_parameter/time = 225.633
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_020tv"]
 _surfaces = [{
@@ -1737,6 +1737,8 @@ shape = SubResource("ConcavePolygonShape3D_qndpt")
 
 [node name="entity_2_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 1, -20.5)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("13_1rvs8")
 target = "bridge1"
 axis = Vector3(0, 0, -1)
@@ -1806,6 +1808,8 @@ shape = SubResource("ConvexPolygonShape3D_w7vyo")
 
 [node name="entity_7_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 1, 27.25)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("13_1rvs8")
 target = "door1"
 axis = Vector3(1, 0, 0)
@@ -1819,6 +1823,8 @@ shape = SubResource("ConvexPolygonShape3D_niotw")
 
 [node name="entity_8_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 5.25, -9.75)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("13_1rvs8")
 target = "trap1"
 depth = 0.4
@@ -1831,6 +1837,8 @@ shape = SubResource("ConvexPolygonShape3D_t1rkw")
 
 [node name="entity_9_func_button" type="Area3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.25, 7.75, 3.25)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("13_1rvs8")
 target = "trap2"
 depth = 0.4
@@ -1926,7 +1934,7 @@ mesh = SubResource("ArrayMesh_5f1by")
 shape = SubResource("ConvexPolygonShape3D_3pujt")
 
 [node name="entity_16_func_mover" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.5, 18.5, 14.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2865, 18.5, 14.25)
 sync_to_physics = false
 script = ExtResource("15_qi14e")
 translation = Vector3(-28, 0, 0)
@@ -1959,10 +1967,10 @@ shape = SubResource("ConvexPolygonShape3D_3c1hk")
 shape = SubResource("ConvexPolygonShape3D_byrmk")
 
 [node name="entity_17_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 25, 75)
+transform = Transform3D(1, 0, 0, 0, -0.0429157, -0.999079, 0, 0.999079, -0.0429157, 74.5, 25, 75)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
-speed = 0.4
+speed = 2.5
 spin = true
 
 [node name="entity_17_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_17_func_rotator"]
@@ -1986,10 +1994,10 @@ shape = SubResource("ConvexPolygonShape3D_4iffc")
 shape = SubResource("ConvexPolygonShape3D_thxs2")
 
 [node name="entity_18_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 75)
+transform = Transform3D(1, 0, 0, 0, -0.0429157, 0.999079, 0, -0.999079, -0.0429157, 27, 13, 75)
 script = ExtResource("19_r3pjy")
 axis = Vector3(-1, 0, 0)
-speed = 0.4
+speed = 2.5
 spin = true
 
 [node name="entity_18_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_18_func_rotator"]
@@ -2013,11 +2021,11 @@ shape = SubResource("ConvexPolygonShape3D_yr4s5")
 [node name="entity_18_brush_5_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_18_func_rotator"]
 
 [node name="entity_19_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 23.5, -7)
+transform = Transform3D(1, 0, 0, 0, 0.100471, 0.99494, 0, -0.99494, 0.100471, 34, 23.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = -90.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2036,11 +2044,11 @@ shape = SubResource("ConvexPolygonShape3D_7lfbk")
 [node name="entity_19_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_19_func_rotator"]
 
 [node name="entity_20_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 23.5, -7)
+transform = Transform3D(1, 0, 0, 0, 0.100471, -0.99494, 0, 0.99494, 0.100471, 47, 23.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = 90.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2059,11 +2067,11 @@ shape = SubResource("ConvexPolygonShape3D_ajbrq")
 [node name="entity_20_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_20_func_rotator"]
 
 [node name="entity_21_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 56.5, -23)
+transform = Transform3D(0.556937, 0.830555, 0, -0.830555, 0.556937, 0, 0, 0, 1, 163, 56.5, -23)
 script = ExtResource("19_r3pjy")
 axis = Vector3(0, 0, 1)
 degrees = -60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2082,11 +2090,11 @@ shape = SubResource("ConvexPolygonShape3D_cxm0f")
 [node name="entity_21_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_21_func_rotator"]
 
 [node name="entity_22_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 56.5, -7)
+transform = Transform3D(0.556937, -0.830555, 0, 0.830555, 0.556937, 0, 0, 0, 1, 163, 56.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(0, 0, 1)
 degrees = 60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2105,11 +2113,11 @@ shape = SubResource("ConvexPolygonShape3D_3t0r1")
 [node name="entity_22_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_22_func_rotator"]
 
 [node name="entity_23_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 208, 56.5, -19)
+transform = Transform3D(1, 0, 0, 0, 0.556937, -0.830555, 0, 0.830555, 0.556937, 208, 56.5, -19)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = 60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -3056,7 +3064,7 @@ water_wave_height = 0.0
 water_wave_speed = 0.0
 
 [node name="entity_124_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_124_func_water"]
-material_override = SubResource("ShaderMaterial_a5ll6")
+material_override = SubResource("ShaderMaterial_a1qgk")
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("ArrayMesh_020tv")

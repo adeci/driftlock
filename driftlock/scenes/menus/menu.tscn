@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c0whbg0xxknvj"]
+[gd_scene load_steps=20 format=3 uid="uid://c0whbg0xxknvj"]
 
 [ext_resource type="Script" path="res://scenes/menus/menu_layers.gd" id="1_8oymd"]
 [ext_resource type="Script" path="res://scenes/menus/menu.gd" id="1_bjhb1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/menus/host_lobby_creation.gd" id="4_8744j"]
 [ext_resource type="Script" path="res://scenes/menus/lobbies.gd" id="5_i7wf5"]
 [ext_resource type="Script" path="res://scenes/menus/lobby_setting_buttons.gd" id="6_6anir"]
+[ext_resource type="Script" path="res://scenes/menus/player_banner.gd" id="8_slx26"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrh0t"]
 
@@ -668,7 +669,6 @@ text = "Play"
 
 [node name="SampleUIElements" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
@@ -700,6 +700,7 @@ alignment = 0
 [node name="Player1" type="MarginContainer" parent="SampleUIElements"]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 0
+script = ExtResource("8_slx26")
 
 [node name="PlayerBackground" type="ColorRect" parent="SampleUIElements/Player1"]
 layout_mode = 2
@@ -730,6 +731,19 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Sample"
 
+[node name="PingContainer" type="MarginContainer" parent="SampleUIElements/Player1/PlayerInformation"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 5
+
+[node name="Ping" type="Label" parent="SampleUIElements/Player1/PlayerInformation/PingContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0 ms"
+
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/LevelSelect" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["level_select"]]
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Multiplayer" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["multiplayer_buttons"]]
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
@@ -754,5 +768,6 @@ text = "Sample"
 [connection signal="draw" from="LobbyMenu" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_visibility"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="." method="_on_lobby_exit_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/Exit" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_exit_pressed"]
+[connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Invite" to="LobbyMenu/ElementSeperator/LobbyMenu/LobbyMembers" method="_on_invite_pressed"]
 [connection signal="pressed" from="LobbyMenu/ElementSeperator/LobbyButtons/LobbyButtonsContainer/PlayButtonContainer/Play" to="LobbyMenu/ElementSeperator/SettingsMenu/LobbySettingButtons" method="_on_play_pressed"]
 [connection signal="pressed" from="SampleUIElements/SampleLobbyButton" to="." method="_on_lobby_button_pressed"]

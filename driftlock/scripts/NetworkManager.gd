@@ -6,6 +6,7 @@ signal load_level(level: GameManager.Level)
 signal player_disconnected(peer_id: int)
 signal avatar_loaded
 signal server_disconnected
+signal ping(peer_id: int, ping: int)
 
 # Network Handler
 var peer: MultiplayerPeer
@@ -21,10 +22,12 @@ var current_level: int = -1
 var local: bool = false
 var upnp_enabled: bool = true
 var thread: Thread = null
+var prev_time_msec: int = 0
 
 # Multiplayer Globals
 var lobby_members: Dictionary = {}
 var player_information: Dictionary = {}
+var player_ping: Dictionary = {}
 var player_info := "Name"
 var player_limit: int = 10
 var lobby_type := Steam.LOBBY_TYPE_PUBLIC
@@ -47,6 +50,7 @@ func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnect)
+	ping.connect(_set_ping)
 	
 	# Set Steam Signals
 	Steam.lobby_created.connect(_on_lobby_created)
@@ -145,6 +149,25 @@ func close_server() -> void:
 	current_level = -1
 	if local:
 		local = false
+
+
+func get_ping() -> void:
+	prev_time_msec = Time.get_ticks_msec()
+	ping_remote.rpc()
+
+
+func _set_ping(peer_id: int, ping: int):
+	player_ping[peer_id] = ping
+
+
+@rpc("reliable")
+func ping_remote() -> void:
+	return_ping.rpc_id(multiplayer.get_remote_sender_id())
+
+
+@rpc("reliable", "any_peer")
+func return_ping() -> void:
+	ping.emit(multiplayer.get_remote_sender_id(), Time.get_ticks_msec() - prev_time_msec)
 
 
 # Multiplayer Signals
