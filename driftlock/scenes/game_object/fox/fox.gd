@@ -31,6 +31,7 @@ var original_collision_layer: int
 var original_collision_mask: int
 
 var is_in_water: bool = false
+var was_in_water: bool = false
 
 var rpc_position = Vector3.ZERO
 
@@ -72,6 +73,13 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		# Check for water state changes
+		if is_in_water != was_in_water:
+			if is_in_water:
+				SoundManager.player_entered_water(get_multiplayer_authority(), global_position)
+			else:
+				SoundManager.player_exited_water(get_multiplayer_authority(), global_position)
+			was_in_water = is_in_water
 
 		if not respawning:
 			if Input.is_action_just_pressed("RESPAWN"):
@@ -148,7 +156,7 @@ func _physics_process(delta):
 			target_velocity = looking_direction*speed
 			play_animation.rpc(Animations.RUN)
 			$AnimationTree.set("parameters/run_amount/blend_amount", min(1.0, percent_max_speed*2))
-		else :
+		else:
 			play_animation.rpc(Animations.IDLE)
 			var current = $AnimationTree.get("parameters/run_amount/blend_amount")
 			$AnimationTree.set("parameters/run_amount/blend_amount", lerp(current, 0.0, 12*delta))
@@ -174,6 +182,11 @@ func _physics_process(delta):
 		velocity = lerp(velocity, target_velocity, delta*1.0)
 
 		move_and_slide()
+
+		# Update movement sound
+		var is_moving = Input.is_action_pressed("UP")
+		var speed_factor = min(Vector3(velocity.x, 0, velocity.z).length() / speed, 1.0)
+		SoundManager.update_player_movement_sound(get_multiplayer_authority(), is_moving, speed_factor)
 
 		rpc("set_remote_position", global_position, global_rotation.y)
 	else:
@@ -286,10 +299,6 @@ func play_animation(animation):
 		Animations.WAVECANCEL:
 			$AnimationTree.set("parameters/wave_shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 
-
-#@rpc("reliable")
-#func remote_emote():
-	#$fox/AnimationPlayer.play("wave")
 
 func set_item(item: GameManager.Item) -> void:
 	held_item = item
