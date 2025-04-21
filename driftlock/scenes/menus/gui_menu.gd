@@ -20,7 +20,7 @@ var ready_count: int = 0
 var scene_lock: bool = false:
 	get:
 		ready_count += 1
-		if ready_count == NetworkManager.lobby_members.size() - 1:
+		if ready_count == NetworkManager.lobby_members.size():
 			ready_count = 0
 			return true
 		else: return false
@@ -58,13 +58,10 @@ func _on_exit_to_lobby_pressed() -> void:
 	get_tree().paused = true
 	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
 	remote_suspend.rpc()
-	if NetworkManager.lobby_members.size() == 1:
-		SoundManager.play_music(SoundManager.SoundCatalog.MENU_MUSIC, true)
-		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
+	peer_ready()
 
 
 func _on_exit_clock_timeout() -> void:
-	SoundManager.play_music(SoundManager.SoundCatalog.MENU_MUSIC, true)
 	to_main.rpc()
 	get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
 

@@ -28,8 +28,8 @@ func _ready() -> void:
 	target_speed = 20.0
 
 	setup_underwater_effect()
-	
-	setup_post_process_effect()
+	if follow_target and follow_target.is_multiplayer_authority():
+		setup_post_process_effect()
 
 func setup_underwater_effect() -> void:
 	underwater_effect = ColorRect.new()

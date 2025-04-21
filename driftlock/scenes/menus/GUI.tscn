@@ -238,8 +238,6 @@ theme_override_font_sizes/font_size = 100
 text = "Driftlock"
 
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/ResumeGame" to="." method="toggle_main_menu_visibility"]
-[connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_exit_to_lobby_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/Leave" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_leave_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Volume" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_volume_settings_pressed"]
-[connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer2/OptionsButtons/Buttons/Exit" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
