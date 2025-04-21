@@ -16,7 +16,7 @@ signal exit_to_lobby
 }
 
 # Race Conditions
-var exit_clock = get_tree().create_timer(30, true) # Force exit condition
+var exit_clock: SceneTreeTimer = null
 var leave_pressed: bool = false
 var ready_count: int = 0
 var scene_lock: bool = false:
@@ -30,7 +30,8 @@ var scene_lock: bool = false:
 
 func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_leave_pressed)
-	exit_clock.timeout.connect()
+	exit_clock = get_tree().create_timer(30, true) # Force exit condition
+	exit_clock.timeout.connect(_on_exit_clock_timeout)
 
 
 func toggle_layer(_toggled_on:bool, layer_name: String):
