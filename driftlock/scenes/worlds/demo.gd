@@ -13,7 +13,7 @@ func _ready() -> void:
 	add_prev_connected_player()
 	NetworkManager.player_connected.connect(add_player_character)
 	NetworkManager.player_disconnected.connect(remove_player_character)
-	tree_exiting.connect(remove_player_character.bind(multiplayer.get_unique_id()))
+	tree_exiting.connect(RaceManager.reset_race_manager)
 
 
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
