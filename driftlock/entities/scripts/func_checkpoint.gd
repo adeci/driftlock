@@ -10,7 +10,6 @@ extends Area3D
 			debug_visual.visible = value if not Engine.is_editor_hint() else false
 
 var debug_visual: MeshInstance3D
-var active_players: Array[int] = []
 
 func _func_godot_apply_properties(props: Dictionary) -> void:
 	if "checkpoint_id" in props:
@@ -27,7 +26,4 @@ func _ready() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D:
 		var player_id = body.get_multiplayer_authority()
-		if active_players.has(player_id):
-			return
-		active_players.append(player_id)
 		RaceManager.activate_checkpoint(checkpoint_id, player_id, body.global_position)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=59 format=4 uid="uid://cjgfsuttdlwfr"]
 
-[ext_resource type="Script" path="res://scenes/worlds/demo.gd" id="1_1dhnc"]
+[ext_resource type="Script" path="res://scenes/manager/GameLogic.gd" id="1_1dhnc"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_b5i4v"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="3_eb75i"]
 [ext_resource type="Script" path="res://entities/scripts/worldspawn.gd" id="4_w7kou"]
@@ -427,7 +427,7 @@ mesh = SubResource("ArrayMesh_4ajfi")
 shape = SubResource("ConvexPolygonShape3D_bcjwp")
 
 [node name="entity_4_func_mover" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.74999, 2.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9475, 2.5, -2)
 sync_to_physics = false
 script = ExtResource("9_cyhxu")
 translation = Vector3(-11.5, 0, 0)
@@ -609,12 +609,12 @@ occluder = SubResource("ArrayOccluder3D_odjkt")
 shape = SubResource("ConcavePolygonShape3D_jnwtf")
 
 [node name="entity_20_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(0.995918, 0.0902599, 0, -0.0902599, 0.995918, 0, 0, 0, 1, 1, 4.75, -7)
+transform = Transform3D(0.294008, -0.955802, 0, 0.955802, 0.294008, 0, 0, 0, 1, 1, 4.75, -7)
 script = ExtResource("19_enqe2")
 targetname = "rotator1"
 axis = Vector3(0, 0, 1)
 degrees = -180.0
-speed = 1.25
+speed = 0.8
 looped = true
 smooth = true
 
