@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://c3arvlrph21we"]
+[gd_scene load_steps=35 format=4 uid="uid://c3arvlrph21we"]
 
 [ext_resource type="Script" path="res://scenes/manager/GameLogic.gd" id="1_pmfsu"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_vvugg"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://entities/scripts/worldspawn.gd" id="4_4pxtx"]
 [ext_resource type="Material" uid="uid://bsly7mk58bs45" path="res://assets/textures/world/nb_flats/NFRRK14C.tres" id="4_ephvo"]
 [ext_resource type="Material" uid="uid://bdkg3uocbrr6c" path="res://assets/textures/world/nb_flats/NFSTGY12.tres" id="5_cyroh"]
-[ext_resource type="Material" path="res://assets/textures/world/nb_flats/NFBRWN01.tres" id="6_aq2mg"]
 [ext_resource type="Material" uid="uid://c2bcl3qh2sw8w" path="res://assets/textures/world/nb_flats/NFSTEP03.tres" id="7_sa660"]
 [ext_resource type="Material" uid="uid://blu8u1x2ugn8w" path="res://assets/textures/world/test.tres" id="8_stmju"]
 [ext_resource type="Material" uid="uid://cj8xobiuss472" path="res://assets/textures/world/test2.tres" id="9_akth8"]
@@ -14,7 +13,6 @@
 [ext_resource type="Script" path="res://entities/scripts/func_finishline.gd" id="12_gyplc"]
 [ext_resource type="Script" path="res://entities/scripts/func_checkpoint.gd" id="13_mu06u"]
 [ext_resource type="Script" path="res://entities/scripts/func_respawnpoint.gd" id="14_vwy52"]
-[ext_resource type="Texture2D" uid="uid://brlvgg0jm0dg6" path="res://assets/textures/world/nb_flats/NFLTW03V.png" id="15_suaye"]
 [ext_resource type="Texture2D" uid="uid://drcb07fb7p1la" path="res://assets/textures/default_texture.png" id="16_yawqq"]
 
 [sub_resource type="Environment" id="Environment_v0eqd"]
@@ -68,7 +66,6 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 36,
 "index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcA"),
-"material": ExtResource("6_aq2mg"),
 "name": "world/nb_flats/NFBRWN01",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -114,7 +111,6 @@ points = PackedVector3Array(-4, 2, -3.25, -4, -1.5, -3.25, -3.5, -1.5, -3.25, -3
 points = PackedVector3Array(-7.75, 2, 1, -7.75, -1.5, 1, -7.25, -1.5, 1, -7.25, 2, 1, -7.75, 2, 7.5, -7.75, -1.5, 7.5, -7.25, -1.5, 7.5, -7.25, 2, 7.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4qnc"]
-albedo_texture = ExtResource("15_suaye")
 metallic_specular = 0.0
 texture_filter = 2
 

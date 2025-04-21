@@ -14,7 +14,7 @@ shader_parameter/rainbow_scale = 2.0
 shader_parameter/rim_strength = 0.7
 shader_parameter/glow_strength = 0.9
 shader_parameter/transparency = 0.6
-shader_parameter/time = 0.0
+shader_parameter/time = 23.234
 
 [sub_resource type="SphereMesh" id="SphereMesh_nv0a3"]
 
