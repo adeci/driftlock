@@ -9,6 +9,15 @@ points = PackedVector3Array(0.457871, 0.198079, 0.0157824, -0.48874, -0.0916874,
 
 [node name="Item" type="Area3D"]
 script = ExtResource("1_86xu2")
+item_color = null
+flow_speed = null
+color_saturation = null
+color_brightness = null
+pulse_intensity = null
+rainbow_scale = null
+rim_strength = null
+glow_strength = null
+transparency = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_nv0a3")
