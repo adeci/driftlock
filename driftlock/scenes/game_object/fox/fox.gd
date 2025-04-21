@@ -292,9 +292,11 @@ func play_animation(animation):
 	#$fox/AnimationPlayer.play("wave")
 
 func set_item(item: GameManager.Item) -> void:
+	GameManager.item_collected.emit(item)
 	held_item = item
 
 func use_item() -> void:
+	GameManager.item_used.emit()
 	var item = held_item
 	held_item = null
 	match item:

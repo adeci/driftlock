@@ -15,6 +15,9 @@ func _ready() -> void:
 
 	self.visible = true
 	
+	GameManager.item_collected.connect(_item_collected)
+	GameManager.item_used.connect(_item_used)
+	
 	racing = false
 	RaceManager.race_started.connect(_race_started)
 	RaceManager.race_completed.connect(_race_completed)
@@ -35,6 +38,18 @@ func _process(delta: float) -> void:
 		
 	if racing:
 		update_time()
+
+func _item_collected(item: GameManager.Item):
+	match item:
+		GameManager.Item.JUMP:
+			$RaceUI/ItemMargin/Item.texture = load("res://assets/textures/items/jump.png")
+		GameManager.Item.BOOST:
+			$RaceUI/ItemMargin/Item.texture = load("res://assets/textures/items/boost.png")
+		GameManager.Item.SPEEDUP:
+			$RaceUI/ItemMargin/Item.texture = load("res://assets/textures/items/speed.png")
+
+func _item_used():
+	$RaceUI/ItemMargin/Item.texture = null
 
 func _race_started(player_id: int):
 	if player_id == multiplayer.get_unique_id():
