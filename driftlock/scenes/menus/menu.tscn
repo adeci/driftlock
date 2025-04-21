@@ -669,6 +669,7 @@ text = "Play"
 
 [node name="SampleUIElements" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
@@ -698,6 +699,7 @@ text = "Sample"
 alignment = 0
 
 [node name="Player1" type="MarginContainer" parent="SampleUIElements"]
+visible = false
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 0
 script = ExtResource("8_slx26")
@@ -742,7 +744,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "0 ms"
 
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/LevelSelect" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["level_select"]]
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Multiplayer" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["multiplayer_buttons"]]
