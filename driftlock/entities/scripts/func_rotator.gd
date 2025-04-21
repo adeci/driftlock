@@ -53,13 +53,13 @@ func _on_button_pressed(target: String) -> void:
 func activate_spin() -> void:
 	is_active = true
 	var amount: Vector3 = 360 * axis
-	tween = create_tween().set_loops()
+	tween = create_tween().set_loops().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tween.tween_property(self, "rotation_degrees", amount, speed).as_relative()
 
 func activate_looped() -> void:
 	is_active = true
 	var amount: Vector3 = degrees * axis
-	tween = create_tween().set_loops()
+	tween = create_tween().set_loops().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	if smooth:
 		tween.tween_property(self, "rotation_degrees", amount, speed).as_relative().set_trans(TRANS_TYPE)
 		tween.tween_interval(loop_pause)
@@ -74,7 +74,7 @@ func activate_looped() -> void:
 func activate_timed() -> void:
 	is_active = true
 	var amount: Vector3 = degrees * axis
-	tween = create_tween()
+	tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	if smooth:
 		tween.tween_property(self, "rotation_degrees", amount, speed).as_relative().set_trans(TRANS_TYPE)
 		tween.tween_interval(active_time)
