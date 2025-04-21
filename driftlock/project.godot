@@ -22,6 +22,7 @@ NetworkManager="*res://scripts/NetworkManager.gd"
 GameManager="*res://scripts/GameManager.gd"
 RaceManager="*res://scripts/RaceManager.gd"
 SoundManager="*res://scripts/SoundManager.gd"
+VolumeControl="*res://scenes/menus/VolumeControl.tscn"
 
 [editor]
 

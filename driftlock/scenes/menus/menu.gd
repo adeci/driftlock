@@ -69,6 +69,9 @@ func _on_lobby_button_pressed() -> void:
 	$LobbyLoading.visible = false
 	$LobbyMenu.visible = true
 
+func _on_volume_settings_pressed() -> void:
+	VolumeControl.show_control()
+	SoundManager.play_sound(SoundManager.SoundCatalog.BUTTON1)
 
 func _on_start_level(level_name) -> void:
 	$MainMenu.visible = false
