@@ -2,7 +2,7 @@ extends Node3D
 
 
 var player_character: PackedScene
-
+var current_level_name: String = ""
 
 func _init() -> void:
 	player_character = preload("res://scenes/game_object/player_character.tscn")
@@ -14,6 +14,11 @@ func _ready() -> void:
 	NetworkManager.player_connected.connect(add_player_character)
 	NetworkManager.player_disconnected.connect(remove_player_character)
 	tree_exiting.connect(RaceManager.reset_race_manager)
+	
+	var scene_path = get_tree().current_scene.scene_file_path
+	current_level_name = scene_path.get_file().get_basename()
+	print(current_level_name)
+	play_level_music(current_level_name)
 
 
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
@@ -71,3 +76,13 @@ func remove_player_character(peer_id) -> void:
 func add_prev_connected_player():
 	for peer_id in NetworkManager.lobby_members:
 		add_player_character(peer_id, NetworkManager.lobby_members[peer_id])
+
+
+func play_level_music(level_name: String) -> void:
+	match level_name:
+		"beachzone_level":
+			SoundManager.play_music(SoundManager.SoundCatalog.BEACH_MUSIC)
+		"dungeon_level":
+			SoundManager.play_music(SoundManager.SoundCatalog.DUNGEON_MUSIC)
+		"demo_level", _:
+			SoundManager.play_music(SoundManager.SoundCatalog.MENU_MUSIC)

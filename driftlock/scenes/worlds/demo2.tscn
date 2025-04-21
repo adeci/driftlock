@@ -606,7 +606,7 @@ script = ExtResource("19_enqe2")
 targetname = "rotator1"
 axis = Vector3(0, 0, 1)
 degrees = -180.0
-speed = 1.25
+speed = 0.8
 looped = true
 smooth = true
 

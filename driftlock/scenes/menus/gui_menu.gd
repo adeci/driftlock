@@ -57,10 +57,12 @@ func _on_exit_to_lobby_pressed() -> void:
 	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
 	remote_suspend.rpc()
 	if NetworkManager.lobby_members.size() == 1:
+		SoundManager.play_music(SoundManager.SoundCatalog.MENU_MUSIC, true)
 		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
 
 
 func _on_exit_clock_timeout() -> void:
+	SoundManager.play_music(SoundManager.SoundCatalog.MENU_MUSIC, true)
 	to_main.rpc()
 	get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
 

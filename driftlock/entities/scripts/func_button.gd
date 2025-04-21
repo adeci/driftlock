@@ -55,6 +55,8 @@ func press() -> void:
 	if is_pressed:
 		return
 	is_pressed = true
+	var selected_sound = random_button_sound()
+	SoundManager.play_sound(selected_sound, true, global_position)
 	emit_pressed()
 
 func emit_pressed() -> void:
@@ -67,3 +69,12 @@ func release() -> void:
 		return
 	is_pressed = false
 	await get_tree().create_timer(release_delay).timeout
+	
+func random_button_sound() -> SoundManager.SoundCatalog:
+	var sound_options = [
+		SoundManager.SoundCatalog.BUTTON1,
+		SoundManager.SoundCatalog.BUTTON2,
+		SoundManager.SoundCatalog.BUTTON3
+	]
+	var selected_sound = sound_options[randi() % sound_options.size()]
+	return selected_sound

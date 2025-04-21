@@ -35,6 +35,3 @@ func _on_body_entered(body: Node3D) -> void:
 				return
 		player_finish_cooldown[player_id] = Time.get_ticks_msec() / 1000.0
 		var race_completed = RaceManager.finish_race(player_id)
-		if race_completed:
-			# Visual/audio feedback could go here
-			pass
