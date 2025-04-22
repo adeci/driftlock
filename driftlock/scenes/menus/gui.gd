@@ -8,6 +8,8 @@ var total_laps: int = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = PROCESS_MODE_ALWAYS
+	
 	if not multiplayer.is_server() or NetworkManager.local:
 		$MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby.visible = false
 

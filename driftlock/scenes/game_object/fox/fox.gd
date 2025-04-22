@@ -300,8 +300,9 @@ func play_animation(animation):
 
 
 func set_item(item: GameManager.Item) -> void:
-	GameManager.item_collected.emit(item)
-	held_item = item
+	if is_multiplayer_authority():
+		GameManager.item_collected.emit(item)
+		held_item = item
 
 func use_item() -> void:
 	GameManager.item_used.emit()
