@@ -25,19 +25,23 @@ enum SoundCatalog {
 }
 
 var sound_volume_modifiers: Dictionary = {
-	SoundCatalog.RESPAWN: -10.0,
-	SoundCatalog.BUTTON1: -15.0,
-	SoundCatalog.BUTTON2: -15.0,
-	SoundCatalog.BUTTON3: -15.0,
+	SoundCatalog.RESPAWN: -15.0,
+	SoundCatalog.BUTTON1: -40.0,
+	SoundCatalog.BUTTON2: -40.0,
+	SoundCatalog.BUTTON3: -40.0,
 	SoundCatalog.TELE1: -35.0,
 	SoundCatalog.TELE2: -35.0,
 	SoundCatalog.TELE3: -35.0,
-	SoundCatalog.ITEM_PICKUP: -7.0,
+	SoundCatalog.ITEM_PICKUP: -45.0,
 	SoundCatalog.LAP: -5.0,
+	SoundCatalog.FINISH: -5.0,
 	SoundCatalog.WATER_SUBMERGE: -80.0,
 	SoundCatalog.WATER_EMERGE: -70.0,
 	SoundCatalog.WATER_AMBIENCE: -8.0,
-	SoundCatalog.SPEED_BOOST: 10.0,
+	SoundCatalog.SPEED_BOOST: -20.0,
+	SoundCatalog.SPEED_ENHANCE: -20.0,
+	SoundCatalog.JUMP_BOOST: -30.0,
+	SoundCatalog.GO: -5.0,
 }
 
 # Audio player pools

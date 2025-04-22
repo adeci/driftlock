@@ -1583,13 +1583,13 @@ points = PackedVector3Array(65.5, 22, 28.5, 65.5, 15, 28.5, 71.5, 15, 28.5, 71.5
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_arjow"]
 points = PackedVector3Array(-66.75, -8.75, 13.5, -66.75, -10.75, 13.5, 66.75, -10.75, 13.5, 66.75, -8.75, 13.5, -66.75, -8.75, 45.5, -66.75, -10.75, 45.5, 66.75, -10.75, 45.5, 66.75, -8.75, 45.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_31wt8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eukkf"]
 render_priority = 0
 shader = ExtResource("31_2vxu8")
 shader_parameter/water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 shader_parameter/wave_height = 0.1
 shader_parameter/wave_speed = 0.5
-shader_parameter/time = 598.933
+shader_parameter/time = 751.667
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vtndl"]
 _surfaces = [{
@@ -1944,7 +1944,7 @@ mesh = SubResource("ArrayMesh_dwkn3")
 shape = SubResource("ConvexPolygonShape3D_0iuno")
 
 [node name="entity_16_func_mover" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.8469, 18.5, 14.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.4866, 18.5, 14.25)
 sync_to_physics = false
 script = ExtResource("15_qi14e")
 translation = Vector3(-28, 0, 0)
@@ -1977,10 +1977,10 @@ shape = SubResource("ConvexPolygonShape3D_chxo6")
 shape = SubResource("ConvexPolygonShape3D_7mh07")
 
 [node name="entity_17_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, -0.926768, 0.375634, 0, -0.375634, -0.926768, 74.5, 25, 75)
+transform = Transform3D(1, 0, 0, 0, -0.615246, -0.788335, 0, 0.788335, -0.615246, 74.5, 25, 75)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
-speed = 0.4
+speed = 2.5
 spin = true
 
 [node name="entity_17_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_17_func_rotator"]
@@ -2004,10 +2004,10 @@ shape = SubResource("ConvexPolygonShape3D_vg36d")
 shape = SubResource("ConvexPolygonShape3D_r2eia")
 
 [node name="entity_18_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, -0.926768, -0.375634, 0, 0.375634, -0.926768, 27, 13, 75)
+transform = Transform3D(1, 0, 0, 0, -0.615246, 0.788335, 0, -0.788335, -0.615246, 27, 13, 75)
 script = ExtResource("19_r3pjy")
 axis = Vector3(-1, 0, 0)
-speed = 0.4
+speed = 2.5
 spin = true
 
 [node name="entity_18_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_18_func_rotator"]
@@ -2031,11 +2031,11 @@ shape = SubResource("ConvexPolygonShape3D_oege0")
 [node name="entity_18_brush_5_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_18_func_rotator"]
 
 [node name="entity_19_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, -0.0558214, 0.998441, 0, -0.998441, -0.0558214, 34, 23.5, -7)
+transform = Transform3D(1, 0, 0, 0, -0.48786, 0.872922, 0, -0.872922, -0.48786, 34, 23.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = -90.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2054,11 +2054,11 @@ shape = SubResource("ConvexPolygonShape3D_h32bl")
 [node name="entity_19_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_19_func_rotator"]
 
 [node name="entity_20_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, -0.0558214, -0.998441, 0, 0.998441, -0.0558214, 47, 23.5, -7)
+transform = Transform3D(1, 0, 0, 0, -0.48786, -0.872922, 0, 0.872922, -0.48786, 47, 23.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = 90.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2077,11 +2077,11 @@ shape = SubResource("ConvexPolygonShape3D_vnqaa")
 [node name="entity_20_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_20_func_rotator"]
 
 [node name="entity_21_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(0.469472, 0.882948, 0, -0.882948, 0.469472, 0, 0, 0, 1, 163, 56.5, -23)
+transform = Transform3D(0.185095, 0.982721, 0, -0.982721, 0.185095, 0, 0, 0, 1, 163, 56.5, -23)
 script = ExtResource("19_r3pjy")
 axis = Vector3(0, 0, 1)
 degrees = -60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2100,11 +2100,11 @@ shape = SubResource("ConvexPolygonShape3D_43ljv")
 [node name="entity_21_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_21_func_rotator"]
 
 [node name="entity_22_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(0.469472, -0.882948, 0, 0.882948, 0.469472, 0, 0, 0, 1, 163, 56.5, -7)
+transform = Transform3D(0.185095, -0.982721, 0, 0.982721, 0.185095, 0, 0, 0, 1, 163, 56.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(0, 0, 1)
 degrees = 60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2123,11 +2123,11 @@ shape = SubResource("ConvexPolygonShape3D_xke0u")
 [node name="entity_22_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_22_func_rotator"]
 
 [node name="entity_23_func_rotator" type="AnimatableBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 0.469472, -0.882948, 0, 0.882948, 0.469472, 208, 56.5, -19)
+transform = Transform3D(1, 0, 0, 0, 0.185095, -0.982721, 0, 0.982721, 0.185095, 208, 56.5, -19)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = 60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -3079,7 +3079,7 @@ water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 water_wave_speed = 0.5
 
 [node name="entity_126_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_126_func_water"]
-material_override = SubResource("ShaderMaterial_31wt8")
+material_override = SubResource("ShaderMaterial_eukkf")
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("ArrayMesh_vtndl")

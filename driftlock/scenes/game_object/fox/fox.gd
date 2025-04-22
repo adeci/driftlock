@@ -33,6 +33,11 @@ var original_collision_mask: int
 var is_in_water: bool = false
 var was_in_water: bool = false
 
+var collision_sound_cooldown: bool = false
+var collision_sound_timer: Timer
+var previous_velocity: Vector3 = Vector3.ZERO
+var velocity_change_threshold: float = 12.0 
+
 var rpc_position = Vector3.ZERO
 
 func _ready() -> void:
@@ -41,6 +46,12 @@ func _ready() -> void:
 	speedup_timer.one_shot = true
 	speedup_timer.autostart = false
 	speedup_timer.wait_time = speedup_time
+	
+	collision_sound_timer = Timer.new()
+	collision_sound_timer.one_shot = true
+	collision_sound_timer.wait_time = 0.4  # Cooldown between collision sounds
+	collision_sound_timer.timeout.connect(_on_collision_sound_cooldown_timeout)
+	add_child(collision_sound_timer)
 
 	# Setup respawn timers
 	respawn_timer = Timer.new()
@@ -72,9 +83,13 @@ func _ready() -> void:
 	
 	self.set_collision_mask_value(2, false)
 
+func _on_collision_sound_cooldown_timeout() -> void:
+	collision_sound_cooldown = false
+
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		var pre_collision_velocity = velocity
 		# Check for water state changes
 		if is_in_water != was_in_water:
 			if is_in_water:
@@ -184,9 +199,24 @@ func _physics_process(delta):
 		velocity = lerp(velocity, target_velocity, delta*1.0)
 
 		move_and_slide()
-		var collision = get_last_slide_collision()
-		if collision != null and collision.get_collider_velocity().dot(collision.get_normal()) != 0:
-			velocity += collision.get_collider_velocity().length() * collision.get_normal()
+		if get_slide_collision_count() > 0:
+			# Calculate the velocity difference before and after collision
+			var velocity_change = (pre_collision_velocity - velocity).length()
+			
+			# If there was a significant velocity change and we're not on cooldown
+			if velocity_change > velocity_change_threshold and !collision_sound_cooldown:
+				# Randomize between collision sounds
+				var sound_to_play = SoundManager.SoundCatalog.COLLISION1
+				if randf() > 0.5:
+					sound_to_play = SoundManager.SoundCatalog.COLLISION2
+				
+				# Play sound with volume proportional to impact (capped)
+				var volume_factor = clamp(velocity_change / 30.0, 0.3, 1.0)
+				SoundManager.play_sound(sound_to_play, false)
+				
+				# Enable cooldown
+				collision_sound_cooldown = true
+				collision_sound_timer.start()
 
 		var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
 		var speed_factor = min(horizontal_speed / speed, 1.0)
