@@ -29,9 +29,9 @@ func toggle_layer(_toggled_on:bool, layer_name: String):
 
 
 func lock(num: int) -> void:
+	scene_lock = num
 	if scene_lock == NetworkManager.lobby_members.size():
 		_on_exit_clock_timeout()
-	scene_lock = num
 
 
 func _on_volume_settings_pressed() -> void:
