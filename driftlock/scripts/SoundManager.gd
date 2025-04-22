@@ -42,6 +42,7 @@ var sound_volume_modifiers: Dictionary = {
 	SoundCatalog.SPEED_ENHANCE: -20.0,
 	SoundCatalog.JUMP_BOOST: -30.0,
 	SoundCatalog.GO: -5.0,
+	SoundCatalog.DRIFT: -10.0,
 }
 
 # Audio player pools
@@ -227,6 +228,7 @@ func play_sound(category: SoundCatalog, networked: bool = false, position: Vecto
 			player.stream = stream
 			player.volume_db = linear_to_db(sfx_volume) + volume_modifier
 			player.play()
+
 
 func play_sound_looping(category: SoundCatalog, position: Vector3 = Vector3.ZERO) -> void:
 	if not sound_enabled or not sound_library.has(category):

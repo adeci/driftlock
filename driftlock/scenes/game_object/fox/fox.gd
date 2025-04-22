@@ -111,6 +111,7 @@ func _physics_process(delta):
 
 		if !Input.is_action_pressed("DRIFT") and (drifting == DriftMode.LEFT or drifting == DriftMode.RIGHT):
 			drifting = DriftMode.NONE
+			SoundManager.stop_sound_looping(SoundManager.SoundCatalog.DRIFT)
 			$Camera3D.set_target_speed(20.0)
 			play_animation.rpc(Animations.DRIFTCANCEL)
 			$AnimationTree.set("parameters/drift_left_seek/seek_request", 0.0)
@@ -228,8 +229,10 @@ func _physics_process(delta):
 
 func drift_left():
 	drifting = DriftMode.LEFT
+	SoundManager.play_sound_looping(SoundManager.SoundCatalog.DRIFT)
 func drift_right():
 	drifting = DriftMode.RIGHT
+	SoundManager.play_sound_looping(SoundManager.SoundCatalog.DRIFT)
 
 func set_looking_direction(new_direction: Vector3) -> void:
 	new_direction.y = 0
