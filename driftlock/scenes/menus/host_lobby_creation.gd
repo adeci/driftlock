@@ -28,6 +28,7 @@ func _on_create_lobby_pressed() -> void:
 		lobby_name = "Driftlock Lobby"
 	if lobby_mode.is_empty():
 		lobby_mode = "Arcade"
+	lobby_mode = "Driftlock"
 	set_lobby_parameters(lobby_name, lobby_mode, steam_lobby_types[lobby_type_id.get_selected_id()])
 	NetworkManager.create_server()
 

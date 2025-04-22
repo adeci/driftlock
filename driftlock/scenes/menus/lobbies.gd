@@ -27,14 +27,15 @@ func _on_lobby_match_list(these_lobbies: Array) -> void:
 		# Get the current number of members
 		var lobby_num_members: int = Steam.getNumLobbyMembers(this_lobby)
 		
-		# Create a button for the lobby
-		var lobby_button: Button = sample_lobby_button.duplicate()
-		lobby_button.set_text("%s [%s] - %s Player(s)" % [lobby_name, lobby_mode, lobby_num_members])
-		lobby_button.set_name("lobby_%s" % this_lobby)
-		lobby_button.pressed.connect(NetworkManager.create_client.bind(this_lobby))
-		
-		# Add the new lobby to the list
-		lobby_list.add_child(lobby_button)
+		if lobby_mode == "Driftlock": # Senior Showcase Filter
+			# Create a button for the lobby
+			var lobby_button: Button = sample_lobby_button.duplicate()
+			lobby_button.set_text("%s [%s] - %s Player(s)" % [lobby_name, lobby_mode, lobby_num_members])
+			lobby_button.set_name("lobby_%s" % this_lobby)
+			lobby_button.pressed.connect(NetworkManager.create_client.bind(this_lobby))
+			
+			# Add the new lobby to the list
+			lobby_list.add_child(lobby_button)
 
 
 func _on_join_pressed() -> void:
