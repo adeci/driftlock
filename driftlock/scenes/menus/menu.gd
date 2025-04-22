@@ -79,6 +79,7 @@ func _on_start_level(level_name) -> void:
 	$LobbyMenu.visible = false
 	$LobbyList.visible = false
 	$SampleUIElements.visible = false
+	SoundManager.cleanup_level_sounds()
 	var packed_scene: PackedScene
 	match level_name:
 		GameManager.Level.DEMO:

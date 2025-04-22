@@ -149,6 +149,7 @@ func close_server() -> void:
 	lobby_id = 0
 	owner_steam_id = 0
 	current_level = -1
+	SoundManager.cleanup_level_sounds()
 	if local:
 		local = false
 

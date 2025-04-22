@@ -101,26 +101,17 @@ func _ready() -> void:
 			AudioServer.add_bus()
 			AudioServer.set_bus_name(bus_index, bus_name)
 			AudioServer.set_bus_send(bus_index, "Master")
-	# Create audio pools
 	create_audio_pools()
-	
-	# Create music player
 	music_player = AudioStreamPlayer.new()
 	music_player.bus = "Music"
 	music_player.volume_db = linear_to_db(music_volume)
 	add_child(music_player)
-	
-	# Connect to music player's finished signal for looping
 	music_player.finished.connect(_on_music_finished)
-	
-	# Load sound mappings
 	setup_sound_mappings()
-	
-	# Connect network signals
 	NetworkManager.player_connected.connect(_on_player_connected)
-	
-	# Preload sounds
+	get_tree().root.connect("tree_exiting", cleanup_level_sounds)
 	preload_sounds()
+	
 func is_multiplayer_active() -> bool:
 		return multiplayer != null and multiplayer.multiplayer_peer != null and multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
 	
@@ -353,6 +344,29 @@ func update_player_movement_sound(player_id: int, is_moving_fast_enough: bool, s
 	sound_player.pitch_scale = pitch_scale
 	if not sound_player.playing:
 		sound_player.play()
+
+func stop_all_movement_sounds() -> void:
+	for player_id in movement_sound_players.keys():
+		if is_instance_valid(movement_sound_players[player_id]):
+			movement_sound_players[player_id].stop()
+			movement_sound_players[player_id].queue_free()
+	movement_sound_players.clear()
+	movement_sound_start_times.clear()
+	
+func cleanup_level_sounds() -> void:
+	stop_all_movement_sounds()
+	for player_id in players_in_water.keys():
+		if player_id == multiplayer.get_unique_id():
+			stop_sound_looping(SoundCatalog.WATER_AMBIENCE)
+	players_in_water.clear()
+	var categories_to_stop = [
+		SoundCatalog.PLAYER_MOVING,
+		SoundCatalog.WATER_AMBIENCE,
+		SoundCatalog.DRIFT
+	]
+	for category in categories_to_stop:
+		if looping_players.has(category):
+			stop_sound_looping(category)
 
 func get_free_player_2d() -> AudioStreamPlayer:
 	for player in audio_pool_2d:
