@@ -31,6 +31,11 @@ func _ready() -> void:
 	timer.wait_time = respawn_time
 	timer.timeout.connect(_on_timer_timeout)
 	
+	collision_layer = 0
+	collision_mask = 0
+	set_collision_mask_value(1, true)
+	set_collision_mask_value(2, true)
+	
 	setup_shader()
 
 func _process(delta: float) -> void:

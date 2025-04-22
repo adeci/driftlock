@@ -53,7 +53,7 @@ func _ready() -> void:
 	invincibility_timer = Timer.new()
 	invincibility_timer.one_shot = true
 	invincibility_timer.wait_time = 5.0  # Time player is non-collidable
-	invincibility_timer.autostart = false
+	invincibility_timer.autostart = true
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	add_child(invincibility_timer)
 	

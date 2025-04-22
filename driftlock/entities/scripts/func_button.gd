@@ -13,9 +13,6 @@ var release_delay: float = 0.1
 var overlaps: int = 0
 
 func _ready() -> void:
-	connect("body_shape_entered", body_shape_entered)
-	connect("body_shape_exited", body_shape_exited)
-
 	collision_layer = 0
 	collision_mask = 0
 	set_collision_mask_value(1, true)
