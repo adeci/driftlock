@@ -85,11 +85,11 @@ var current_loop_points: Dictionary = {"start": 0.0, "end": 0.0}
 var first_play_tracker: Dictionary = {}
 var players_in_water: Dictionary = {}
 
-# Movement sound tracking
 var movement_sound_players: Dictionary = {}
 var movement_sound_start_times: Dictionary = {}
-const MOVEMENT_SOUND_DURATION: float = 11.0
-const MOVEMENT_SOUND_LOOP_START: float = 8.0  # 11 - 3 = 8 (last 3 seconds)
+const MOVEMENT_SOUND_DURATION: float = 7.55
+const MOVEMENT_SOUND_LOOP_START: float = 6.55
+const MOVEMENT_SPEED_THRESHOLD: float = 2.0
 
 func _ready() -> void:
 	var audio_bus_names = ["Master", "Music", "SFX"]
@@ -322,38 +322,37 @@ func player_exited_water(player_id: int, position: Vector3) -> void:
 	if player_id == multiplayer.get_unique_id():
 		stop_sound_looping(SoundCatalog.WATER_AMBIENCE)
 
-func update_player_movement_sound(player_id: int, is_moving: bool, speed_factor: float = 1.0) -> void:
+func update_player_movement_sound(player_id: int, is_moving_fast_enough: bool, speed_factor: float = 0.0) -> void:
 	if player_id != multiplayer.get_unique_id():
 		return
-	
-	if is_moving and speed_factor > 0.1:
+	if is_moving_fast_enough and speed_factor > 0.1:
 		var current_time = Time.get_ticks_msec() / 1000.0
-		
 		if not movement_sound_players.has(player_id):
 			var player = AudioStreamPlayer.new()
 			player.bus = "SFX"
-			player.volume_db = linear_to_db(sfx_volume * speed_factor)
+			player.volume_db = linear_to_db(sfx_volume * speed_factor * 0.8)
 			add_child(player)
-			
 			player.stream = sound_library[SoundCatalog.PLAYER_MOVING]
 			player.play(0)
 			movement_sound_players[player_id] = player
 			movement_sound_start_times[player_id] = current_time
 		else:
 			var player = movement_sound_players[player_id]
-			var movement_duration = current_time - movement_sound_start_times[player_id]
-
-			if movement_duration > MOVEMENT_SOUND_DURATION:
-				if player.get_playback_position() >= MOVEMENT_SOUND_DURATION:
-					player.seek(MOVEMENT_SOUND_LOOP_START)
-
-			player.volume_db = linear_to_db(sfx_volume * speed_factor)
+			var playback_pos = player.get_playback_position()
+			if playback_pos >= MOVEMENT_SOUND_DURATION - 0.1:
+				player.seek(MOVEMENT_SOUND_LOOP_START)
+			var target_volume = linear_to_db(sfx_volume * max(0.3, speed_factor) * 0.8)
+			if abs(player.volume_db - target_volume) > 3.0:
+				var tween = create_tween()
+				tween.tween_property(player, "volume_db", target_volume, 0.2)
+			else:
+				player.volume_db = target_volume
 	else:
 		if movement_sound_players.has(player_id):
 			var player = movement_sound_players[player_id]
 			var stored_player_id = player_id
 			var tween = create_tween()
-			tween.tween_property(player, "volume_db", -80.0, 0.3)
+			tween.tween_property(player, "volume_db", -80.0, 0.4)
 			tween.tween_callback(func():
 				if movement_sound_players.has(stored_player_id):
 					var sound_player = movement_sound_players[stored_player_id]
@@ -388,7 +387,6 @@ func _on_music_finished(category: SoundCatalog) -> void:
 	if not is_instance_valid(music_player):
 		return
 		
-	# Properly handle loop points for any track
 	if music_loop_points.has(category) and music_loop_points[category]["start"] > 0:
 		if not track_has_played_once.get(category, false):
 			var loop_start = music_loop_points[category]["start"]

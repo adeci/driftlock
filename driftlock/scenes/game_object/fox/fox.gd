@@ -183,10 +183,9 @@ func _physics_process(delta):
 
 		move_and_slide()
 
-		# Update movement sound
-		var is_moving = Input.is_action_pressed("UP")
-		var speed_factor = min(Vector3(velocity.x, 0, velocity.z).length() / speed, 1.0)
-		SoundManager.update_player_movement_sound(get_multiplayer_authority(), is_moving, speed_factor)
+		var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
+		var speed_factor = min(horizontal_speed / speed, 1.0)
+		SoundManager.update_player_movement_sound(get_multiplayer_authority(), horizontal_speed > 2.0, speed_factor)
 
 		rpc("set_remote_position", global_position, global_rotation.y)
 	else:
