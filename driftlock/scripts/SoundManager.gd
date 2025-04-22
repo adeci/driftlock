@@ -29,18 +29,26 @@ var sound_volume_modifiers: Dictionary = {
 	SoundCatalog.BUTTON1: -9.0,
 	SoundCatalog.BUTTON2: -9.0,
 	SoundCatalog.BUTTON3: -9.0,
+	SoundCatalog.TELE1: -10.0,
+	SoundCatalog.TELE2: -10.0,
+	SoundCatalog.TELE3: -10.0,
 	SoundCatalog.ITEM_PICKUP: -7.0,
 	SoundCatalog.LAP: -15.0,
 	SoundCatalog.WATER_SUBMERGE: -20.0,
 	SoundCatalog.WATER_EMERGE: -20.0,
 	SoundCatalog.WATER_AMBIENCE: -8.0,
+	SoundCatalog.SPEED_BOOST: 10.0,
 }
 
 # Audio player pools
 var audio_pool_2d: Array[AudioStreamPlayer] = []
 var audio_pool_3d: Array[AudioStreamPlayer3D] = []
+
+var spatial_sound_boost: float = 20.0
+
 var music_player: AudioStreamPlayer
 var looping_players: Dictionary = {}
+
 
 # Sound library - stores all loaded sound resources
 var sound_library: Dictionary = {}
@@ -50,14 +58,14 @@ var sound_mappings: Dictionary = {}
 
 # Custom loop points for music (in seconds)
 var music_loop_points: Dictionary = {
-	SoundCatalog.MENU_MUSIC: {"start": 11.0, "end": 0.0},
+	SoundCatalog.MENU_MUSIC: {"start": 11.4, "end": 0.0},
 	SoundCatalog.BEACH_MUSIC: {"start": 0.0, "end": 0.0},
 	SoundCatalog.DUNGEON_MUSIC: {"start": 0.0, "end": 0.0},
 }
 
 # Config
 var pool_size: int = 10
-var spatial_sound_radius: float = 30.0
+var spatial_sound_radius: float = 50.0
 var sound_falloff: float = 2.0 
 var sound_enabled: bool = true
 var music_enabled: bool = true
@@ -142,9 +150,9 @@ func create_audio_pools() -> void:
 	for i in range(pool_size):
 		var player = AudioStreamPlayer3D.new()
 		player.bus = "SFX"
-		player.max_distance = spatial_sound_radius
-		player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_SQUARE_DISTANCE
-		player.unit_size = sound_falloff
+		player.max_distance = 70.0
+		player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_LOGARITHMIC
+		player.unit_size = 20.0
 		player.volume_db = linear_to_db(sfx_volume)
 		player.finished.connect(_on_audio_finished.bind(player, true))
 		audio_pool_3d.append(player)
@@ -172,7 +180,7 @@ func setup_sound_mappings() -> void:
 	sound_mappings[SoundCatalog.GO] = "res://assets/audio/gameplay/go.mp3"
 	sound_mappings[SoundCatalog.RESPAWN] = "res://assets/audio/gameplay/respawn.mp3"
 	sound_mappings[SoundCatalog.LAP] = "res://assets/audio/gameplay/lap.mp3"
-	sound_mappings[SoundCatalog.FINISH] = ""
+	sound_mappings[SoundCatalog.FINISH] = "res://assets/audio/gameplay/finish.mp3"
 	sound_mappings[SoundCatalog.TELE1] = "res://assets/audio/gameplay/tele1.mp3"
 	sound_mappings[SoundCatalog.TELE2] = "res://assets/audio/gameplay/tele2.mp3"
 	sound_mappings[SoundCatalog.TELE3] = "res://assets/audio/gameplay/tele3.mp3"
@@ -206,26 +214,20 @@ func play_sound(category: SoundCatalog, networked: bool = false, position: Vecto
 	if not sound_enabled:
 		return
 	var volume_modifier = sound_volume_modifiers.get(category, 0.0)
-	# If networked sound and we're the server, queue it for broadcasting
 	if networked and multiplayer.is_server():
 		networked_sound_queue.append({
 			"category": category,
 			"position": position
 		})
-	
-	# Skip if sound doesn't exist
 	if not sound_library.has(category):
 		return
-		
 	var stream = sound_library[category]
-	
-	# Play as 3D sound if position is specified
 	if position != Vector3.ZERO:
 		var player = get_free_player_3d()
 		if player:
 			player.stream = stream
 			player.position = position
-			player.volume_db = linear_to_db(sfx_volume) + volume_modifier
+			player.volume_db = linear_to_db(sfx_volume) + volume_modifier + spatial_sound_boost
 			player.play()
 	else:
 		var player = get_free_player_2d()
@@ -237,17 +239,11 @@ func play_sound(category: SoundCatalog, networked: bool = false, position: Vecto
 func play_sound_looping(category: SoundCatalog, position: Vector3 = Vector3.ZERO) -> void:
 	if not sound_enabled or not sound_library.has(category):
 		return
-	
-	# If already playing this looped sound, do nothing
 	if looping_players.has(category) and looping_players[category].playing:
 		return
-	
 	var stream = sound_library[category]
-	
-	# Set stream to loop
 	if stream is AudioStreamMP3:
 		stream.loop = true
-	
 	var player
 	if position != Vector3.ZERO:
 		player = AudioStreamPlayer3D.new()
