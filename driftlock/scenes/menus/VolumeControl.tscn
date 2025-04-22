@@ -1,12 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://co547t0xa6ril"]
+[gd_scene load_steps=5 format=3 uid="uid://co547t0xa6ril"]
 
 [ext_resource type="Script" path="res://scenes/menus/volume_control.gd" id="1_l8f60"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knr4s"]
-bg_color = Color(0.25, 0.25, 0.25, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kshb3"]
-bg_color = Color(0.4, 0.4, 0.4, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrh0t"]
 

@@ -1570,13 +1570,13 @@ points = PackedVector3Array(65.5, 22, 28.5, 65.5, 15, 28.5, 71.5, 15, 28.5, 71.5
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_36kod"]
 points = PackedVector3Array(-66.75, -8.75, 13.5, -66.75, -10.75, 13.5, 66.75, -10.75, 13.5, 66.75, -8.75, 13.5, -66.75, -8.75, 45.5, -66.75, -10.75, 45.5, 66.75, -10.75, 45.5, 66.75, -8.75, 45.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lca0c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r0noe"]
 render_priority = 0
 shader = ExtResource("31_2vxu8")
 shader_parameter/water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 shader_parameter/wave_height = 0.1
 shader_parameter/wave_speed = 0.5
-shader_parameter/time = 17.4833
+shader_parameter/time = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gbvu6"]
 _surfaces = [{
@@ -1959,7 +1959,7 @@ shape = SubResource("ConvexPolygonShape3D_ct06d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 25, 75)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
-speed = 0.4
+speed = 2.5
 spin = true
 
 [node name="entity_17_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_17_func_rotator"]
@@ -1986,7 +1986,7 @@ shape = SubResource("ConvexPolygonShape3D_sg7hn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 13, 75)
 script = ExtResource("19_r3pjy")
 axis = Vector3(-1, 0, 0)
-speed = 0.4
+speed = 2.5
 spin = true
 
 [node name="entity_18_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_18_func_rotator"]
@@ -2014,7 +2014,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 23.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = -90.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2037,7 +2037,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 23.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = 90.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2060,7 +2060,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 56.5, -23)
 script = ExtResource("19_r3pjy")
 axis = Vector3(0, 0, 1)
 degrees = -60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2083,7 +2083,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 56.5, -7)
 script = ExtResource("19_r3pjy")
 axis = Vector3(0, 0, 1)
 degrees = 60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -2106,7 +2106,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 208, 56.5, -19)
 script = ExtResource("19_r3pjy")
 axis = Vector3(1, 0, 0)
 degrees = 60.0
-speed = 0.5
+speed = 2.0
 looped = true
 smooth = true
 
@@ -3052,7 +3052,7 @@ water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 water_wave_speed = 0.5
 
 [node name="entity_124_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_124_func_water"]
-material_override = SubResource("ShaderMaterial_lca0c")
+material_override = SubResource("ShaderMaterial_r0noe")
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("ArrayMesh_gbvu6")
