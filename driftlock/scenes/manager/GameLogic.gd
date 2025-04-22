@@ -20,8 +20,6 @@ func _ready() -> void:
 	current_level_name = scene_path.get_file().get_basename()
 	print(current_level_name)
 	play_level_music(current_level_name)
-	
-	
 
 
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:

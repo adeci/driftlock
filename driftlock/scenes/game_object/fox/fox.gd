@@ -187,7 +187,7 @@ func _physics_process(delta):
 
 		var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
 		var speed_factor = min(horizontal_speed / speed, 1.0)
-		SoundManager.update_player_movement_sound(get_multiplayer_authority(), horizontal_speed > 2.0, speed_factor)
+		SoundManager.update_player_movement_sound(get_multiplayer_authority(), horizontal_speed > 1.0, speed_factor)
 
 		rpc("set_remote_position", global_position, global_rotation.y)
 	else:

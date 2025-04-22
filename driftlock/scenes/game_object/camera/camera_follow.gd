@@ -68,7 +68,8 @@ func setup_post_process_effect() -> void:
 	shader_material.set_shader_parameter("pixel_size", 4.0)
 	shader_material.set_shader_parameter("color_bits", 4.0)
 	shader_material.set_shader_parameter("dither_strength", 0.15)
-	shader_material.set_shader_parameter("scanlines_opacity", 0.12)
+	shader_material.set_shader_parameter("scanlines_opacity", 0.15) # 0.18
+	shader_material.set_shader_parameter("scroll_speed", 0.015) # 0.015
 	shader_material.set_shader_parameter("vignette_strength", 0.15)
 	shader_material.set_shader_parameter("vignette_size", 0.75)
 	shader_material.set_shader_parameter("chrom_aberration", 0.5)

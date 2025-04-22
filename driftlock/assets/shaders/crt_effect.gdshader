@@ -7,6 +7,7 @@ uniform float pixel_size : hint_range(1.0, 10.0) = 2.0;
 uniform float color_bits : hint_range(1.0, 8.0) = 5.0;
 uniform float dither_strength : hint_range(0.0, 1.0) = 0.1;
 uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.3;
+uniform float scroll_speed : hint_range(0.0, 1.0, 0.1) = 0.5;
 uniform float vignette_strength : hint_range(0.0, 1.0) = 0.3;
 uniform float vignette_size : hint_range(0.0, 1.0) = 0.7;
 uniform float chrom_aberration : hint_range(0.0, 5.0) = 1.0;
@@ -53,7 +54,7 @@ void fragment() {
     }
     
     if (scanlines_opacity > 0.0) {
-        float scanline = sin(UV.y * screen_size.y * 0.5);
+		float scanline = sin((UV.y + time * scroll_speed) * screen_size.y * 0.5);
         color = mix(color, color * (0.5 + 0.5 * scanline), scanlines_opacity);
     }
     

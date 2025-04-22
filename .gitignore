@@ -21,3 +21,10 @@ mono_crash.*.json
 driftlock/trenchbroom/maps/autosave/
 
 driftlock/addons/godotsteam/win64/~libgodotsteam.windows.template_debug.x86_64.dll
+
+driftlock.console.exe
+driftlock.exe
+driftlock.pck
+libgodotsteam.windows.template_debug.x86_64.dll
+steam-multiplayer-peer.windows.template_debug.x86_64.dll
+steam_api64.dll

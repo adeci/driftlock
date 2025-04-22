@@ -97,6 +97,7 @@ func _race_completed(player_id: int, time: float):
 func toggle_main_menu_visibility() -> void:
 	$MainMenu.visible = not $MainMenu.visible
 
+# this crashes when host leaves to menu 
 func update_time() -> void:
 	var finish_time = Time.get_ticks_msec() / 1000.0
 	var race_time = finish_time - RaceManager.player_race_times[multiplayer.get_unique_id()]
