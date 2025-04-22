@@ -38,6 +38,8 @@ var collision_sound_timer: Timer
 var previous_velocity: Vector3 = Vector3.ZERO
 var velocity_change_threshold: float = 12.0 
 
+const DRIFT_SOUND_SPEED_THRESHOLD = 1.0 
+
 var rpc_position = Vector3.ZERO
 
 func _ready() -> void:
@@ -198,7 +200,8 @@ func _physics_process(delta):
 		#prev_velocity = Vector3.ZERO
 
 		velocity = lerp(velocity, target_velocity, delta*1.0)
-
+		if drifting == DriftMode.LEFT or drifting == DriftMode.RIGHT:
+			check_drift_sound()
 		move_and_slide()
 		if get_slide_collision_count() > 0:
 			# Calculate the velocity difference before and after collision
@@ -222,6 +225,7 @@ func _physics_process(delta):
 		var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
 		var speed_factor = min(horizontal_speed / speed, 1.0)
 		SoundManager.update_player_movement_sound(get_multiplayer_authority(), horizontal_speed > 1.0, speed_factor)
+		
 
 		rpc("set_remote_position", global_position, global_rotation.y)
 	else:
@@ -229,10 +233,17 @@ func _physics_process(delta):
 
 func drift_left():
 	drifting = DriftMode.LEFT
-	SoundManager.play_sound_looping(SoundManager.SoundCatalog.DRIFT)
+	check_drift_sound()
 func drift_right():
 	drifting = DriftMode.RIGHT
-	SoundManager.play_sound_looping(SoundManager.SoundCatalog.DRIFT)
+	check_drift_sound()
+
+func check_drift_sound():
+	var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
+	if horizontal_speed > DRIFT_SOUND_SPEED_THRESHOLD:
+		SoundManager.play_sound_looping(SoundManager.SoundCatalog.DRIFT)
+	else:
+		SoundManager.stop_sound_looping(SoundManager.SoundCatalog.DRIFT)
 
 func set_looking_direction(new_direction: Vector3) -> void:
 	new_direction.y = 0

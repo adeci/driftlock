@@ -42,7 +42,7 @@ var sound_volume_modifiers: Dictionary = {
 	SoundCatalog.SPEED_ENHANCE: -20.0,
 	SoundCatalog.JUMP_BOOST: -30.0,
 	SoundCatalog.GO: -5.0,
-	SoundCatalog.DRIFT: -10.0,
+	SoundCatalog.DRIFT: 2.0,
 }
 
 # Audio player pools
@@ -230,7 +230,8 @@ func play_sound(category: SoundCatalog, networked: bool = false, position: Vecto
 			player.play()
 
 
-func play_sound_looping(category: SoundCatalog, position: Vector3 = Vector3.ZERO) -> void:
+var fade_tweens: Dictionary = {}
+func play_sound_looping(category: SoundCatalog, position: Vector3 = Vector3.ZERO, fade_in_time: float = 0.3) -> void:
 	if not sound_enabled or not sound_library.has(category):
 		return
 	if looping_players.has(category) and looping_players[category].playing:
@@ -245,25 +246,42 @@ func play_sound_looping(category: SoundCatalog, position: Vector3 = Vector3.ZERO
 		player.max_distance = spatial_sound_radius
 		player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_SQUARE_DISTANCE
 		player.unit_size = sound_falloff
-		player.volume_db = linear_to_db(sfx_volume)
 		player.position = position
 	else:
 		player = AudioStreamPlayer.new()
 		player.bus = "SFX"
-		player.volume_db = linear_to_db(sfx_volume)
-	
+	var volume_modifier = sound_volume_modifiers.get(category, 0.0)
+	player.volume_db = linear_to_db(sfx_volume) + volume_modifier
+	if fade_in_time > 0:
+		player.volume_db = -80.0
 	add_child(player)
 	player.stream = stream
 	player.play()
-	
 	looping_players[category] = player
+	if fade_in_time > 0:
+		var target_volume = linear_to_db(sfx_volume) + volume_modifier
+		var tween = create_tween()
+		tween.tween_property(player, "volume_db", target_volume, fade_in_time)
+		fade_tweens[category] = tween
 
-func stop_sound_looping(category: SoundCatalog) -> void:
+func stop_sound_looping(category: SoundCatalog, fade_out_time: float = 0.3) -> void:
 	if not looping_players.has(category):
 		return
-		
 	var player = looping_players[category]
-	if player.playing:
+	if not player.playing:
+		return
+	if fade_tweens.has(category) and fade_tweens[category].is_valid():
+		fade_tweens[category].kill()
+	if fade_out_time > 0:
+		var tween = create_tween()
+		tween.tween_property(player, "volume_db", -80.0, fade_out_time)
+		tween.tween_callback(func():
+			player.stop()
+			player.queue_free()
+			looping_players.erase(category)
+		)
+		fade_tweens[category] = tween
+	else:
 		player.stop()
 		player.queue_free()
 		looping_players.erase(category)
