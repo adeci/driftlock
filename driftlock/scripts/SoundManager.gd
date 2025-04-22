@@ -26,9 +26,9 @@ enum SoundCatalog {
 
 var sound_volume_modifiers: Dictionary = {
 	SoundCatalog.RESPAWN: -10.0,
-	SoundCatalog.BUTTON1: -9.0,
-	SoundCatalog.BUTTON2: -9.0,
-	SoundCatalog.BUTTON3: -9.0,
+	SoundCatalog.BUTTON1: -15.0,
+	SoundCatalog.BUTTON2: -15.0,
+	SoundCatalog.BUTTON3: -15.0,
 	SoundCatalog.TELE1: -35.0,
 	SoundCatalog.TELE2: -35.0,
 	SoundCatalog.TELE3: -35.0,
@@ -158,7 +158,7 @@ func setup_sound_mappings() -> void:
 	sound_mappings[SoundCatalog.BUTTON3] = "res://assets/audio/gameplay/button3.mp3"
 	
 	# Player Sounds
-	sound_mappings[SoundCatalog.PLAYER_MOVING] = "res://assets/audio/gameplay/plop.mp3"
+	sound_mappings[SoundCatalog.PLAYER_MOVING] = "res://assets/audio/gameplay/click.mp3"
 	sound_mappings[SoundCatalog.DRIFT] = "res://assets/audio/gameplay/new_drift.mp3"
 	sound_mappings[SoundCatalog.COLLISION1] = "res://assets/audio/gameplay/collision1.mp3"
 	sound_mappings[SoundCatalog.COLLISION2] = "res://assets/audio/gameplay/collision2.mp3"
@@ -325,7 +325,30 @@ func player_exited_water(player_id: int, position: Vector3) -> void:
 		stop_sound_looping(SoundCatalog.WATER_AMBIENCE)
 
 func update_player_movement_sound(player_id: int, is_moving_fast_enough: bool, speed_factor: float = 0.0) -> void:
-	pass
+	if player_id != multiplayer.get_unique_id():
+		return
+	if not sound_enabled or not sound_library.has(SoundCatalog.PLAYER_MOVING):
+		return
+	if not is_moving_fast_enough:
+		if movement_sound_players.has(player_id) and is_instance_valid(movement_sound_players[player_id]):
+			movement_sound_players[player_id].stop()
+		return
+	var min_pitch = 0.65
+	var max_pitch = 3.0
+	var pitch_scale = min_pitch + speed_factor * (max_pitch - min_pitch)
+	if not movement_sound_players.has(player_id) or not is_instance_valid(movement_sound_players[player_id]):
+		var player = AudioStreamPlayer.new()
+		player.bus = "SFX"
+		player.volume_db = linear_to_db(sfx_volume) - 28.0
+		player.stream = sound_library[SoundCatalog.PLAYER_MOVING]
+		if player.stream is AudioStreamMP3:
+			player.stream.loop = true
+		add_child(player)
+		movement_sound_players[player_id] = player
+	var sound_player = movement_sound_players[player_id]
+	sound_player.pitch_scale = pitch_scale
+	if not sound_player.playing:
+		sound_player.play()
 
 func get_free_player_2d() -> AudioStreamPlayer:
 	for player in audio_pool_2d:
