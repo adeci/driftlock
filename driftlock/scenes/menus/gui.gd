@@ -96,16 +96,6 @@ func _race_completed(player_id: int, time: float):
 	if racing and player_id == multiplayer.get_unique_id():
 		racing = false
 		update_time()
-		match placement:
-			1:
-				$RaceUI/PlacementMargin/Placement.text = "1st!"
-			2:
-				$RaceUI/PlacementMargin/Placement.text = "2nd!"
-			3:
-				$RaceUI/PlacementMargin/Placement.text = "3rd!"
-			_:
-				$RaceUI/PlacementMargin/Placement.text = str(placement) + "th"
-		$RaceUI/RaceCompleteMargin/RaceComplete.visible = true
 	elif racing:
 		placement = placement + 1
 
@@ -124,27 +114,28 @@ func _start_race_for_player(peer_id: int) -> void:
 	get_tree().paused = false
 	RaceManager.player_spawned(peer_id)
 
-# Handle when this player completes the race
 func _on_race_completed(player_id: int, _time: float) -> void:
 	if player_id == multiplayer.get_unique_id():
 		# This is our player who finished
 		racing = false
 
-# Handle when race times are received
 func _on_race_times_received(times: Dictionary) -> void:
-	# Update the race results UI
 	update_race_results(times)
-	
-	# Show race results if this player has finished
-	if times.has(multiplayer.get_unique_id()):
+	if NetworkManager.local or times.size() == 1:
 		show_race_results()
+	else:
+		var all_players_finished = true
+		for player_id in NetworkManager.lobby_members:
+			if not times.has(player_id):
+				all_players_finished = false
+				break
+		if all_players_finished:
+			show_race_results()
 
-# Update the race results display
 func update_race_results(times: Dictionary) -> void:
 	var sorted_times = RaceManager.get_sorted_race_times()
 	var results_list = $RaceUI/RaceResults/VBoxContainer/ResultsList
 	
-	# Clear existing results
 	for child in results_list.get_children():
 		child.queue_free()
 	
@@ -172,16 +163,28 @@ func update_race_results(times: Dictionary) -> void:
 		
 		results_list.add_child(result_item)
 
-
 func show_race_results() -> void:
 	if race_results_visible:
 		return
 	race_results_visible = true
 	$RaceUI/RaceResults.visible = true
+	
+	# Make sure the return button has correct text and visibility
 	var return_button = $RaceUI/RaceResults/VBoxContainer/ReturnToLobby
 	if return_button:
 		if NetworkManager.local:
 			return_button.text = "Return to Menu"
+			return_button.visible = true  # Always visible in singleplayer
 		else:
-			return_button.visible = multiplayer.is_server()
 			return_button.text = "Return to Lobby"
+			return_button.visible = multiplayer.is_server()  # Only visible for host
+			
+func _on_return_to_lobby_pressed() -> void:
+	if NetworkManager.local:
+		# For singleplayer, return directly to the main menu
+		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
+	else:
+		# For multiplayer, if we're host, use the existing exit to lobby functionality
+		if multiplayer.is_server():
+			# This will use the existing logic in gui_menu.gd to synchronize all clients
+			$MainMenu/ButtonsMenu/MenuLayers._on_exit_to_lobby_pressed()
