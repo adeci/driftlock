@@ -161,7 +161,7 @@ func setup_sound_mappings() -> void:
 	
 	# Player Sounds
 	sound_mappings[SoundCatalog.PLAYER_MOVING] = "res://assets/audio/gameplay/player_moving.mp3"
-	sound_mappings[SoundCatalog.DRIFT] = ""
+	sound_mappings[SoundCatalog.DRIFT] = "res://assets/audio/gameplay/new_drift.mp3"
 	sound_mappings[SoundCatalog.COLLISION1] = "res://assets/audio/gameplay/collision1.mp3"
 	sound_mappings[SoundCatalog.COLLISION2] = "res://assets/audio/gameplay/collision2.mp3"
 	
@@ -172,7 +172,7 @@ func setup_sound_mappings() -> void:
 	sound_mappings[SoundCatalog.DOOR_OPEN] = "res://assets/audio/gameplay/door_open.mp3"
 	
 	# Race Sounds
-	sound_mappings[SoundCatalog.GO] = "res://assets/audio/gameplay/go.mp3"
+	sound_mappings[SoundCatalog.GO] = "res://assets/audio/gameplay/race_go.mp3"
 	sound_mappings[SoundCatalog.RESPAWN] = "res://assets/audio/gameplay/respawn.mp3"
 	sound_mappings[SoundCatalog.LAP] = "res://assets/audio/gameplay/lap.mp3"
 	sound_mappings[SoundCatalog.FINISH] = "res://assets/audio/gameplay/finish.mp3"
@@ -184,7 +184,7 @@ func setup_sound_mappings() -> void:
 	sound_mappings[SoundCatalog.ITEM_PICKUP] = "res://assets/audio/gameplay/item_pickup.mp3"
 	sound_mappings[SoundCatalog.SPEED_BOOST] = "res://assets/audio/gameplay/speed_boost.mp3"
 	sound_mappings[SoundCatalog.JUMP_BOOST] = "res://assets/audio/gameplay/jump.mp3"
-	sound_mappings[SoundCatalog.SPEED_ENHANCE] = ""
+	sound_mappings[SoundCatalog.SPEED_ENHANCE] = "res://assets/audio/gameplay/speed_enhance.mp3"
 	
 	# Music
 	sound_mappings[SoundCatalog.MENU_MUSIC] = "res://assets/audio/music/menu.mp3"
@@ -209,11 +209,15 @@ func play_sound(category: SoundCatalog, networked: bool = false, position: Vecto
 	if not sound_enabled:
 		return
 	var volume_modifier = sound_volume_modifiers.get(category, 0.0)
-	if networked and multiplayer.is_server():
-		networked_sound_queue.append({
-			"category": category,
-			"position": position
-		})
+	if networked:
+		if multiplayer.is_server():
+			networked_sound_queue.append({
+				"category": category,
+				"position": position
+			})
+		else:
+			request_play_networked_sound.rpc_id(1, category, position)
+
 	if not sound_library.has(category):
 		return
 	var stream = sound_library[category]
@@ -391,11 +395,8 @@ func _on_music_finished(category: SoundCatalog) -> void:
 		if not track_has_played_once.get(category, false):
 			var loop_start = music_loop_points[category]["start"]
 			music_player.play(loop_start)
-			print("Music looping from custom point: " + str(loop_start))
 	else:
-		# No custom loop point
 		music_player.play()
-		print("Music looping from beginning (no custom loop)")
 
 func _on_music_finished_custom(category: SoundCatalog) -> void:
 	if category == null or not is_instance_valid(music_player):
@@ -436,10 +437,11 @@ func set_music_enabled(enabled: bool) -> void:
 func process_networked_sounds() -> void:
 	if networked_sound_queue.is_empty():
 		return
-		
 	for sound_info in networked_sound_queue:
-		play_networked_sound.rpc(sound_info.category, sound_info.position)
-	
+		if "original_player_id" in sound_info:
+			play_networked_sound.rpc(sound_info.category, sound_info.position, sound_info.original_player_id)
+		else:
+			play_networked_sound.rpc(sound_info.category, sound_info.position, multiplayer.get_unique_id())
 	networked_sound_queue.clear()
 
 func _on_player_connected(peer_id: int, _player_name: String) -> void:
@@ -448,14 +450,24 @@ func _on_player_connected(peer_id: int, _player_name: String) -> void:
 
 # RPC functions
 @rpc("reliable", "any_peer", "call_local")
-func play_networked_sound(category: SoundCatalog, position: Vector3) -> void:
-	if multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
+func play_networked_sound(category: SoundCatalog, position: Vector3, original_player_id: int = 0) -> void:
+	if multiplayer.get_unique_id() == original_player_id:
 		return
 	play_sound(category, false, position)
 
 @rpc("reliable", "authority", "call_local")
 func sync_music(category: SoundCatalog) -> void:
 	play_music(category, false)
+
+@rpc("reliable", "any_peer")
+func request_play_networked_sound(category: SoundCatalog, position: Vector3) -> void:
+	if not multiplayer.is_server():
+		return
+	networked_sound_queue.append({
+		"category": category,
+		"position": position,
+		"original_player_id": multiplayer.get_remote_sender_id()
+	})
 
 func play_map_music(map_name: String) -> void:
 	match map_name:
