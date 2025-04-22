@@ -121,16 +121,13 @@ func _on_race_completed(player_id: int, _time: float) -> void:
 
 func _on_race_times_received(times: Dictionary) -> void:
 	update_race_results(times)
-	if NetworkManager.local or times.size() == 1:
+	var all_players_finished = true
+	for player_id in NetworkManager.lobby_members:
+		if not times.has(player_id):
+			all_players_finished = false
+			break
+	if NetworkManager.local or all_players_finished:
 		show_race_results()
-	else:
-		var all_players_finished = true
-		for player_id in NetworkManager.lobby_members:
-			if not times.has(player_id):
-				all_players_finished = false
-				break
-		if all_players_finished:
-			show_race_results()
 
 func update_race_results(times: Dictionary) -> void:
 	var sorted_times = RaceManager.get_sorted_race_times()

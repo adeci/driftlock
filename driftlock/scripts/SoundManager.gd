@@ -372,8 +372,12 @@ func stop_all_movement_sounds() -> void:
 			movement_sound_players[player_id].queue_free()
 	movement_sound_players.clear()
 	movement_sound_start_times.clear()
-	
+
 func cleanup_level_sounds() -> void:
+	if get_multiplayer_authority() in movement_sound_players:
+		movement_sound_players[get_multiplayer_authority()].stop()
+	if multiplayer.get_unique_id() in movement_sound_players:
+		movement_sound_players[multiplayer.get_unique_id()].stop()
 	stop_all_movement_sounds()
 	for player_id in players_in_water.keys():
 		if player_id == multiplayer.get_unique_id():

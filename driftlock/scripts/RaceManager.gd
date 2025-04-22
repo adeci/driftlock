@@ -302,8 +302,8 @@ func reset_race() -> void:
 	if debug_mode:
 		print("Race system reset")
 
+
 func reset_race_manager() -> void:
-	func reset_race_manager() -> void:
 	player_checkpoints.clear()
 	checkpoints.clear()
 	respawn_points.clear()
