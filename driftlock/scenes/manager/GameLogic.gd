@@ -1,5 +1,6 @@
 extends Node3D
 
+signal start_timer
 
 var player_character: PackedScene
 var current_level_name: String = ""
@@ -20,7 +21,7 @@ func _ready() -> void:
 	print(current_level_name)
 	play_level_music(current_level_name)
 	
-	var timer := get_tree().create_timer(3, true).timeout.connect(_start_race_for_player.bind(multiplayer.get_unique_id()))
+	
 
 
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
@@ -65,11 +66,7 @@ func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 	else:
 		print("No spawn points found. Using default spawn position.")
 	player.visible = true
-	
-func _start_race_for_player(peer_id: int) -> void:
-	# Make sure to start the race timer after the player is fully set up
-	get_tree().paused = false
-	RaceManager.player_spawned(peer_id)
+
 
 func remove_player_character(peer_id) -> void:
 	var player = get_node(str(peer_id))
