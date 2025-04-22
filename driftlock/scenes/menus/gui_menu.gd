@@ -59,7 +59,7 @@ func _on_resume_game_pressed() -> void:
 func _on_exit_to_lobby_pressed() -> void:
 	get_tree().paused = true
 	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
-	NetworkManager.player_disconnected.connect(lock)
+	NetworkManager.player_disconnected.connect(lock.bind(scene_lock))
 	SoundManager.cleanup_level_sounds()
 	RaceManager.reset_race_manager()
 	remote_suspend.rpc()
