@@ -19,6 +19,9 @@ var player_race_times: Dictionary = {}
 var player_required_checkpoints: Dictionary = {}
 var player_respawning: Dictionary = {}
 
+var player_final_times: Dictionary = {}
+signal all_race_times_received(times: Dictionary)
+
 var spawn_points: Dictionary = {}
 
 # Respawn settings
@@ -203,6 +206,7 @@ func finish_race(player_id: int) -> bool:
 	if lap_number >= required_laps:
 		var finish_time = Time.get_ticks_msec() / 1000.0
 		var race_time = finish_time - player_race_times[player_id]
+		record_final_time(player_id, race_time)
 		emit_signal("race_won", player_id, race_time, lap_number)
 		emit_signal("race_completed", player_id, race_time)
 		print("RACE WON! Player %d finished %d laps in %.2f seconds!" % [player_id, lap_number, race_time])
@@ -312,3 +316,38 @@ func reset_race_manager() -> void:
 	player_completed_laps.clear()
 	if debug_mode:
 		print("Race system reset")
+		
+func record_final_time(player_id: int, race_time: float) -> void:
+	player_final_times[player_id] = race_time
+	if multiplayer.is_server():
+		sync_race_times.rpc(player_final_times)
+		emit_signal("all_race_times_received", player_final_times)
+	elif player_id == multiplayer.get_unique_id():
+		send_race_time_to_server.rpc_id(1, player_id, race_time)
+		
+@rpc("reliable", "any_peer")
+func send_race_time_to_server(player_id: int, race_time: float) -> void:
+	if not multiplayer.is_server():
+		return
+	player_final_times[player_id] = race_time
+	sync_race_times.rpc(player_final_times)
+	
+	emit_signal("all_race_times_received", player_final_times)
+@rpc("reliable")
+func sync_race_times(times: Dictionary) -> void:
+	player_final_times = times
+	emit_signal("all_race_times_received", player_final_times)
+
+func clear_race_times() -> void:
+	player_final_times.clear()
+	
+func get_sorted_race_times() -> Array:
+	var times_array = []
+	for player_id in player_final_times:
+		times_array.append({
+			"player_id": player_id,
+			"time": player_final_times[player_id],
+			"player_name": NetworkManager.lobby_members.get(player_id, "Player " + str(player_id))
+		})
+	times_array.sort_custom(func(a, b): return a.time < b.time)
+	return times_array

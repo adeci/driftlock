@@ -6,7 +6,9 @@ var current_lap: int = 1
 var total_laps: int = 3
 
 var timer: SceneTreeTimer
-
+var race_results_visible: bool = false
+var result_item_scene = preload("res://scenes/menus/race_results.tscn")
+signal exit_to_lobby_requested
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -16,6 +18,14 @@ func _ready() -> void:
 
 	$MainMenu.visible = false
 	$RaceUI.visible = true
+	
+	var return_button = $RaceUI/RaceResults/VBoxContainer/ReturnToLobby
+	if return_button:
+		if NetworkManager.local:
+			return_button.text = "Return to Menu"
+		else:
+			return_button.text = "Return to Lobby"
+			return_button.visible = multiplayer.is_server()
 
 	self.visible = true
 	
@@ -35,6 +45,11 @@ func _ready() -> void:
 	timer = get_tree().create_timer(3, true)
 	timer.timeout.connect(_start_race_for_player.bind(multiplayer.get_unique_id()))
 	timer.timeout.connect(_hide_race_countdown)
+	
+	RaceManager.all_race_times_received.connect(_on_race_times_received)
+	RaceManager.race_completed.connect(_on_race_completed)
+	
+	$RaceUI/RaceResults.visible = false
 
 
 func update_lap_display() -> void:
@@ -108,3 +123,65 @@ func _start_race_for_player(peer_id: int) -> void:
 	# Make sure to start the race timer after the player is fully set up
 	get_tree().paused = false
 	RaceManager.player_spawned(peer_id)
+
+# Handle when this player completes the race
+func _on_race_completed(player_id: int, _time: float) -> void:
+	if player_id == multiplayer.get_unique_id():
+		# This is our player who finished
+		racing = false
+
+# Handle when race times are received
+func _on_race_times_received(times: Dictionary) -> void:
+	# Update the race results UI
+	update_race_results(times)
+	
+	# Show race results if this player has finished
+	if times.has(multiplayer.get_unique_id()):
+		show_race_results()
+
+# Update the race results display
+func update_race_results(times: Dictionary) -> void:
+	var sorted_times = RaceManager.get_sorted_race_times()
+	var results_list = $RaceUI/RaceResults/VBoxContainer/ResultsList
+	
+	# Clear existing results
+	for child in results_list.get_children():
+		child.queue_free()
+	
+	# Add results for each player
+	for i in range(sorted_times.size()):
+		var result = sorted_times[i]
+		var result_item = result_item_scene.instantiate()
+		
+		var position_text = ""
+		match i:
+			0: position_text = "1st"
+			1: position_text = "2nd"
+			2: position_text = "3rd"
+			_: position_text = str(i + 1) + "th"
+			
+		result_item.get_node("Position").text = position_text
+		result_item.get_node("PlayerName").text = result.player_name
+		result_item.get_node("Time").text = str(result.time).pad_decimals(2) + "s"
+		
+		# Highlight the current player
+		if result.player_id == multiplayer.get_unique_id():
+			result_item.get_node("Position").add_theme_color_override("font_color", Color(1, 0.5, 0, 1))
+			result_item.get_node("PlayerName").add_theme_color_override("font_color", Color(1, 0.5, 0, 1))
+			result_item.get_node("Time").add_theme_color_override("font_color", Color(1, 0.5, 0, 1))
+		
+		results_list.add_child(result_item)
+
+
+func show_race_results() -> void:
+	if race_results_visible:
+		return
+	race_results_visible = true
+	$RaceUI/RaceResults.visible = true
+	var return_button = $RaceUI/RaceResults/VBoxContainer/ReturnToLobby
+	if return_button:
+		if NetworkManager.local:
+			return_button.text = "Return to Menu"
+		else:
+			return_button.visible = multiplayer.is_server()
+			return_button.text = "Return to Lobby"

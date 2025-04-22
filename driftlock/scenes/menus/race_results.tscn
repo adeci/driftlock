@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://docx7ync8dy0h"]
+
+[node name="RaceResults" type="HBoxContainer"]
+custom_minimum_size = Vector2(400, 40)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Position" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "1."
+
+[node name="PlayerName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Player"
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "00.00s"

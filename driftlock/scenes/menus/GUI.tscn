@@ -108,6 +108,38 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 216
 text = "3"
 
+[node name="RaceResults" type="MarginContainer" parent="RaceUI"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="RaceUI/RaceResults"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RaceUI/RaceResults"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="RaceUI/RaceResults/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Race Results"
+horizontal_alignment = 1
+
+[node name="ResultsList" type="VBoxContainer" parent="RaceUI/RaceResults/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ReturnToLobby" type="Button" parent="RaceUI/RaceResults/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "Return to Lobby"
+
 [node name="MainMenu" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 2
@@ -248,6 +280,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Driftlock"
 
+[connection signal="pressed" from="RaceUI/RaceResults/VBoxContainer/ReturnToLobby" to="." method="_on_return_to_lobby_pressed"]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/ResumeGame" to="." method="toggle_main_menu_visibility"]
 [connection signal="toggled" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Options" to="MainMenu/ButtonsMenu/MenuLayers" method="toggle_layer" binds= ["options_buttons"]]
 [connection signal="pressed" from="MainMenu/ButtonsMenu/MenuLayers/Layer1/Buttons/Seperator/BottomButtons/ExitToLobby" to="MainMenu/ButtonsMenu/MenuLayers" method="_on_exit_to_lobby_pressed"]

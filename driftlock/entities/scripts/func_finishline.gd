@@ -14,6 +14,7 @@ extends Area3D
 var debug_visual: MeshInstance3D
 var player_finish_cooldown: Dictionary = {}
 var cooldown_time: float = 5.0
+var players_who_finished: Dictionary = {}
 
 func _func_godot_apply_properties(props: Dictionary) -> void:
 	if "show_debug_visuals" in props:
@@ -25,10 +26,16 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	print("Finish line ready at position: ", global_position)
 	RaceManager.set_required_laps(required_laps)
+	RaceManager.race_completed.connect(_on_race_completed)
+
+func _on_race_completed(player_id: int, _race_time: float) -> void:
+	players_who_finished[player_id] = true
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D:
 		var player_id = body.get_multiplayer_authority()
+		if players_who_finished.has(player_id):
+			return
 		if player_finish_cooldown.has(player_id):
 			var time_since_last = Time.get_ticks_msec() / 1000.0 - player_finish_cooldown[player_id]
 			if time_since_last < cooldown_time:
