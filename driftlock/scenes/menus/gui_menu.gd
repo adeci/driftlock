@@ -61,6 +61,7 @@ func _on_exit_to_lobby_pressed() -> void:
 	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
 	NetworkManager.player_disconnected.connect(lock)
 	SoundManager.cleanup_level_sounds()
+	RaceManager.reset_race_manager()
 	remote_suspend.rpc()
 	peer_ready()
 

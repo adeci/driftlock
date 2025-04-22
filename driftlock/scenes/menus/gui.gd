@@ -182,6 +182,7 @@ func show_race_results() -> void:
 func _on_return_to_lobby_pressed() -> void:
 	if NetworkManager.local:
 		# For singleplayer, return directly to the main menu
+		RaceManager.reset_race_manager()
 		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
 	else:
 		# For multiplayer, if we're host, use the existing exit to lobby functionality

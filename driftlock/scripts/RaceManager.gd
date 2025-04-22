@@ -303,6 +303,7 @@ func reset_race() -> void:
 		print("Race system reset")
 
 func reset_race_manager() -> void:
+	func reset_race_manager() -> void:
 	player_checkpoints.clear()
 	checkpoints.clear()
 	respawn_points.clear()
@@ -314,8 +315,10 @@ func reset_race_manager() -> void:
 	spawn_points.clear()
 	player_current_lap.clear()
 	player_completed_laps.clear()
+	player_final_times.clear()
+	
 	if debug_mode:
-		print("Race system reset")
+		print("Race system completely reset")
 		
 func record_final_time(player_id: int, race_time: float) -> void:
 	player_final_times[player_id] = race_time
