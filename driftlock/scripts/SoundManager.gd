@@ -25,17 +25,17 @@ enum SoundCatalog {
 }
 
 var sound_volume_modifiers: Dictionary = {
-	SoundCatalog.RESPAWN: -15.0,
+	SoundCatalog.RESPAWN: -10.0,
 	SoundCatalog.BUTTON1: -9.0,
 	SoundCatalog.BUTTON2: -9.0,
 	SoundCatalog.BUTTON3: -9.0,
-	SoundCatalog.TELE1: -10.0,
-	SoundCatalog.TELE2: -10.0,
-	SoundCatalog.TELE3: -10.0,
+	SoundCatalog.TELE1: -35.0,
+	SoundCatalog.TELE2: -35.0,
+	SoundCatalog.TELE3: -35.0,
 	SoundCatalog.ITEM_PICKUP: -7.0,
-	SoundCatalog.LAP: -15.0,
-	SoundCatalog.WATER_SUBMERGE: -20.0,
-	SoundCatalog.WATER_EMERGE: -20.0,
+	SoundCatalog.LAP: -5.0,
+	SoundCatalog.WATER_SUBMERGE: -80.0,
+	SoundCatalog.WATER_EMERGE: -70.0,
 	SoundCatalog.WATER_AMBIENCE: -8.0,
 	SoundCatalog.SPEED_BOOST: 10.0,
 }
@@ -150,9 +150,9 @@ func create_audio_pools() -> void:
 	for i in range(pool_size):
 		var player = AudioStreamPlayer3D.new()
 		player.bus = "SFX"
-		player.max_distance = 70.0
+		player.max_distance = 60.0
 		player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_LOGARITHMIC
-		player.unit_size = 20.0
+		player.unit_size = 15.0
 		player.volume_db = linear_to_db(sfx_volume)
 		player.finished.connect(_on_audio_finished.bind(player, true))
 		audio_pool_3d.append(player)
