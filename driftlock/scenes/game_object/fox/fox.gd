@@ -200,10 +200,17 @@ func _physics_process(delta):
 		#prev_velocity = Vector3.ZERO
 
 		velocity = lerp(velocity, target_velocity, delta*1.0)
+		
 		if drifting == DriftMode.LEFT or drifting == DriftMode.RIGHT:
 			check_drift_sound()
+		
 		move_and_slide()
+		
 		if get_slide_collision_count() > 0:
+			var collision = get_last_slide_collision()
+			if collision != null and collision.get_collider_velocity().dot(collision.get_normal()) != 0:
+				velocity += collision.get_collider_velocity().length() * collision.get_normal()
+			
 			# Calculate the velocity difference before and after collision
 			var velocity_change = (pre_collision_velocity - velocity).length()
 			
