@@ -69,6 +69,8 @@ func _ready() -> void:
 	# Store original collision settings
 	original_collision_layer = collision_layer
 	original_collision_mask = collision_mask
+	
+	self.set_collision_mask_value(2, false)
 
 
 func _physics_process(delta):
