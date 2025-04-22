@@ -118,11 +118,19 @@ func _physics_process(delta: float) -> void:
 
 func follow_player(delta: float):
 	follow_displacement = -3*follow_target.looking_direction + Vector3(0, 2, 0)
-
-	var target_pos = follow_target.global_position + follow_displacement
-	global_position = global_position.lerp(target_pos, delta * 20.0)
-	prev_look_target = lerp(prev_look_target, look_target.global_position+Vector3(0,0.5,0), delta*look_speed)
-	look_at(prev_look_target)
+	if get_tree().paused:
+		var target_pos = follow_target.global_position + follow_displacement
+		global_position = target_pos
+		look_at(follow_target.global_position)
+	else:
+		var target_pos = follow_target.global_position + follow_displacement
+		global_position = global_position.lerp(target_pos, delta * 20.0)
+		prev_look_target = lerp(prev_look_target, look_target.global_position+Vector3(0,0.5,0), delta*look_speed)
+		look_at(prev_look_target)
 
 func set_target_speed(speed: float):
 	target_speed = speed
+
+
+func _on_player_character_visibility_changed() -> void:
+	follow_player(0)

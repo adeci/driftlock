@@ -19,6 +19,8 @@ func _ready() -> void:
 	current_level_name = scene_path.get_file().get_basename()
 	print(current_level_name)
 	play_level_music(current_level_name)
+	
+	var timer := get_tree().create_timer(3, true).timeout.connect(_start_race_for_player.bind(multiplayer.get_unique_id()))
 
 
 func add_player_character(peer_id, user_name = str(peer_id)) -> void:
@@ -62,10 +64,11 @@ func add_player_character(peer_id, user_name = str(peer_id)) -> void:
 		print("Player " + str(peer_id) + " spawned at position: " + str(spawn_position) + " with rotation: " + str(spawn_rotation))
 	else:
 		print("No spawn points found. Using default spawn position.")
-	call_deferred("_start_race_for_player", peer_id)
+	player.visible = true
 	
 func _start_race_for_player(peer_id: int) -> void:
 	# Make sure to start the race timer after the player is fully set up
+	get_tree().paused = false
 	RaceManager.player_spawned(peer_id)
 
 func remove_player_character(peer_id) -> void:
