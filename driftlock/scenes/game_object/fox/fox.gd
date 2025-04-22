@@ -184,6 +184,9 @@ func _physics_process(delta):
 		velocity = lerp(velocity, target_velocity, delta*1.0)
 
 		move_and_slide()
+		var collision = get_last_slide_collision()
+		if collision != null and collision.get_collider_velocity().dot(collision.get_normal()) != 0:
+			velocity += collision.get_collider_velocity().length() * collision.get_normal()
 
 		var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
 		var speed_factor = min(horizontal_speed / speed, 1.0)
