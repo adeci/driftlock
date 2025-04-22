@@ -16,14 +16,7 @@ signal exit_to_lobby
 
 # Race Conditions
 var leave_pressed: bool = false
-var ready_count: int = 0
-var scene_lock: bool = false:
-	get:
-		ready_count += 1
-		if ready_count == NetworkManager.lobby_members.size():
-			ready_count = 0
-			return true
-		else: return false
+var scene_lock: int = 0: set = lock
 
 
 func _ready() -> void:
@@ -34,6 +27,13 @@ func toggle_layer(_toggled_on:bool, layer_name: String):
 	var layer_container = menus[layer_name]
 	layer_container.visible = not layer_container.visible
 
+
+func lock(num: int) -> void:
+	if scene_lock == NetworkManager.lobby_members.size():
+		_on_exit_clock_timeout()
+	scene_lock = num
+
+
 func _on_volume_settings_pressed() -> void:
 	VolumeControl.show_control()
 	SoundManager.play_sound(SoundManager.SoundCatalog.BUTTON1)
@@ -43,6 +43,7 @@ func _on_layer_exit_pressed() -> void:
 	var pressed_button := layer_1.get_pressed_button()
 	if pressed_button:
 		pressed_button.button_pressed = false
+
 
 func _on_leave_pressed() -> void:
 	if not leave_pressed:
@@ -58,6 +59,7 @@ func _on_resume_game_pressed() -> void:
 func _on_exit_to_lobby_pressed() -> void:
 	get_tree().paused = true
 	get_tree().create_timer(30, true).timeout.connect(_on_exit_clock_timeout)
+	NetworkManager.player_disconnected.connect(lock)
 	remote_suspend.rpc()
 	peer_ready()
 
@@ -69,9 +71,7 @@ func _on_exit_clock_timeout() -> void:
 
 @rpc("reliable", "any_peer")
 func peer_ready() -> void:
-	if scene_lock:
-		to_main.rpc()
-		get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
+	scene_lock += 1
 
 
 @rpc("reliable")

@@ -1589,7 +1589,7 @@ shader = ExtResource("31_2vxu8")
 shader_parameter/water_color = Color(0.0235294, 0.301961, 0.219608, 1)
 shader_parameter/wave_height = 0.1
 shader_parameter/wave_speed = 0.5
-shader_parameter/time = 158.8
+shader_parameter/time = 851.433
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_g4ery"]
 _surfaces = [{
@@ -2139,57 +2139,93 @@ shape = SubResource("ConvexPolygonShape3D_cog5y")
 
 [node name="entity_24_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 48.25, 1.25, -36)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_25_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 59.25, 1.25, 31)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_26_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.25, 11.25, 26)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_27_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -27, 6.25, 6.25)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_28_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 6.25, 6.25)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_29_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 4.25, -24.25)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_30_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 98.75, 1.25, 2)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_31_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 25.5, 11.25, -15.25)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_32_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 163, 16.25, 69)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_33_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 158, 16.25, 74)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_34_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 168, 16.25, 74)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_35_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 163, 16.25, 79)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_36_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 162, 38.25, -53)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_37_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 162.5, 38.25, 50.75)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_38_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 149.75, 38.25, 81)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_39_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 158.25, 38.25, 50.75)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_40_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 166.75, 38.25, 50.75)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_41_pickup_item" parent="FuncGodotMap" instance=ExtResource("20_tqbdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 149.75, 38.25, 69)
+collision_layer = 0
+collision_mask = 3
 
 [node name="entity_42_func_geo" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -5)
