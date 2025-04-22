@@ -5,6 +5,7 @@ var placement: int
 var current_lap: int = 1
 var total_laps: int = 3
 
+var timer: SceneTreeTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,15 +31,26 @@ func _ready() -> void:
 	update_lap_display()
 	
 	placement = 1
+	
+	timer = get_tree().create_timer(3, true)
+	timer.timeout.connect(_start_race_for_player.bind(multiplayer.get_unique_id()))
+	timer.timeout.connect(_hide_race_countdown)
+
 
 func update_lap_display() -> void:
 	$RaceUI/LapMargin/LapText.text = "LAP: %d/%d" % [current_lap, total_laps]
+
+func _hide_race_countdown() -> void:
+	$RaceUI/RaceStartTimer/RaceCountDown.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("PAUSE"):
 		toggle_main_menu_visibility()
-		
+	
+	if get_tree().paused:
+		$RaceUI/RaceStartTimer/RaceCountDown.text = str(int(timer.time_left) + 1)
+	
 	if racing:
 		update_time()
 
@@ -89,3 +101,9 @@ func update_time() -> void:
 	var finish_time = Time.get_ticks_msec() / 1000.0
 	var race_time = finish_time - RaceManager.player_race_times[multiplayer.get_unique_id()]
 	$RaceUI/TimeMargin/Time.text = str(race_time).pad_decimals(3)
+
+
+func _start_race_for_player(peer_id: int) -> void:
+	# Make sure to start the race timer after the player is fully set up
+	get_tree().paused = false
+	RaceManager.player_spawned(peer_id)

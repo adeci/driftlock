@@ -98,7 +98,18 @@ theme = SubResource("Theme_elhrt")
 text = "RACE COMPLETE!"
 horizontal_alignment = 1
 
+[node name="RaceStartTimer" type="MarginContainer" parent="RaceUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RaceCountDown" type="Label" parent="RaceUI/RaceStartTimer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 216
+text = "3"
+
 [node name="MainMenu" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
