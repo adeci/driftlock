@@ -4,6 +4,7 @@ var steam_status: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = PROCESS_MODE_ALWAYS
 	initialize_steam()
 
 

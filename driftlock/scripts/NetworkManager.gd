@@ -36,6 +36,8 @@ var lobby_mode := "Arcade"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = PROCESS_MODE_ALWAYS
+	
 	# Set Network Handler
 	steam_status = Steamworks.steam_status
 	if steam_status:
