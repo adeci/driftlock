@@ -134,6 +134,7 @@ func start_race(player_id: int) -> void:
 	emit_signal("race_started", player_id)
 	if debug_mode:
 		print("Race started for player %d" % player_id)
+	# make sure it only plays once for each person
 	SoundManager.play_sound(SoundManager.SoundCatalog.GO)
 
 func activate_checkpoint(checkpoint_id: int, player_id: int, player_position: Vector3) -> void:
@@ -205,11 +206,11 @@ func finish_race(player_id: int) -> bool:
 		emit_signal("race_won", player_id, race_time, lap_number)
 		emit_signal("race_completed", player_id, race_time)
 		print("RACE WON! Player %d finished %d laps in %.2f seconds!" % [player_id, lap_number, race_time])
-		SoundManager.play_sound(SoundManager.SoundCatalog.FINISH, false)
+		SoundManager.play_sound(SoundManager.SoundCatalog.FINISH)
 		return true
 	else:
 		start_new_lap(player_id)
-		SoundManager.play_sound(SoundManager.SoundCatalog.LAP, false)
+		SoundManager.play_sound(SoundManager.SoundCatalog.LAP)
 		return false
 
 func start_new_lap(player_id: int) -> void:
@@ -246,7 +247,7 @@ func start_respawn(player_id: int) -> void:
 	emit_signal("respawn_started", player_id)
 	if debug_mode:
 		print("Player %d starting respawn process" % player_id)
-	SoundManager.play_sound(SoundManager.SoundCatalog.RESPAWN, false)
+	SoundManager.play_sound(SoundManager.SoundCatalog.RESPAWN)
 
 
 func get_respawn_position(player_id: int) -> Vector3:
@@ -257,7 +258,7 @@ func get_respawn_position(player_id: int) -> Vector3:
 func get_respawn_rotation(player_id: int) -> float:
 	if player_respawn_rotations.has(player_id):
 		return player_respawn_rotations[player_id]
-	return 0.0  # Default rotation if none set
+	return 0.0
 
 func get_respawn_direction(player_id: int) -> Vector3:
 	if player_respawns.has(player_id):

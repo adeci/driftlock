@@ -19,8 +19,4 @@ func body_shape_entered(_body_id, body: Node, _body_shape_idx: int, _self_shape_
 			body.velocity.y = velocity.y
 		if velocity.z != 0:
 			body.velocity.z = velocity.z
-			
-		if body.is_multiplayer_authority():
-			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST)
-		else:
-			SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST, true, global_position)
+		SoundManager.play_sound(SoundManager.SoundCatalog.SPEED_BOOST, true, global_position)
