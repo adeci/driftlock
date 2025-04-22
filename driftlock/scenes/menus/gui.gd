@@ -5,6 +5,7 @@ var placement: int
 var current_lap: int = 1
 var total_laps: int = 3
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if not multiplayer.is_server() or NetworkManager.local:
@@ -86,7 +87,3 @@ func update_time() -> void:
 	var finish_time = Time.get_ticks_msec() / 1000.0
 	var race_time = finish_time - RaceManager.player_race_times[multiplayer.get_unique_id()]
 	$RaceUI/TimeMargin/Time.text = str(race_time).pad_decimals(3)
-
-
-func toggle_layer(extra_arg_0):
-	pass # Replace with function body.

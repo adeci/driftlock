@@ -28,6 +28,7 @@ var scene_lock: bool = false:
 
 func _ready() -> void:
 	NetworkManager.server_disconnected.connect(_on_leave_pressed)
+	options_buttons.visible = false
 
 func toggle_layer(_toggled_on:bool, layer_name: String):
 	var layer_container = menus[layer_name]
