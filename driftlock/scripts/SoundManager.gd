@@ -62,6 +62,7 @@ var music_loop_points: Dictionary = {
 	SoundCatalog.BEACH_MUSIC: {"start": 0.0, "end": 0.0},
 	SoundCatalog.DUNGEON_MUSIC: {"start": 0.0, "end": 0.0},
 }
+var track_has_played_once: Dictionary = {}
 
 # Config
 var pool_size: int = 10
@@ -128,12 +129,6 @@ func _process(delta: float) -> void:
 		if process_timer >= process_network_interval and networked_sound_queue.size() > 0:
 			process_timer = 0.0
 			process_networked_sounds()
-	
-	# Check custom music loop points
-	if music_player.playing and current_loop_points.end > 0.0:
-		var current_pos = music_player.get_playback_position()
-		if current_pos >= current_loop_points.end:
-			music_player.seek(current_loop_points.start)
 
 # Core initialization functions
 func create_audio_pools() -> void:
@@ -285,34 +280,29 @@ func play_music(category: SoundCatalog, crossfade: bool = true) -> void:
 	current_music = category
 	var stream = sound_library[category]
 	
-	# Set up custom loop points
-	if music_loop_points.has(category):
-		current_loop_points = music_loop_points[category]
-	else:
-		current_loop_points = {"start": 0.0, "end": 0.0}
+	# Reset the "has played once" tracker for this category
+	track_has_played_once[category] = false
 	
+	# Set up loop points
+	current_loop_points = music_loop_points.get(category, {"start": 0.0, "end": 0.0})
+	
+	# Stop current playback
 	if music_player.playing:
 		music_player.stop()
 
-	music_player.stream = stream
-	music_player.volume_db = linear_to_db(music_volume)
-	music_player.play()
-	
-	if music_player.is_connected("finished", Callable(self, "_on_music_finished")):
-		music_player.finished.disconnect(Callable(self, "_on_music_finished"))
-	
-	for category_enum in SoundCatalog.values():
-		var method = Callable(self, "_on_music_finished_custom").bind(category_enum)
-		if music_player.is_connected("finished", method):
-			music_player.finished.disconnect(method)
-	
-	music_player.finished.connect(_on_music_finished_custom.bind(category))
-	
-
+	# Remove all existing connections
 	var connections = music_player.get_signal_connection_list("finished")
 	for connection in connections:
 		music_player.finished.disconnect(connection.callable)
-	music_player.finished.connect(_on_music_finished_custom.bind(category))
+	
+	# Set up new music and connect signal
+	music_player.stream = stream
+	music_player.volume_db = linear_to_db(music_volume)
+	music_player.finished.connect(_on_music_finished.bind(category))
+	
+	# Start playing
+	music_player.play()
+
 
 func stop_music(fade_out: bool = true, fade_time: float = 1.0) -> void:
 	if not is_instance_valid(music_player) or not music_player.playing:
@@ -394,31 +384,35 @@ func _on_audio_finished(player, is_3d: bool) -> void:
 		audio_pool_2d.erase(player)
 		audio_pool_2d.append(player)
 
-func _on_music_finished() -> void:
+func _on_music_finished(category: SoundCatalog) -> void:
 	if not is_instance_valid(music_player):
 		return
-	if current_loop_points.start > 0:
-		music_player.play(current_loop_points.start)
+		
+	# Properly handle loop points for any track
+	if music_loop_points.has(category) and music_loop_points[category]["start"] > 0:
+		if not track_has_played_once.get(category, false):
+			var loop_start = music_loop_points[category]["start"]
+			music_player.play(loop_start)
+			print("Music looping from custom point: " + str(loop_start))
 	else:
+		# No custom loop point
 		music_player.play()
+		print("Music looping from beginning (no custom loop)")
 
 func _on_music_finished_custom(category: SoundCatalog) -> void:
 	if category == null or not is_instance_valid(music_player):
 		return
-	if category == SoundCatalog.MENU_MUSIC:
+	if music_loop_points.has(category) and music_loop_points[category]["start"] > 0:
 		if first_play_tracker.get(category, true):
 			first_play_tracker[category] = false
 			if is_instance_valid(music_player):
 				music_player.play(0)
 		else:
 			if is_instance_valid(music_player):
-				music_player.play(11.0)
+				music_player.play(music_loop_points[category]["start"])
 	else:
 		if is_instance_valid(music_player):
-			if current_loop_points.start > 0:
-				music_player.play(current_loop_points.start)
-			else:
-				music_player.play()
+			music_player.play()
 
 func set_music_volume(volume: float) -> void:
 	music_volume = clamp(volume, 0.0, 1.0)
