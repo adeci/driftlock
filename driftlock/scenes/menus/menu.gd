@@ -4,6 +4,11 @@ extends MarginContainer
 var host_ready: bool = false
 
 
+# Called before the scene is loaded
+func _init() -> void:
+	tree_entered.connect(func(): NetworkManager.current_level = -1)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	NetworkManager.load_level.connect(remote_play)
